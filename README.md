@@ -3,8 +3,8 @@
 ## Configuratation
 - Replace <name> with gitlab name and replace <email> with the email that is used to create gitlab account 
 ```
-git config --global user.name "<name>"\
-git config --global user.email "<email>"\
+git config --global user.name "<name>"
+git config --global user.email "<email>"
 ```
 
 ## Preparing token for cloning
@@ -26,6 +26,13 @@ git clone https://<username>:<token>@gitlab.com/csit314-qwerty/qwerty
 git add .
 git commit -m <message>
 git push origin
+```
+
+## To start the app
+```
+cd folder_containing_project
+npm i
+node ./src/server.js
 ```
 
 ## Not as important
