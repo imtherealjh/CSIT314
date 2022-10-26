@@ -19,7 +19,9 @@ git config --global user.email "<email>"
 9) Replace <username> with your gitlab username and <token> with the newly generated token
 
 ## Cloning repository to local
+```
 git clone https://<username>:<token>@gitlab.com/csit314-qwerty/qwerty
+```
 
 ## Adding files to current repo
 ```
