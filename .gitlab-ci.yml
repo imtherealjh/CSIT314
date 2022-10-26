@@ -1,0 +1,50 @@
+image: node:latest
+
+stages:          
+  - build
+  - test
+
+services:
+  - mysql:latest
+
+variables:
+  MYSQL_DATABASE: $MYSQL_DATABASE
+  MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+
+build:  
+  stage: build
+  script:
+      - yarn
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+
+test:
+    stage: test
+    before_script: [chmod 0777 ./node_modules/.bin/jest]
+
+    coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+    dependencies:
+      - build
+    script:
+      - echo "GITLAB_CI"=$GITLAB_CI >> ".env"
+      - yarn test
+    cache:
+      paths:
+        - coverage/
+    artifacts:
+      paths:
+        - coverage/
+      when: always
+      reports:
+        junit:
+          - junit.xml
+        coverage_report:
+          coverage_format: cobertura
+          path: coverage/cobertura-coverage.xml
