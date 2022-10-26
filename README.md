@@ -20,7 +20,7 @@ git config --global user.email "<email>"
 
 ## Cloning repository to local
 ```
-git clone https://<username>:<token>@gitlab.com/csit314-qwerty/qwerty
+git clone https://<username>:<token>@gitlab.com/csit314-qwerty/research-conference-system
 ```
 
 ## Adding files to current repo
