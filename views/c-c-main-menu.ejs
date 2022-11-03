@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title></title>
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/c-c-main-menu.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="cc-main-menu-div">
+      <button class="frame-button34">
+        <b class="search-bids">SEARCH BIDS</b></button
+      ><button class="frame-button35" id="frameButton1">
+        <b class="search-bids">ALLOCATE PAPER </b></button
+      ><button class="frame-button36">
+        <b class="search-bids">ACCEPT/REJECT PAPER</b></button
+      ><button class="frame-button37">
+        <b class="search-bids">NOTIFY USER</b></button
+      ><button class="frame-button38">
+        <b class="search-bids">RE-ALLOCATE PAPER</b></button
+      ><button class="frame-button39">
+        <b class="search-bids">DE-ALLOCATE PAPER</b></button
+      ><b class="menu-b3">Menu</b
+      ><button class="frame-button40">
+        <b class="search-bids">SEARCH REVIEWER</b></button
+      ><button class="frame-button41" id="frameButton7">
+        <b class="search-bids">VIEW PAPERS</b></button
+      ><button class="logout-button">
+        <img class="vector-icon" alt="" /><img
+          class="vector-icon1"
+          alt=""
+          src="public/vector.svg"
+        />
+      </button>
+    </div>
+
+    <script>
+      var frameButton1 = document.getElementById("frameButton1");
+      if (frameButton1) {
+        frameButton1.addEventListener("click", function (e) {
+          window.location.href = "./c-c-allocate.html";
+        });
+      }
+      
+      var frameButton7 = document.getElementById("frameButton7");
+      if (frameButton7) {
+        frameButton7.addEventListener("click", function (e) {
+          window.location.href = "./c-c-view-papers.html";
+        });
+      }
+      </script>
+  </body>
+</html>

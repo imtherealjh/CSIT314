@@ -1,0 +1,206 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.arrow-back-icon23 {
+  position: absolute;
+  top: 58px;
+  left: 103px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+.cyber-security-paper7 {
+  position: absolute;
+  top: 0;
+  left: 73px;
+  font-size: var(--font-size-3xl);
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-black);
+  text-align: center;
+  width: 1069.23px;
+}
+.listboxbg-div16,
+.rectangle-div6,
+.rectangle-div7 {
+  position: absolute;
+  top: 248px;
+  left: 102px;
+  background-color: var(--color-white);
+  width: 409px;
+  height: 466px;
+}
+.listboxbg-div16,
+.rectangle-div7 {
+  left: 717px;
+}
+.listboxbg-div16 {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--br-sm);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+.react-native-research-paper16 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: var(--font-size-base);
+  font-family: var(--font-montserrat);
+  color: var(--color-gray-300);
+  text-align: left;
+  display: inline-block;
+}
+.placeholder-text-div16 {
+  position: absolute;
+  height: 33.33%;
+  width: 8.96%;
+  top: 33.33%;
+  right: 89.72%;
+  bottom: 33.33%;
+  left: 1.32%;
+}
+.subdirectory-arrow-right2 {
+  position: absolute;
+  top: 10px;
+  left: 1160px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+.component-div2 {
+  position: absolute;
+  top: 87px;
+  left: 0;
+  width: 1216px;
+  height: 60px;
+}
+.allocated-b2,
+.not-allocated-b2 {
+  position: absolute;
+  top: 217px;
+  left: 102px;
+  font-size: var(--font-size-base);
+  display: inline-block;
+  font-family: var(--font-montserrat);
+  color: var(--color-black);
+  text-align: left;
+}
+.allocated-b2 {
+  left: 717px;
+}
+.group-icon4,
+.group-icon5 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.group-icon5 {
+  height: 58.33%;
+  width: 68.75%;
+  top: 20.83%;
+  right: 14.58%;
+  bottom: 20.83%;
+  left: 16.67%;
+}
+.double-arrow-button2 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 312px;
+  left: 560px;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+}
+.group-icon6,
+.group-icon7 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: -100%;
+  right: 100%;
+  bottom: 100%;
+  left: -100%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.group-icon7 {
+  height: 58.33%;
+  width: 68.75%;
+  top: -79.17%;
+  right: 116.67%;
+  bottom: 120.83%;
+  left: -85.42%;
+}
+.double-arrow-button3 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 592px;
+  left: 656px;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  transform: rotate(-180deg);
+  transform-origin: 0 0;
+}
+.submit13 {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-2xl);
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-white);
+  text-align: center;
+}
+.frame-button28 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xs) var(--padding-lg);
+  background-color: var(--color-teal);
+  position: absolute;
+  top: 784px;
+  left: 108px;
+  border-radius: var(--br-lg);
+  width: 1000px;
+  height: 69px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.group-form7 {
+  position: absolute;
+  top: 127px;
+  left: 112px;
+  width: 1216px;
+  height: 853px;
+}
+.cc-re-alloc-div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+}

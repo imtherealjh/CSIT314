@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if(err) return console.log(err);
-    console.log(`Database connected!! ${host}`)
+    console.log(`Database connected!!`)
 })
 
 module.exports = connection;

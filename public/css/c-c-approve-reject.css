@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.arrow-back-icon27 {
+  position: absolute;
+  top: 58px;
+  left: 103px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+.cyber-security-paper8,
+.discussion-b2 {
+  position: absolute;
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-black);
+  text-align: center;
+}
+.cyber-security-paper8 {
+  top: 0;
+  left: 73px;
+  font-size: var(--font-size-3xl);
+  width: 1069.23px;
+}
+.discussion-b2 {
+  top: 537px;
+  left: 1px;
+  font-size: var(--font-size-xl);
+}
+.lorem-ipsum-dolor5 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.tellus-in-metus4 {
+  margin: 0;
+}
+.lorem-ipsum-dolor-container5 {
+  line-break: anywhere;
+  width: 100%;
+}
+.lorem-ipsum-dolor-sit-amet-co5 {
+  position: absolute;
+  top: calc(50% - 324px);
+  left: calc(50% - 608px);
+  font-size: var(--font-size-base);
+  font-family: var(--font-roboto);
+  color: var(--color-black);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  width: 1216px;
+  height: 415px;
+}
+.john-ng-b2 {
+  font-family: var(--font-roboto);
+}
+.john-ng-maecenas-accumsan-lac4,
+.peter-bee-maecenas-accumsan-l2 {
+  position: absolute;
+  top: calc(50% + 168px);
+  left: calc(50% - 608px);
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  width: 1092px;
+}
+.peter-bee-maecenas-accumsan-l2 {
+  top: calc(50% + 233px);
+  left: calc(50% - 574px);
+  width: 814px;
+}
+.thumbs-up-icon15,
+.thumbs-up-icon16,
+.thumbs-up-icon17,
+.thumbs-up-icon18,
+.thumbs-up-icon19 {
+  position: absolute;
+  height: 3.04%;
+  width: 2.06%;
+  top: 71.53%;
+  right: 3.29%;
+  bottom: 25.43%;
+  left: 94.65%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.thumbs-up-icon16,
+.thumbs-up-icon17,
+.thumbs-up-icon18,
+.thumbs-up-icon19 {
+  top: 77.98%;
+  right: 10.2%;
+  bottom: 18.98%;
+  left: 87.75%;
+}
+.thumbs-up-icon17,
+.thumbs-up-icon18,
+.thumbs-up-icon19 {
+  right: 13.16%;
+  left: 84.79%;
+}
+.thumbs-up-icon18,
+.thumbs-up-icon19 {
+  right: 16.12%;
+  left: 81.83%;
+}
+.thumbs-up-icon19 {
+  top: 71.53%;
+  right: 0;
+  bottom: 25.43%;
+  left: 97.94%;
+}
+.approve-b {
+  position: relative;
+  font-size: var(--font-size-2xl);
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-white);
+  text-align: center;
+}
+.frame-button32,
+.frame-button33 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xs) 0;
+  background-color: var(--color-green);
+  position: absolute;
+  top: 753px;
+  left: 68px;
+  border-radius: var(--br-lg);
+  width: 420px;
+  height: 69px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.frame-button33 {
+  background-color: var(--color-brown);
+  left: 728px;
+}
+.group-form9 {
+  position: absolute;
+  top: 127px;
+  left: 112px;
+  width: 1216px;
+  height: 822px;
+}
+.cc-approvereject-div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+}

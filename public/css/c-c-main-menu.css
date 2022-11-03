@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.search-bids {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-2xl);
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-white);
+  text-align: center;
+}
+.frame-button34,
+.frame-button35,
+.frame-button36,
+.frame-button37,
+.frame-button38,
+.frame-button39 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xs) var(--padding-lg);
+  background-color: var(--color-teal);
+  position: absolute;
+  top: 431px;
+  left: 103px;
+  border-radius: var(--br-lg);
+  width: 1234px;
+  height: 69px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frame-button35,
+.frame-button36,
+.frame-button37,
+.frame-button38,
+.frame-button39 {
+  top: 529px;
+}
+.frame-button36,
+.frame-button37,
+.frame-button38,
+.frame-button39 {
+  top: 823px;
+}
+.frame-button37,
+.frame-button38,
+.frame-button39 {
+  top: 921px;
+}
+.frame-button38,
+.frame-button39 {
+  top: 627px;
+}
+.frame-button39 {
+  top: 725px;
+}
+.menu-b3 {
+  position: absolute;
+  top: 127px;
+  left: 185px;
+  line-height: 140.63%;
+  display: inline-block;
+  width: 1069.23px;
+}
+.frame-button40,
+.frame-button41 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xs) var(--padding-lg);
+  background-color: var(--color-teal);
+  position: absolute;
+  top: 333px;
+  left: 103px;
+  border-radius: var(--br-lg);
+  width: 1234px;
+  height: 69px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frame-button41 {
+  top: 230px;
+}
+.vector-icon {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+.logout-button,
+.vector-icon,
+.vector-icon1 {
+  position: absolute;
+  overflow: hidden;
+}
+.vector-icon1 {
+  height: 75%;
+  width: 83.33%;
+  top: 12.5%;
+  right: 8.33%;
+  bottom: 12.5%;
+  left: 8.33%;
+  max-width: 100%;
+  max-height: 100%;
+}
+.logout-button {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 58px;
+  left: 1287px;
+  width: 50px;
+  height: 50px;
+}
+.cc-main-menu-div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-3xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}

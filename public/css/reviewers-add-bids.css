@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.bid-for-papers {
+  position: absolute;
+  top: 127px;
+  left: 185px;
+  line-height: 140.63%;
+  display: inline-block;
+  width: 1069.23px;
+}
+.arrow-back-icon5 {
+  position: absolute;
+  top: 58px;
+  left: 103px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+.component-input2,
+.component-input3 {
+  cursor: pointer;
+  position: absolute;
+  top: 230px;
+  left: 112px;
+  width: 1216px;
+  height: 60px;
+}
+.component-input3 {
+  top: 320px;
+}
+.submit3 {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-2xl);
+  line-height: 140.63%;
+  display: inline-block;
+  font-family: var(--font-roboto);
+  color: var(--color-white);
+  text-align: center;
+}
+.frame-button3 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xs) var(--padding-lg);
+  background-color: var(--color-teal);
+  position: absolute;
+  top: 656px;
+  left: 220px;
+  border-radius: var(--br-lg);
+  width: 1000px;
+  height: 69px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.reviewers-add-bids-div {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-3xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}

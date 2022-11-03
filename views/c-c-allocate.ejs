@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title></title>
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/c-c-allocate.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="cc-allocate-div">
+      <b class="allocate-paper-b">Allocate paper</b
+      ><img
+        class="arrow-back-icon25"
+        alt=""
+        src="public/arrow-back25.svg"
+      /><button class="frame-button29" id="frameButton">
+        <div class="group-div">
+          <b class="manual-allocate-paper">MANUAL ALLOCATE PAPER</b
+          ><img class="left-click-icon" alt="" src="public/left-click@2x.png" />
+        </div></button
+      ><button class="frame-button30" id="frameButton1">
+        <div class="group-div1">
+          <b class="automatic-allocate-paper">AUTOMATIC ALLOCATE PAPER</b>
+        </div>
+        <img
+          class="cloud-computing-icon"
+          alt=""
+          src="public/cloud-computing@2x.png"
+        />
+      </button>
+    </div>
+
+    <script>
+      var frameButton = document.getElementById("frameButton");
+      if (frameButton) {
+        frameButton.addEventListener("click", function (e) {
+          window.location.href = "./c-c-manual-alloc-main.html";
+        });
+      }
+      
+      var frameButton1 = document.getElementById("frameButton1");
+      if (frameButton1) {
+        frameButton1.addEventListener("click", function (e) {
+          window.location.href = "./c-c-auto-alloc.html";
+        });
+      }
+      </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+.cyber-security-paper9 {
+  position: absolute;
+  top: 127px;
+  left: 185px;
+  font-size: var(--font-size-3xl);
+  line-height: 140.63%;
+  display: inline-block;
+  width: 1069.23px;
+}
+.submitted-for-approval1 {
+  text-decoration: underline;
+}
+.discussion-b3,
+.status-submitted-for-approval1 {
+  position: absolute;
+  top: 230px;
+  left: 82px;
+  line-height: 140.63%;
+  display: inline-block;
+  width: 279px;
+}
+.discussion-b3 {
+  top: 726px;
+  left: 32px;
+  font-size: var(--font-size-xl);
+}
+.arrow-back-icon28 {
+  position: absolute;
+  top: 58px;
+  left: 103px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+.lorem-ipsum-dolor6 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.tellus-in-metus5 {
+  margin: 0;
+}
+.lorem-ipsum-dolor-container6 {
+  line-break: anywhere;
+  width: 100%;
+}
+.lorem-ipsum-dolor-sit-amet-co6 {
+  position: absolute;
+  top: calc(50% - 259px);
+  left: calc(50% - 608px);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  width: 1216px;
+  height: 415px;
+}
+.john-ng-maecenas-accumsan-lac5,
+.peter-bee-maecenas-accumsan-l3 {
+  position: absolute;
+  top: calc(50% + 256px);
+  left: calc(50% - 609px);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  width: 1092px;
+}
+.peter-bee-maecenas-accumsan-l3 {
+  top: calc(50% + 321px);
+  left: calc(50% - 575px);
+  width: 814px;
+}
+.thumbs-up-icon20,
+.thumbs-up-icon21,
+.thumbs-up-icon22,
+.thumbs-up-icon23,
+.thumbs-up-icon24 {
+  position: absolute;
+  height: 2.44%;
+  width: 1.74%;
+  top: 75.88%;
+  right: 10.56%;
+  bottom: 21.68%;
+  left: 87.71%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.thumbs-up-icon21,
+.thumbs-up-icon22,
+.thumbs-up-icon23,
+.thumbs-up-icon24 {
+  top: 81.05%;
+  right: 16.46%;
+  bottom: 16.5%;
+  left: 81.81%;
+}
+.thumbs-up-icon22,
+.thumbs-up-icon23,
+.thumbs-up-icon24 {
+  right: 18.96%;
+  left: 79.31%;
+}
+.thumbs-up-icon23,
+.thumbs-up-icon24 {
+  right: 21.46%;
+  left: 76.81%;
+}
+.thumbs-up-icon24 {
+  top: 75.88%;
+  right: 7.78%;
+  bottom: 21.68%;
+  left: 90.49%;
+}
+.cc-view-single-paper {
+  position: relative;
+  background-color: var(--color-gray-100);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}
