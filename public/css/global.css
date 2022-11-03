@@ -1,9 +1,4 @@
 :root {
-  /* fonts */
-  --font-roboto: Roboto;
-  --font-montserrat: Montserrat;
-  --font-open-sans: "Open Sans";
-
   /* font sizes */
   --font-size-base: 16px;
   --font-size-lg: 18px;
@@ -38,3 +33,29 @@
   --br-md: 10px;
   --br-lg: 13px;
 }
+
+body {
+  background-color: var(--color-gray-100);
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+h1 {
+  font-weight: bold;
+  display: block;
+  position: relative;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+img.icons {
+  width: 24px;
+  height: auto;
+}
+

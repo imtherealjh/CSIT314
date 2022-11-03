@@ -1,41 +1,45 @@
-<!DOCTYPE html>
-<html>
+<%- include('partials/head.ejs') %>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-  <title></title>
-  <meta name="description" content="" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
 
-  <link rel="stylesheet" href="./css/global.css" />
-  <link rel="stylesheet" href="./css/index.css" />
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" />
-</head>
-
-<body>
-  <div class="main-div">
-    <div class="group-div">
-      <div class="frame-div">
-        <div class="research-conference-management">
-          <span class="research-conference-management-container">
-            <p class="lorem-ipsum-dolor">Research Conference Management</p>
-            <p class="system-p">System</p>
-          </span>
+  <body>
+    <div class="container-fluid">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col firstCol text-center">
+          <h2 class="font-weight-bold">Research Conference Management System</h2>
+          <h4>Get your research paper reviewed by our experts today!</h4>
+          <button id="loginBtn" class="btn btn-dark btn-block btn-lg">LOGIN</button>
         </div>
-        <div class="get-your-research-paper-review">
-          Get your research paper reviewed by our experts today!
-        </div>
-        <button class="frame-button" autofocus id="frameButton">
-          <div class="login-div">LOGIN</div>
-        </button>
-      </div>
-      <div class="group-div1">
-        <div class="frame-div1">
-          <b class="lorem-ipsum-dolor-sit-amet-na"><span class="lorem-ipsum-dolor-container">
-              <p class="lorem-ipsum-dolor">
+        <div class="col">
+          <div class="wrapper">
+            <div class="container-lg frame-div14">
+              <b>
+                Lorem ipsum dolor sit amet. Natus consequuntur vel esse dolore
+                vel voluptatem voluptatem est quaerat voluptatem est illum sit
+                sunt nihil? At debitis internos non fugiat voluptas nam culpa
+                delectus est suscipit labore id voluptas possimus et accusamus
+                natus. Aut quaerat nihil sed nisi dolor ut perferendis excepturi
+                sed nulla quas.
+              </b>
+            </div>
+            <div class="center-elem">
+              <div class="container-lg frame-div13">
+                <b>
+                  Lorem ipsum dolor sit amet. Natus consequuntur vel esse dolore
+                  vel voluptatem voluptatem est quaerat voluptatem est illum sit
+                  sunt nihil? At debitis internos non fugiat voluptas nam culpa
+                  delectus est suscipit labore id voluptas possimus et accusamus
+                  natus. Aut quaerat nihil sed nisi dolor ut perferendis excepturi
+                  sed nulla quas. Et perspiciatis sunt ut nemo provident vel commodi
+                  animi non doloribus voluptatem vel ipsam modi ut dolore doloribus
+                  eum ipsam voluptatem.
+                </b>
+              </div>
+            </div>
+            <div class="container-lg frame-div12">
+              <b>
                 Lorem ipsum dolor sit amet. Natus consequuntur vel esse dolore
                 vel voluptatem voluptatem est quaerat voluptatem est illum sit
                 sunt nihil? At debitis internos non fugiat voluptas nam culpa
@@ -44,57 +48,33 @@
                 excepturi sed nulla quas. Et perspiciatis sunt ut nemo
                 provident vel commodi animi non doloribus voluptatem vel ipsam
                 modi ut dolore doloribus eum ipsam voluptatem.
-              </p>
-              <p class="lorem-ipsum-dolor"></p>
-              <p class="lorem-ipsum-dolor">
+
                 Aut assumenda adipisci est sint eveniet sed voluptas provident
                 vel vitae exercitationem. Est facilis inventore est veritatis
                 repudiandae et similique deserunt quo quia magni rem
                 repudiandae libero qui commodi impedit? Et facilis voluptatum
                 ut odit tempora rem omnis nesciunt et dolorem ducimus quo
                 repudiandae repellendus et eligendi ipsa rem rerum laudantium.
-              </p>
-              <p class="lorem-ipsum-dolor"></p>
-              <p class="lorem-ipsum-dolor">
+
                 Ad voluptatem quod ea fugiat perspiciatis eum suscipit quaerat
                 ut tenetur distinctio. Vel reprehenderit quidem est nemo
                 exercitationem et quaerat quia in fugit omnis et iusto eaque
                 qui dolores ratione.
-              </p>
-            </span></b>
-        </div>
-        <div class="frame-div2">
-          <b class="lorem-ipsum-dolor-sit-amet-na">Lorem ipsum dolor sit amet. Natus consequuntur vel esse dolore
-            vel voluptatem voluptatem est quaerat voluptatem est illum sit
-            sunt nihil? At debitis internos non fugiat voluptas nam culpa
-            delectus est suscipit labore id voluptas possimus et accusamus
-            natus. Aut quaerat nihil sed nisi dolor ut perferendis excepturi
-            sed nulla quas. Et perspiciatis sunt ut nemo provident vel commodi
-            animi non doloribus voluptatem vel ipsam modi ut dolore doloribus
-            eum ipsam voluptatem.
-          </b>
-        </div>
-        <div class="frame-div3">
-          <b class="lorem-ipsum-dolor-sit-amet-na">Lorem ipsum dolor sit amet. Natus consequuntur vel esse dolore
-            vel voluptatem voluptatem est quaerat voluptatem est illum sit
-            sunt nihil? At debitis internos non fugiat voluptas nam culpa
-            delectus est suscipit labore id voluptas possimus et accusamus
-            natus. Aut quaerat nihil sed nisi dolor ut perferendis excepturi
-            sed nulla quas.
-          </b>
+              </b>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    var frameButton = document.getElementById("frameButton");
-    if (frameButton) {
-      frameButton.addEventListener("click", function (e) {
-        window.location.href = "./login";
-      });
-    }
-  </script>
-</body>
+    <script>
+      var frameButton = document.getElementById("loginBtn");
+      if (frameButton) {
+        frameButton.addEventListener("click", function (e) {
+          window.location.href = "./login";
+        });
+      }
+    </script>
+  </body>
 
-</html>
+  </html>
