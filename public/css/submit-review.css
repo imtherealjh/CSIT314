@@ -1,0 +1,83 @@
+.spacer {
+  margin: 3% 0;
+}
+
+.ratings {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+input.rate {
+  display:none;
+}
+
+label.rate {
+  float: right;
+  padding: 10px;
+  font-size: 30px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.rate:not(:checked) ~ label.rate:hover,
+input.rate:not(:checked) ~ label.rate:hover ~ label {
+  transform: rotate(-15deg) scale(1.3);
+}
+
+input.rate:not(:checked) ~ label.rate:hover,
+input.rate:not(:checked) ~ label.rate:hover ~ label,
+input.rate:checked ~ label.rate {
+  font-weight: bold;
+  font-family: FontAwesome;
+  color: #000;
+}
+
+input.rate-0:not(:checked) ~ label.rate-0:hover::before,
+input.rate-0:not(:checked) ~ label.rate-0:hover ~ label::before,
+input.rate-0:checked ~ label.rate::before {
+  content: '\f556' !important;
+}
+
+input.rate-1:not(:checked) ~ label.rate-1:hover::before,
+input.rate-1:not(:checked) ~ label.rate-1:hover ~ label::before,
+input.rate-1:checked ~ label.rate::before {
+  content: '\f119' !important;
+}
+
+input.rate-2:not(:checked) ~ label.rate-2:hover::before,
+input.rate-2:not(:checked) ~ label.rate-2:hover ~ label::before,
+input.rate-2:checked ~ label.rate::before {
+  content: '\f57a' !important;
+}
+
+input.rate-3:not(:checked) ~ label.rate-3:hover::before,
+input.rate-3:not(:checked) ~ label.rate-3:hover ~ label::before,
+input.rate-3:checked ~ label.rate::before {
+  content: '\f11a' !important;
+}
+
+input.rate-4:not(:checked) ~ label.rate-4:hover::before,
+input.rate-4:not(:checked) ~ label.rate-4:hover ~ label::before,
+input.rate-4:checked ~ label.rate::before {
+  content: '\f599' !important;
+}
+
+input.rate-5:not(:checked) ~ label.rate-5:hover::before,
+input.rate-5:not(:checked) ~ label.rate-5:hover ~ label::before,
+input.rate-5:checked ~ label.rate::before {
+  content: '\f59a' !important;
+}
+
+input.rate-6:not(:checked) ~ label.rate-6:hover::before,
+input.rate-6:not(:checked) ~ label.rate-6:hover ~ label::before,
+input.rate-6:checked ~ label.rate::before{
+  content: '\f59b' !important;
+}
+
+
+label.rate::before {
+  content: '\f5a4';
+  font-weight: 400;
+  font-family: "Font Awesome 5 Free";
+}

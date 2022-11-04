@@ -1,7 +1,7 @@
 <%- include('partials/head.ejs') %>
 
   <link rel="stylesheet" href="./css/global.css" />
-  <link rel="stylesheet" href="./css/c-c-view-single-paper.css" />
+  <link rel="stylesheet" href="./css/submit-review.css" />
 </head>
 
 <body>
@@ -22,14 +22,24 @@
       Sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula
       ipsum. Cras fermentum odio eu feugiat pretium nibh ipsum.
     </div>
-    <h5>Reviews</h5>
+    <h4><b>Reviews</b></h4>
     <form>
       <div class="ratings">
-        <input class="rating rating-5" id="rating-5" type="radio" name="rating"/>
-        <label class="rating rating-5" for="rating-5"></label>
-        <input class="rating rating-4" id="rating-4" type="radio" name="rating"/>
-        <label class="rating rating-4" for="rating-4"></label>
-      </div>
+        <input class="rate rate-6" id="rate-6" type="radio" name="rate"/>
+        <label class="rate rate-6" for="rate-6"></label>
+        <input class="rate rate-5" id="rate-5" type="radio" name="rate"/>
+        <label class="rate rate-5" for="rate-5"></label>
+        <input class="rate rate-4" id="rate-4" type="radio" name="rate"/>
+        <label class="rate rate-4" for="rate-4"></label>
+        <input class="rate rate-3" id="rate-3" type="radio" name="rate"/>
+        <label class="rate rate-3" for="rate-3"></label>
+        <input class="rate rate-2" id="rate-2" type="radio" name="rate"/>
+        <label class="rate rate-2" for="rate-2"></label>
+        <input class="rate rate-1" id="rate-1" type="radio" name="rate"/>
+        <label class="rate rate-1" for="rate-1"></label>
+        <input class="rate rate-0" id="rate-0" type="radio" name="rate"/>
+        <label class="rate rate-0" for="rate-0"></label>
+       </div>
       <div class="form-group">
         <label for="inputComment">Comment on ratings:</label>
         <textarea name="comment" class="form-control"  id="inputComment" rows="5"></textarea>

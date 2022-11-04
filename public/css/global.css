@@ -44,6 +44,11 @@ label {
   font-weight: bold;
 }
 
+.underline {
+  margin: 0 1%;
+  text-decoration: underline;
+}
+
 h1 {
   font-weight: bold;
   display: block;

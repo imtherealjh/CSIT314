@@ -6,7 +6,7 @@ const userRoute = require("./routes/userRoute");
 const userModel = require("./models/userModel");
 
 router.get("/", (req, res) => {
-    res.render("reviewers-submit-review");
+    res.render("submit-review");
 });
 
 router.get("/admin/create/user", (req, res) => {
