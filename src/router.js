@@ -6,7 +6,24 @@ const userRoute = require("./routes/userRoute");
 const userModel = require("./models/userModel");
 
 router.get("/", (req, res) => {
-    res.render("author-submit-paper");
+    res.render("reviewers-submit-review");
+});
+
+router.get("/admin/create/user", (req, res) => {
+    res.render("admin-create-user" , {
+        "title": "Create User",
+        "name": "",
+        "email": "",
+        "password": ""
+    });
+})
+
+router.get("/author/submit", (req, res) => {
+    res.render("author-paper" , {
+        "nameOfPage": "Submit Paper",
+        "title": "",
+        "paper": ""
+    });
 });
 
 comparePassword = async (password, hash) => {

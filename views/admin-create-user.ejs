@@ -1,41 +1,31 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-  <title></title>
-  <meta name="description" content="" />
+<%- include('partials/head.ejs') %>
 
   <link rel="stylesheet" href="./css/global.css" />
-  <link rel="stylesheet" href="./css/admin-create-user.css" />
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap" />
 </head>
 
 <body>
-  <div class="admin-create-user-div">
-    <img class="arrow-back-icon14" alt="" src="public/arrow-back14.svg" />
-    <form class="group-form3" method="post">
-      <b class="create-user-b">Create user</b>
-      <div class="frame-div7"><b class="submit8">SUBMIT</b></div>
-      <div class="frame-div8">
-        <div class="name-div1">Name</div>
-        <div class="line-div3"></div>
+  <div class="container">
+    <h1><%=title%></h1>
+    <form method="post">
+      <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter name" value="<%=name%>">
       </div>
-      <div class="frame-div9">
-        <div class="name-div1">Email</div>
-        <div class="line-div3"></div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Enter email" value="<%=email%>">
       </div>
-      <div class="frame-div10">
-        <div class="name-div1">Password</div>
-        <div class="line-div3"></div>
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Enter password" value="<%=password%>">
       </div>
+      <div class="form-group">
+        <label for="inputCfmPassword">Confirm Password</label>
+        <input type="password" name="cfmPassword" class="form-control" id="inputCfmPassword" placeholder="Enter confirm password">
+      </div>
+      <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
     </form>
   </div>
-
   <script></script>
 </body>
 

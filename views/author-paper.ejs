@@ -4,15 +4,15 @@
 
 <body>
   <div class="container">
-    <h1></h1>
+    <h1><%=nameOfPage%></h1>
     <form method="post">
       <div class="form-group">
         <label for="inputTitle">Title</label>
-        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title">
+        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title" value="<%=title%>">
       </div>
       <div class="form-group">
         <label for="inputPaper">Paper Details:</label>
-        <textarea name="paper" class="form-control"  id="inputPaper" rows="10"></textarea>
+        <textarea name="paper" class="form-control"  id="inputPaper" rows="10"><%=paper%></textarea>
       </div>
       <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
     </form>

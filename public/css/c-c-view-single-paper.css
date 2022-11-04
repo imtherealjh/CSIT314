@@ -1,3 +1,7 @@
 .underline {
   text-decoration: underline;
 }
+
+.spacer {
+  margin: 3% 0;
+}
