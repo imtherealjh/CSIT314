@@ -6,7 +6,7 @@ const userRoute = require("./routes/userRoute");
 const userModel = require("./models/userModel");
 
 router.get("/", (req, res) => {
-    res.render("c-c-view-single-paper");
+    res.render("author-submit-paper");
 });
 
 comparePassword = async (password, hash) => {
