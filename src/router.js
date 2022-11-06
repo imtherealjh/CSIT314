@@ -7,7 +7,7 @@ const userModel = require("./models/userModel");
 
 router.route("/")
     .get((req, res) => {
-        res.render("reviewer-view-papers")
+        res.render("reviewer-view-single-paper")
     })
     .post((req, res) => {
         console.log(req.body)

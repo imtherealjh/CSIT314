@@ -44,21 +44,11 @@ label {
   font-weight: bold;
 }
 
-.underline {
-  margin: 0 1%;
-  text-decoration: underline;
-}
-
 h1 {
   font-weight: bold;
   display: block;
   position: relative;
   text-align: center;
   margin: 5% 0;
-}
-
-img.icons {
-  width: 24px;
-  height: auto;
 }
 

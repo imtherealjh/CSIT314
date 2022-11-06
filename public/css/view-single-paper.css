@@ -1,0 +1,16 @@
+.underline {
+    margin: 0 1%;
+    text-decoration: underline;
+}
+
+.spacer {
+    margin: 1% 0;
+}
+
+.container {
+    margin-top: 2%;
+}
+
+.fa-solid {
+    font-size: 24px;
+}
