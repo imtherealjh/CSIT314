@@ -5,18 +5,30 @@ const userRoute = require("./routes/userRoute");
 
 const userModel = require("./models/userModel");
 
-router.get("/", (req, res) => {
-    res.render("submit-review");
+router.route("/")
+    .get((req, res) => {
+        res.render("reviewer-view-papers")
+    })
+    .post((req, res) => {
+        console.log(req.body)
+    });
+
+router.get("/admin/create/user/profile", (req, res) => {
+    const jsonArray = [{"username": "abc"}]
+    res.render("create-update-user-profile", {
+        "title": "Create User Profile",
+        user: jsonArray
+    });
 });
 
 router.get("/admin/create/user", (req, res) => {
-    res.render("admin-create-user" , {
+    res.render("create-update-user" , {
         "title": "Create User",
         "name": "",
         "email": "",
         "password": ""
     });
-})
+});
 
 router.get("/author/submit", (req, res) => {
     res.render("author-paper" , {

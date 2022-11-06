@@ -1,38 +1,31 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-  <title></title>
-  <meta name="description" content="" />
-
+<%- include('partials/head.ejs') %>
+  <link rel="stylesheet" href="./css/view-papers.css" />
   <link rel="stylesheet" href="./css/global.css" />
-  <link rel="stylesheet" href="./css/reviewer-view-papers.css" />
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap" />
 </head>
 
 <body>
-  <div class="reviewer-view-papers-div">
-    <b class="view-papers-b">View papers</b><img class="arrow-back-icon7" alt="" src="public/arrow-back7.svg" /><button
-      class="component-button2">
-      <div class="listboxbg-div2"></div>
-      <div class="placeholder-text-div2">
-        <div class="react-native-research-paper2">
-          React native research paper
-        </div>
-      </div>
-      <img class="submit-for-approval2" alt="" src="public/submit-for-approval@2x.png" />
-    </button><button class="component-button3">
-      <div class="listboxbg-div2"></div>
-      <div class="placeholder-text-div2">
-        <div class="react-native-research-paper2">Cyber security paper</div>
-      </div>
-      <img class="submit-for-approval2" alt="" src="public/submit-for-approval@2x.png" />
-    </button>
+  <div class="container">
+    <h1>View Papers</h1>
+    <div class="input-group rounded">
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+      <span class="input-group-text border-0" id="search-addon">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Papers</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="window.location='#';">
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td><i class="fa-solid fa-upload"></i></td>
+        </tr>
   </div>
 
   <script></script>

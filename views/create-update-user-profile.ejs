@@ -1,0 +1,36 @@
+<%- include('partials/head.ejs') %>
+  <link rel="stylesheet" href="./css/global.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1><%=title%></h1>
+    <form method="post">
+      <div class="form-group">
+        <label for="inputUser">User</label>
+        <select name="user" class="form-select form-select-lg mb-3 form-control" aria-label=".form-select-lg example">
+          <option selected>Open this to select user</option>
+          <% for(let [index,data] of user?.entries() ?? []){  %>
+            <option value="<%=data['username']%>"><%=data['username']%></option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="inputUserRole">User Role</label>
+        <select name="role" class="form-select form-select-lg mb-3 form-control" aria-label=".form-select-lg example">
+          <option selected>Open this to select role</option>
+          <option value="admin">System Admin</option>
+          <option value="conference-chair">Conference Chair</option>
+          <option value="reviewer">Reviewer</option>
+          <option value="author">Author</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+    </form>
+  </div>
+
+  <script></script>
+</body>
+
+</html>
