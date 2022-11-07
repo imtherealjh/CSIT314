@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const userRoute = require("./routes/userRoute");
+const authorRoute = require("./routes/authorRoute")
 
 const userModel = require("./models/userModel");
 
 router.route("/")
     .get((req, res) => {
-        res.render("reviewer-view-single-paper")
+        res.render("index")
     })
     .post((req, res) => {
         console.log(req.body)
@@ -63,5 +64,6 @@ router.route("/login")
     });
 
 router.use("/user", userRoute);
+router.use("/author", authorRoute)
 
 module.exports = router;
