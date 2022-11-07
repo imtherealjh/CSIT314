@@ -31,14 +31,6 @@ router.get("/admin/create/user", (req, res) => {
     });
 });
 
-router.get("/author/submit", (req, res) => {
-    res.render("author-paper" , {
-        "nameOfPage": "Submit Paper",
-        "title": "",
-        "paper": ""
-    });
-});
-
 comparePassword = async (password, hash) => {
     const bcrypt = require('bcrypt');
     return new Promise((resolve, reject) => {
