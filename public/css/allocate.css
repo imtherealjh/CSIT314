@@ -1,0 +1,20 @@
+button {
+  position: relative;
+  padding: 5% !important;
+}
+
+.fa-solid {
+  width: 100%;
+  font-size: 8rem;
+}
+
+.two-button-container {
+  column-gap: 10%;
+}
+
+.btnText {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 5%;
+}
