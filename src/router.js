@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const userRoute = require("./routes/userRoute");
-const authorRoute = require("./routes/authorRoute")
+const authorRoute = require("./routes/authorRoute");
+const reviewerRoute = require("./routes/reviewerRoute");
 
 const userModel = require("./models/userModel");
 
 router.route("/")
     .get((req, res) => {
-        res.render("index")
+        res.render("add-remove-bids")
     })
     .post((req, res) => {
         console.log(req.body)
@@ -56,6 +57,7 @@ router.route("/login")
     });
 
 router.use("/user", userRoute);
-router.use("/author", authorRoute)
+router.use("/author", authorRoute);
+router.use("/reviewer", reviewerRoute);
 
 module.exports = router;
