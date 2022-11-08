@@ -1,28 +1,24 @@
 <%- include('partials/head.ejs') %>
-
-  <link rel="stylesheet" href="./css/global.css" />
   <link rel="stylesheet" href="./css/login.css" />
+  </head>
 
-</head>
+  <body>
+    <div class="container">
+      <form method="post">
+        <h1>Login to Your Account!</h1>
+        <div class="form-group">
+          <label for="inputEmail">Email address</label>
+          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block font-weight-bold">LOGIN</button>
+      </form>
+    </div>
 
-<body>
-  <div class="container">
-    <form method="post">
-      <h1>Login to Your Account!</h1>
-      <div class="form-group">
-        <label for="inputEmail">Email address</label>
-        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-      <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block font-weight-bold">LOGIN</button>
-    </form>
-  </div>
+    <script></script>
+  </body>
 
-  <script></script>
-</body>
-
-</html>
+  </html>

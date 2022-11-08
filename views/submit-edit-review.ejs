@@ -1,40 +1,38 @@
 <%- include('partials/head.ejs') %>
-
-  <link rel="stylesheet" href="./css/global.css" />
   <link rel="stylesheet" href="./css/submit-review.css" />
-</head>
+  </head>
 
-<body>
-  <div class="container">
-    <%-include('partials/view-single-paper.ejs')%>
-    <h4><b>Reviews</b></h4>
-    <form method="post">
-      <div class="ratings">
-        <input class="rate rate-6" id="rate-6" type="radio" name="rate" value="3"/>
-        <label class="rate rate-6" for="rate-6"></label>
-        <input class="rate rate-5" id="rate-5" type="radio" name="rate" value="2"/>
-        <label class="rate rate-5" for="rate-5"></label>
-        <input class="rate rate-4" id="rate-4" type="radio" name="rate" value="1"/>
-        <label class="rate rate-4" for="rate-4"></label>
-        <input class="rate rate-3" id="rate-3" type="radio" name="rate" value="0"/>
-        <label class="rate rate-3" for="rate-3"></label>
-        <input class="rate rate-2" id="rate-2" type="radio" name="rate" value="-1"/>
-        <label class="rate rate-2" for="rate-2"></label>
-        <input class="rate rate-1" id="rate-1" type="radio" name="rate" value="-2"/>
-        <label class="rate rate-1" for="rate-1"></label>
-        <input class="rate rate-0" id="rate-0" type="radio" name="rate" value="-3"/>
-        <label class="rate rate-0" for="rate-0"></label>
-       </div>
-      <div class="form-group">
-        <label for="inputComment">Comment on ratings:</label>
-        <textarea name="comment" class="form-control"  id="inputComment" rows="5"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-    </form>
-    
-  </div>
+  <body>
+    <div class="container">
+      <%-include('partials /view-single-paper.ejs')%>
+        <h4><b>Reviews</b></h4>
+        <form method="post">
+          <div class="ratings">
+            <input class="rate rate-6" id="rate-6" type="radio" name="rate" value="3" />
+            <label class="rate rate-6" for="rate-6"></label>
+            <input class="rate rate-5" id="rate-5" type="radio" name="rate" value="2" />
+            <label class="rate rate-5" for="rate-5"></label>
+            <input class="rate rate-4" id="rate-4" type="radio" name="rate" value="1" />
+            <label class="rate rate-4" for="rate-4"></label>
+            <input class="rate rate-3" id="rate-3" type="radio" name="rate" value="0" />
+            <label class="rate rate-3" for="rate-3"></label>
+            <input class="rate rate-2" id="rate-2" type="radio" name="rate" value="-1" />
+            <label class="rate rate-2" for="rate-2"></label>
+            <input class="rate rate-1" id="rate-1" type="radio" name="rate" value="-2" />
+            <label class="rate rate-1" for="rate-1"></label>
+            <input class="rate rate-0" id="rate-0" type="radio" name="rate" value="-3" />
+            <label class="rate rate-0" for="rate-0"></label>
+          </div>
+          <div class="form-group">
+            <label for="inputComment">Comment on ratings:</label>
+            <textarea name="comment" class="form-control" id="inputComment" rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+        </form>
 
-  <script></script>
-</body>
+    </div>
 
-</html>
+    <script></script>
+  </body>
+
+  </html>

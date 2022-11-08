@@ -8,9 +8,9 @@ module.exports = {
     },
     renderCreatePaper: (req, res) => {
         return res.render("create-update-paper", {
-                "nameOfPage": "Submit Paper",
-                "title": "",
-                "paper": ""
+                nameOfPage: "Submit Paper",
+                title: "",
+                paper: ""
             });
     },
     createPaper: async (req, res) => {
@@ -23,10 +23,15 @@ module.exports = {
     },
     retrieveAllPapers: async (req, res) => {
         //get papers and pass to res.render
-        return res.render("view-papers");
+        //specify link so that can use the same page to render views for view/select papers
+        return res.render("view-papers", {
+            link: "/author/paper"
+        });
     },
     renderUpdateAllPapers: async (req, res) => {
-        return res.render()
+        return res.render("view-papers", {
+            link: "/author/paper/update"
+        })
     },
     renderUpdatePaper: async(req, res) => {
         return res.render("create-update-paper", {

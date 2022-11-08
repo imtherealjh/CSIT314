@@ -1,12 +1,9 @@
 <%-include('partials/head.ejs')%>
-  <link rel="stylesheet" href="./css/bids.css" />
   </head>
 
   <body>
     <div class="container">
-      <h1>
-        <%=title%>
-      </h1>
+      <h1>Automatic Allocation Of Papers</h1>
       <form method="post">
         <div class="list-group">
           <% for(let [idx, obj] of data.entries() ?? []) { %>
@@ -19,6 +16,7 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
       </form>
     </div>
+
     <script></script>
   </body>
 

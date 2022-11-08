@@ -9,7 +9,7 @@ const userModel = require("./models/userModel");
 
 router.route("/")
     .get((req, res) => {
-        res.render("c-c-allocate")
+        res.render("approve-reject")
     })
     .post((req, res) => {
         console.log(req.body)

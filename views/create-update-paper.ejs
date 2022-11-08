@@ -1,23 +1,25 @@
 <%- include('partials/head.ejs') %>
-  <link rel="stylesheet" href="./css/global.css" />
-</head>
+  </head>
 
-<body>
-  <div class="container">
-    <h1><%=nameOfPage%></h1>
-    <form method="post">
-      <div class="form-group">
-        <label for="inputTitle">Title</label>
-        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title" value="<%=title%>">
-      </div>
-      <div class="form-group">
-        <label for="inputPaper">Paper Details:</label>
-        <textarea name="paper" class="form-control"  id="inputPaper" rows="10"><%=paper%></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-    </form>
-  </div>
-  <script></script>
-</body>
+  <body>
+    <div class="container">
+      <h1>
+        <%=nameOfPage%>
+      </h1>
+      <form method="post">
+        <div class="form-group">
+          <label for="inputTitle">Title</label>
+          <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title"
+            value="<%=title%>">
+        </div>
+        <div class="form-group">
+          <label for="inputPaper">Paper Details:</label>
+          <textarea name="paper" class="form-control" id="inputPaper" rows="10"><%=paper%></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+      </form>
+    </div>
+    <script></script>
+  </body>
 
-</html>
+  </html>
