@@ -1,122 +1,33 @@
-<!DOCTYPE html>
-<html>
+<%-include('partials/head.ejs')%>
+  <link rel="stylesheet" href="./css/view-single-paper.css" />
+  <link rel="stylesheet" href="./css/submit-review.css"/>
+  <script type="text/javascript" src="./js/view-single-paper.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
-  <title></title>
-  <meta name="description" content="" />
+  <body>
+    <div class="container">
+      <%-include('partials/view-single-paper.ejs')%>
+      <form method="post">
+        <div style="justify-content: center; align-items: center;" class="ratings">
+          <input class="rate rate-6" id="rate-6" type="radio" name="rate" value="3" />
+          <label class="rate rate-6" for="rate-6"></label>
+          <input class="rate rate-5" id="rate-5" type="radio" name="rate" value="2" />
+          <label class="rate rate-5" for="rate-5"></label>
+          <input class="rate rate-4" id="rate-4" type="radio" name="rate" value="1" />
+          <label class="rate rate-4" for="rate-4"></label>
+          <input class="rate rate-3" id="rate-3" type="radio" name="rate" value="0" />
+          <label class="rate rate-3" for="rate-3"></label>
+          <input class="rate rate-2" id="rate-2" type="radio" name="rate" value="-1" />
+          <label class="rate rate-2" for="rate-2"></label>
+          <input class="rate rate-1" id="rate-1" type="radio" name="rate" value="-2" />
+          <label class="rate rate-1" for="rate-1"></label>
+          <input class="rate rate-0" id="rate-0" type="radio" name="rate" value="-3" />
+          <label class="rate rate-0" for="rate-0"></label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+      </form>
+    </div>
+    <script></script>
+  </body>
 
-  <link rel="stylesheet" href="./css/global.css" />
-  <link rel="stylesheet" href="./css/author-rate-review.css" />
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@700&display=swap" />
-</head>
-
-<body>
-  <div class="author-rate-review-div">
-    <b class="discussion-b">Discussion</b><img class="arrow-back-icon15" alt="" src="public/arrow-back15.svg" />
-    <form class="group-form4" method="post">
-      <b class="cyber-security-paper3">Cyber security paper</b>
-      <div class="lorem-ipsum-dolor-sit-amet-co3">
-        <span class="peter-bee-maecenas-container">
-          <p class="lorem-ipsum-dolor3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Convallis aenean et tortor at risus viverra adipiscing. Enim
-            tortor at auctor urna nunc id cursus metus aliquam. Est placerat
-            in egestas erat imperdiet sed. Mi sit amet mauris commodo quis
-            imperdiet massa tincidunt nunc. At consectetur lorem donec massa
-            sapien faucibus et. Suspendisse interdum consectetur libero id.
-            Volutpat maecenas volutpat blandit aliquam. Imperdiet dui accumsan
-            sit amet nulla. Diam ut venenatis tellus in metus vulputate eu
-            scelerisque felis. Sollicitudin nibh sit amet commodo nulla
-            facilisi nullam vehicula ipsum. Cras fermentum odio eu feugiat
-            pretium nibh ipsum.
-          </p>
-          <p class="lorem-ipsum-dolor3"></p>
-          <p class="lorem-ipsum-dolor3">
-            Faucibus a pellentesque sit amet. Orci eu lobortis elementum nibh
-            tellus molestie. Morbi tristique senectus et netus et malesuada.
-            Nam libero justo laoreet sit amet cursus. Donec et odio
-            pellentesque diam volutpat commodo. Ornare quam viverra orci
-            sagittis. Vitae purus faucibus ornare suspendisse sed nisi lacus
-            sed viverra. Sollicitudin nibh sit amet commodo nulla. Aliquet
-            eget sit amet tellus cras adipiscing enim eu turpis. Ac turpis
-            egestas sed tempus urna et. Elementum integer enim neque volutpat
-            ac tincidunt vitae semper quis. Pulvinar pellentesque habitant
-            morbi tristique senectus et netus et malesuada. Ut diam quam nulla
-            porttitor massa id. Eget gravida cum sociis natoque penatibus.
-            Erat pellentesque adipiscing commodo elit at imperdiet dui
-            accumsan sit.
-          </p>
-          <p class="lorem-ipsum-dolor3"></p>
-          <p class="lorem-ipsum-dolor3">
-            Fusce id velit ut tortor pretium viverra suspendisse. Amet commodo
-            nulla facilisi nullam vehicula. Sociis natoque penatibus et magnis
-            dis parturient montes. Fermentum dui faucibus in ornare quam
-            viverra orci. Id ornare arcu odio ut sem. Dignissim diam quis enim
-            lobortis scelerisque. Lectus arcu bibendum at varius vel pharetra
-            vel. Dolor sit amet consectetur adipiscing elit duis tristique
-            sollicitudin. Arcu dui vivamus arcu felis bibendum ut tristique et
-            egestas. Dui accumsan sit amet nulla. Bibendum neque egestas
-            congue quisque egestas diam in arcu cursus. Felis imperdiet proin
-            fermentum leo vel orci porta. Lorem mollis aliquam ut porttitor
-            leo a. Nam aliquam sem et tortor consequat id.
-          </p>
-          <p class="lorem-ipsum-dolor3"></p>
-          <p class="tellus-in-metus2">
-            Tellus in metus vulputate eu scelerisque felis imperdiet proin
-            fermentum. Viverra justo nec ultrices dui sapien eget mi. Quam
-            nulla porttitor massa id neque aliquam vestibulum. Magna sit amet
-            purus gravida. Justo eget magna fermentum iaculis. Etiam erat
-            velit scelerisque in dictum non consectetur a erat. Maecenas
-            accumsan lacus vel facilisis volutpat est velit egestas. Commodo
-            elit at imperdiet dui accumsan sit amet. Nibh cras pulvinar mattis
-            nunc sed blandit libero volutpat sed. Viverra tellus in hac
-            habitasse platea dictumst vestibulum rhoncus est. Amet facilisis
-            magna etiam tempor orci eu lobortis elementum nibh. Amet luctus
-            venenatis lectus magna fringilla urna porttitor rhoncus.
-          </p>
-        </span>
-      </div>
-      <div class="john-ng-maecenas-accumsan-lac2">
-        <span class="peter-bee-maecenas-container"><b class="peter-bee">John Ng:</b><span class="peter-bee">
-            Maecenas accumsan lacus vel facilisis volutpat est velit egestas.
-            Commodo elit at imperdiet dui accumsan sit amet. Nibh cras
-            pulvinar mattis nunc sed blandit libero volutpat sed. Viverra
-            tellus in hac habitasse platea dictumst vestibulum rhoncus est.
-            Amet facilisis magna etiam tempor orci eu lobortis elementum nibh.
-            Amet luctus venenatis lectus magna fringilla urna porttitor
-            rhoncus.</span></span>
-      </div>
-      <div class="peter-bee-maecenas-accumsan-l">
-        <span class="peter-bee-maecenas-container"><b class="peter-bee">Peter Bee:</b><span class="peter-bee">
-            Maecenas accumsan lacus vel facilisis volutpat est velit egestas.
-            Commodo elit at imperdiet dui accumsan sit amet.</span></span>
-      </div>
-      <img class="thumbs-up-icon3" alt="" src="public/thumbs-up@2x.png" /><img class="thumbs-up-icon4" alt=""
-        src="public/thumbs-up@2x.png" /><img class="thumbs-up-icon5" alt="" src="public/thumbs-up@2x.png" /><img
-        class="thumbs-up-icon6" alt="" src="public/thumbs-up@2x.png" /><img class="thumbs-up-icon7" alt=""
-        src="public/thumbs-up@2x.png" /><button class="thumb-up-alt-24px-button6">
-        <img class="iconsocialthumb-up-alt-24px6" alt=""
-          src="public/iconsocialthumb-up-alt-24px6.svg" /></button><button class="thumb-up-alt-24px-button7">
-        <img class="iconsocialthumb-up-alt-24px6" alt=""
-          src="public/iconsocialthumb-up-alt-24px6.svg" /></button><button class="thumb-up-alt-24px-button8">
-        <img class="iconsocialthumb-up-alt-24px6" alt=""
-          src="public/iconsocialthumb-up-alt-24px6.svg" /></button><button class="thumb-down-alt-24px-button6">
-        <img class="iconsocialthumb-up-alt-24px6" alt=""
-          src="public/iconsocialthumb-down-alt-24px6.svg" /></button><button class="thumb-down-alt-24px-button7">
-        <img class="iconsocialthumb-up-alt-24px6" alt=""
-          src="public/iconsocialthumb-down-alt-24px6.svg" /></button><button class="thumb-down-alt-24px-button8">
-        <img class="iconsocialthumb-up-alt-24px6" alt="" src="public/iconsocialthumb-down-alt-24px6.svg" />
-      </button>
-    </form>
-  </div>
-
-  <script></script>
-</body>
-
-</html>
+  </html>

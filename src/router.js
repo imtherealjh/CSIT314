@@ -9,7 +9,9 @@ const userModel = require("./models/userModel");
 
 router.route("/")
     .get((req, res) => {
-        res.render("approve-reject")
+        res.render("author-rate-review", {
+            message: "Aliquet risus feugiat in ante metus dictum. Lobortis feugiat vivamus at augue eget arcu. Varius quam quisque id diam vel quam. Orci a scelerisque purus semper. Ut diam quam nulla porttitor massa id neque aliquam. Nisi est sit amet facilisis magna etiam tempor orci eu. Consectetur libero id faucibus nisl tincidunt eget nullam non. Quam viverra orci sagittis eu volutpat odio. Lacus viverra vitae congue eu consequat ac. Nulla facilisi etiam dignissim diam quis enim. Consectetur adipiscing elit pellentesque habitant morbi. Massa tincidunt dui ut ornare lectus sit amet est placerat. Amet aliquam id diam maecenas ultricies. Quis enim lobortis scelerisque fermentum dui faucibus in ornare. Scelerisque purus semper eget duis. Sed tempus urna et pharetra. Blandit cursus risus at ultrices mi tempus imperdiet nulla. Sed ullamcorper morbi tincidunt ornare massa eget."
+        })
     })
     .post((req, res) => {
         console.log(req.body)

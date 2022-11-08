@@ -11,6 +11,7 @@
   --color-gray-200: #bcbabe;
   --color-gray-300: #666;
   --color-gray-400: #333;
+  --color-light-blue: #A1D6E2;
   --color-teal: #1995ad;
   --color-white: #fff;
   --color-black: #000;
@@ -50,6 +51,10 @@ h1 {
   position: relative;
   text-align: center;
   margin: 5% 0;
+}
+
+.spacer {
+  margin: 3% 0;
 }
 
 .two-button-container {

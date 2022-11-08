@@ -14,3 +14,56 @@
 .fa-solid {
     font-size: 24px;
 }
+
+.reviews-container {
+    position: relative;
+}
+
+.sub-reviews {
+    margin: 0 1.5%;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.reviews > .comment-ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.reviews > span {
+    width: 100%;
+}
+
+.more {
+    display: none;
+}
+
+#show-reviews {
+    border: none;
+    outline: none;
+    border-radius: 2em;
+    padding: 0.5em;
+    color: #007bff;
+}
+
+#show-reviews > span {
+    margin: 5px;
+    font-weight: bold;
+}
+
+#show-reviews > i {
+    font-size: 20px;
+}
+
+#show-reviews:hover {
+    background-color: rgba(77, 163, 250, 0.4);
+    border: none;
+}
+
+#show-review:enabled {
+    background-color: aquamarine;
+}
