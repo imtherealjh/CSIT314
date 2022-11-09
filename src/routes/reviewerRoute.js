@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
-let reviewerController = require("../controller/reviewerController")
+const reviewerController = require("../controller/reviewerController");
+const viewController = require("../controller/reviewerViewController");
 
-router.get("/", reviewerController.renderMainMenu);
+router.get("/", viewController.renderMainMenu);
 router.route("/bids/submit")
-        .get(reviewerController.renderSubmitBids)
-        .post(reviewerController.submitBids)
+        .get(viewController.renderSubmitBids)
+        .post(reviewerController.submitBids);
 router.route("/bids/remove")
-        .get(reviewerController.renderRemoveBids)
-        .post(reviewerController.removeBids)
+        .get(viewController.renderRemoveBids)
+        .post(reviewerController.removeBids);
 router.route("/specify/max-no-of-paper")
-        .get(reviewerController.renderMaxNoOfPaper)
-        .post(reviewerController.updateMaxNoOfPaper)
+        .get(viewController.renderMaxNoOfPaper)
+        .post(reviewerController.updateMaxNoOfPaper);
 
 module.exports = router;

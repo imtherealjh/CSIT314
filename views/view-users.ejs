@@ -1,0 +1,37 @@
+<%- include('partials/head.ejs') %>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1><%=title%></h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data.length !== 0) { %>
+            <% for(let [idx, obj] of data.entries() || []) { %>
+              <% let link = locals.link ? locals.link+"/"+obj.user_id : "#";    %>
+              <tr onclick="window.location=`<%=link %>`;">
+                <th scope="row"><%=idx+1%></th>
+                <td><%=obj.name%></td>
+                <td><%=obj.email%></td>
+              </tr>
+            <% } %>
+          <% } else { %>
+            <tr>
+              <th scope="row">No data found for user...</th>
+              <td></td>
+              <td></td>
+            </tr>
+          <% } %> 
+    </div>
+
+    <script></script>
+  </body>
+
+  </html>

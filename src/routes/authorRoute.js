@@ -1,26 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const authorController = require('../controller/authorController')
+const authorController = require("../controller/authorController");
+const viewController = require("../controller/authorViewController");
 
-router.get("/", authorController.renderMainMenu);
+router.get("/", viewController.renderMainMenu);
 router.route("/paper")
-        .get(authorController.retrieveAllPapers);
+        .get(viewController.retrieveAllPapers);
 router.route("/paper/submit")
-        .get(authorController.renderCreatePaper)
+        .get(viewController.renderCreatePaper)
         .post(authorController.createPaper);
 router.route("/paper/update")
-        .get(authorController.renderUpdateAllPapers);
+        .get(viewController.renderUpdateAllPapers);
 router.route("/paper/rate")
-        .get(authorController.renderRateAllReviews);
+        .get(viewController.renderRateAllReviews);
 
-//Register route with params input after the routes without so that the routes can register those first 
+// Register route with params after the all the routes have been registered
 router.route("/paper/:id")
         .get(authorController.retrievePaper);
 router.route("/paper/update/:id")
-        .get(authorController.renderUpdatePaper)
+        .get(viewController.renderUpdatePaper)
         .post(authorController.updatePaper);
 router.route("/paper/rate/:id")
-        .get(authorController.renderRateReview)
+        .get(viewController.renderRateReview)
         .post(authorController.rateReviews);
 
 module.exports = router;

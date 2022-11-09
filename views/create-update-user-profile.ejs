@@ -8,9 +8,13 @@
       <div class="form-group">
         <label for="inputUser">User</label>
         <select name="user" class="form-select form-select-lg mb-3 form-control" aria-label=".form-select-lg example">
-          <option selected>Open this to select user</option>
-          <% for(let [index,data] of user?.entries() ?? []){  %>
-            <option value="<%=data['username']%>"><%=data['username']%></option>
+          <% if(data.length > 0) { %>
+            <option selected>Open this to select user</option>
+            <% for(let [idx, obj] of data.entries()){  %>
+              <option value="<%=obj.user_id%>"><%=obj.name + " - " + obj.user_id%></option>
+            <% } %>
+          <% } else {%>
+            <option>No data found in database...</option>
           <% } %>
         </select>
       </div>
@@ -29,7 +33,9 @@
     </form>
   </div>
 
-  <script></script>
+  <script>
+    $("")
+  </script>
 </body>
 
 </html>

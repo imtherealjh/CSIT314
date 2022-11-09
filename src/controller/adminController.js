@@ -1,0 +1,52 @@
+const adminModel = require("../models/adminModel")
+const bcrypt = require("../utils/bcrypt");
+
+module.exports = {
+    createUser: async (req, res) => {
+        let {name, email, password} = req.body;
+
+        try {
+            password = await bcrypt.hashPassword(password);
+            result = await adminModel.createUser(name, email, password);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/admin");
+    },
+    updateUser: async (req, res) => {
+        let {name, email, password} = req.body;
+        const userObject = await adminModel.getUserById(req.params.id);
+        
+        try {
+            password = password === "" ? rows[0].password : await bcrypt.hashPassword(password); 
+            result = await adminModel.updateUser(userObject.user_id, name, email, password);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/admin");
+    },
+    createUserProfile: async(req, res) => {
+        const {user, role} = req.body;
+
+        try {
+            result = await adminModel.createUserProfile(user, role);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/admin");
+    },
+    updateUserProfile: async(req, res) => {
+        const {user, role} = req.body;
+
+        try {
+            result = await adminModel.updateUserProfile(user, role);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/admin");
+    }
+};

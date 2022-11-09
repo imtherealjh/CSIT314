@@ -16,4 +16,7 @@ connection.connect((err) => {
     console.log(`Database connected!!`)
 })
 
-module.exports = connection;
+module.exports = {
+    connection: connection,
+    query: (sql, params) => connection.promise().query(sql, params)
+};

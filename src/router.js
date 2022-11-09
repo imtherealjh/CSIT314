@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const userRoute = require("./routes/userRoute");
+const adminRoute = require("./routes/adminRoute");
 const authorRoute = require("./routes/authorRoute");
 const reviewerRoute = require("./routes/reviewerRoute");
 
-const userModel = require("./models/userModel");
+const userModel = require("./models/adminModel");
 
 router.route("/")
     .get((req, res) => {
@@ -25,25 +25,6 @@ router.get("/admin/create/user/profile", (req, res) => {
     });
 });
 
-router.get("/admin/create/user", (req, res) => {
-    res.render("create-update-user" , {
-        "title": "Create User",
-        "name": "",
-        "email": "",
-        "password": ""
-    });
-});
-
-comparePassword = async (password, hash) => {
-    const bcrypt = require('bcrypt');
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, hash, function(err, result) {
-            if(err) return reject(err);
-            return resolve(result)
-        })
-    });
-};
-
 router.route("/login")
     .get((req, res) => res.render("login", {error:""}))
     .post(async (req, res) => {
@@ -58,7 +39,7 @@ router.route("/login")
         
     });
 
-router.use("/user", userRoute);
+router.use("/admin", adminRoute);
 router.use("/author", authorRoute);
 router.use("/reviewer", reviewerRoute);
 
