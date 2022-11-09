@@ -1,4 +1,5 @@
-const adminModel = require("../models/adminModel")
+const adminModel = require("../models/adminModel");
+const reviewerModel = require("../models/reviewerModel");
 const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
@@ -32,6 +33,9 @@ module.exports = {
 
         try {
             result = await adminModel.createUserProfile(user, role);
+            if(role == "reviewer") {
+                result = await reviewerModel.createMaxNoOfPaper(user);
+            }
         } catch(err) {
             console.log(err);
             return;
@@ -40,9 +44,13 @@ module.exports = {
     },
     updateUserProfile: async(req, res) => {
         const {user, role} = req.body;
-
+        console.log(role)
         try {
-            result = await adminModel.updateUserProfile(user, role);
+            if(role == "reviewer") {
+                result = await Promise.all([adminModel.updateUserProfile(user, role), reviewerModel.createMaxNoOfPaper(user)]);
+            } else {
+                result = await adminModel.updateUserProfile(user, role);
+            }
         } catch(err) {
             console.log(err);
             return;

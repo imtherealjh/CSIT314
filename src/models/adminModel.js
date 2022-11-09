@@ -6,13 +6,11 @@ module.exports = {
         const [rows] = await query(sql);
         return rows;
     }, 
-    getUserByEmail: (email) => {
-        return new Promise((resolve, reject) => {
-            conn.query("SELECT * FROM USERS WHERE EMAIL = ? LIMIT 1", [email], (err, rows) => {
-                if(err) return reject(err)
-                resolve(rows[0])
-            })
-        })
+    getAllUserDetailsByEmail: async (email) => {
+        const sql = "SELECT * FROM users u LEFT JOIN users_profile up" +
+                        " ON u.user_id = up.user_id WHERE u.EMAIL = ?";
+        const [rows] = await query(sql, [email]);
+        return rows[0];
     },
     getUserById: async(id) => {
         const sql = "SELECT * FROM USERS WHERE USER_ID = ?";
@@ -33,22 +31,20 @@ module.exports = {
         return query(sql, [name, email, password, id]);
     },
     getUsersWithoutProfile: async () => {
-        const sql = "SELECT user_id, name FROM users WHERE user_id NOT IN (SELECT user_id FROM users_profile)";
+        const sql = "SELECT user_id, name FROM users WHERE user_id NOT IN" + 
+                        " (SELECT user_id FROM users_profile)";
         const [rows] = await query(sql);
         return rows;
     },
     getUserProfiles: async () => {
-        const sql = "SELECT u.user_id, name, role_name FROM users u" +
-                        " INNER JOIN users_profile up" +
-                        " ON u.user_id = up.user_id";
+        const sql = "SELECT u.user_id, name, role_name FROM users u INNER JOIN" +
+                        " users_profile up ON u.user_id = up.user_id";
         const [rows] = await query(sql);
         return rows;
     },
     getUserProfileById: async (id) => {
-        const sql = "SELECT u.user_id, name, role_name FROM users u" +
-                        " INNER JOIN users_profile up" +
-                        " ON u.user_id = up.user_id" +
-                        " WHERE u.user_id = ?";
+        const sql = "SELECT u.user_id, name, role_name FROM users u INNER JOIN" 
+                        + " users_profile up ON u.user_id = up.user_id WHERE u.user_id = ?";
         const [rows] = await query(sql, [id]);
         return rows;
     },

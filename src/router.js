@@ -7,6 +7,22 @@ const reviewerRoute = require("./routes/reviewerRoute");
 
 const userModel = require("./models/adminModel");
 
+const bcrypt = require("./utils/bcrypt");
+
+function getRedirection(role) {
+    if(role == "author") {
+        return "/author";
+    } else if(role == "conference-chair") {
+        return "/c-c";
+    } else if(role == "admin") {
+        return "/admin";
+    } else if(role == "reviewer") {
+        return "/reviewer";
+    } else {
+        return "";
+    }
+}
+
 router.route("/")
     .get((req, res) => {
         res.render("author-rate-review", {
@@ -17,26 +33,25 @@ router.route("/")
         console.log(req.body)
     });
 
-router.get("/admin/create/user/profile", (req, res) => {
-    const jsonArray = [{"username": "abc"}]
-    res.render("create-update-user-profile", {
-        "title": "Create User Profile",
-        user: jsonArray
-    });
-});
-
 router.route("/login")
     .get((req, res) => res.render("login", {error:""}))
     .post(async (req, res) => {
         const {email, password} = req.body;
-        let result = await userModel.getUserByEmail(email);
+        const result = await userModel.getAllUserDetailsByEmail(email);
 
-        const match = await comparePassword(password, result['password']);
-        if(!match) {
-            res.render("login", {error:"Account does not match the one in the system"});
+        if(typeof(result) === "undefined") {
+            return res.render("login", {error:"Account does not match the one in the system"});
+        }
+        
+        matches = await bcrypt.comparePassword(password, result.password);
+        if(!matches) {
+            return res.render("login", {error:"Account does not match the one in the system"});
         }
 
-        
+        session = req.session;
+        session.userid = result.user_id;
+        const redirection = getRedirection(result.role_name);
+        return res.redirect(redirection);
     });
 
 router.use("/admin", adminRoute);

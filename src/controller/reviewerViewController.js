@@ -1,9 +1,15 @@
+const reviewerModel = require("../models/reviewerModel");
+
 module.exports = {
     renderMainMenu: (req, res) => {
         return res.render("reviewer-main-menu")
     },
-    renderMaxNoOfPaper: (req, res) => {
-        return res.render("max-no-of-paper")
+    renderMaxNoOfPaper: async (req, res) => {
+        const userId = req.session.userid
+        const maxNoObj = await reviewerModel.getMaxNoOfPaper(userId);
+        return res.render("max-no-of-paper", {
+            maxNo: maxNoObj.max_no_of_paper
+        })
     },
     renderSubmitBids: (req, res) => {
         //return the list of submitted papers for bidding
