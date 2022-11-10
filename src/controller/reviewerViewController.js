@@ -11,18 +11,22 @@ module.exports = {
             maxNo: maxNoObj.max_no_of_paper
         })
     },
-    renderSubmitBids: (req, res) => {
+    renderSubmitBids: async (req, res) => {
         //return the list of submitted papers for bidding
-        papers = ["Cyber security paper", "ReactJS paper"]
+        const papers = await reviewerModel.getPapersByStatus();
         return res.render("add-remove-bids", {
-            "title": "Submit bids",
-            "data": papers
+            title: "Submit bids",
+            data: papers
         })
     }, 
-    renderRemoveBids: (req, res) => {
+    renderRemoveBids: async (req, res) => {
         //return the list of papers that user have bid for
+        const {userid} = req.session;
+        const papers = await reviewerModel.getBiddedPapers(userid);
+        console.log(papers);
         return res.render("add-remove-bids", {
-            "title": "Remove bids"
+            title: "Remove bids",
+            data: papers
         })
     },
 };

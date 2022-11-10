@@ -6,7 +6,7 @@ module.exports = {
     },
     renderCreatePaper: async (req, res) => {
         const {userid} = req.session;
-        const authors = await authorModel.getAllAuthors(userid);
+        const authors = await authorModel.getNonCurrentAuthor(userid);
         return res.render("create-update-paper", {
                 title: "Submit Paper",
                 titleOfPaper: "",
@@ -16,7 +16,7 @@ module.exports = {
     },
     retrieveAllPapers: async (req, res) => {
         const {userid} = req.session;
-        const rows = await authorModel.getAllPapers(userid);
+        const rows = await authorModel.getPapersByAuthorId(userid);
         //get papers and pass to res.render
         //specify link so that can use the same page to render views for view/select papers
         return res.render("view-papers", {

@@ -11,8 +11,8 @@
         <div class="list-group">
           <% for(let [idx, obj] of data.entries() ?? []) { %>
             <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj%>">
-              <%=obj%>
+              <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj.paper_id%>">
+              <%=obj.title + " - " + obj.paper_id%>
             </label>
             <% } %>
         </div>

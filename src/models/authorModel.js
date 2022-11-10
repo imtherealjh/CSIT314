@@ -9,15 +9,15 @@ module.exports = {
     },
     getPapersByAuthorId: async (author_id) => {
       const sql = "SELECT * FROM authors a INNER JOIN papers p ON" +
-                    " a.paper_id = p.paper_id WHERE a.user_id = ?";
+                    " a.paper_id = p.paper_id WHERE a.author_id = ?";
       const [rows] = await query(sql, [author_id]);
       return rows;
     },
-    getPaperById: async(paper_id, user_id) => {
+    getPaperById: async(paper_id, author_id) => {
       const sql = "SELECT * FROM authors a INNER JOIN papers p" + 
                     " ON a.paper_id = p.paper_id" +
-                    " WHERE p.paper_id = ? AND user_id = ?";
-      const [rows] = await query(sql, [paper_id, user_id])
+                    " WHERE p.paper_id = ? AND author_id = ?";
+      const [rows] = await query(sql, [paper_id, author_id])
       return rows[0];
     },
     createPaper: async (title, paper) => {
@@ -26,7 +26,7 @@ module.exports = {
       return result;
     },
     createLinkAuthorsPaper: async(params) => {
-      const sql = "INSERT INTO authors(user_id, paper_id) VALUES ?";
+      const sql = "INSERT INTO authors(author_id, paper_id) VALUES ?";
       const result = await query(sql, [params]);
       return result;
     }, 

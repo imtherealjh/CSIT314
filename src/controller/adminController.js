@@ -1,5 +1,6 @@
 const adminModel = require("../models/adminModel");
 const reviewerModel = require("../models/reviewerModel");
+const {connection, transaction} = require("../config/db");
 const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
@@ -31,12 +32,15 @@ module.exports = {
     createUserProfile: async (req, res) => {
         const { user, role } = req.body;
 
+        await transaction();
         try {
-            result = await adminModel.createUserProfile(user, role);
+            await adminModel.createUserProfile(user, role);
             if (role == "reviewer") {
-                result = await reviewerModel.createMaxNoOfPaper(user);
+                await reviewerModel.createMaxNoOfPaper(user);
             }
+            connection.commit();
         } catch (err) {
+            connection.rollback();
             console.log(err);
             return;
         }
@@ -44,16 +48,15 @@ module.exports = {
     },
     updateUserProfile: async (req, res) => {
         const { user, role } = req.body;
-        console.log(role);
+
         try {
-        if (role == "reviewer") {
-            result = await Promise.all([
-            adminModel.updateUserProfile(user, role),
-            reviewerModel.createMaxNoOfPaper(user),
-            ]);
-        } else {
-            result = await adminModel.updateUserProfile(user, role);
-        }
+            const rows = await adminModel.getReviewersById(user);
+            if(!rows) {
+                result = await Promise.all([adminModel.updateUserProfile(user, role), 
+                                            reviewerModel.createMaxNoOfPaper(user)]);
+            } else {
+                result = await adminModel.updateUserProfile(user, role);
+            }
         } catch (err) {
             console.log(err);
             return;

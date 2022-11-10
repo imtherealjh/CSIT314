@@ -8,8 +8,7 @@ module.exports = {
         const {userid} = req.session;
         
         try {
-            const result = await reviewerModel.updateMaxNoOfPaper(userid, maxNo);
-            
+            await reviewerModel.updateMaxNoOfPaper(userid, maxNo);
         } catch(err) {
             console.log(err);
             return;
@@ -17,11 +16,39 @@ module.exports = {
 
         return res.redirect("/reviewer")
     },
-    submitBids: (req, res) => {
+    submitBids: async (req, res) => {
+        const {userid} = req.session;
+        let {papers} = req.body;
 
+        try {
+            papers = typeof(papers) == "string" ? [papers] : papers;
+            papers = papers.map((paper_id) => {
+                return [userid, paper_id, 0];
+            });
+
+            await reviewerModel.createBids(papers);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/reviewer");
     }, 
-    removeBids: (req, res) => {
+    removeBids: async (req, res) => {
+        const {userid} = req.session;
+        let {papers} = req.body;
 
-    },
+        try {
+            papers = typeof(papers) == "string" ? [papers] : papers;
+            papers.forEach(async (value) => {
+                await reviewerModel.removeBids(userid, value);
+            })
+            
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+
+        return res.redirect("/reviewer")
+    }
     
 };
