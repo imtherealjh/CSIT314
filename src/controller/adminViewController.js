@@ -37,7 +37,7 @@ module.exports = {
         });
     },
     renderCreateUserProfile: async(req, res) => {
-        const rows = await adminModel.getUsersWithoutProfile();
+        const rows = await adminModel.getUserWithoutProfile();
         return res.render("create-update-user-profile", {
             title: "Create User Profile",
             data: rows

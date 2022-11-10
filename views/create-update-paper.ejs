@@ -1,4 +1,5 @@
 <%- include('partials/head.ejs') %>
+  <script type="text/javascript" src="./js/multiple-data-list.js"></script>
   </head>
 
   <body>
@@ -15,6 +16,14 @@
         <div class="form-group">
           <label for="inputPaper">Paper Details:</label>
           <textarea name="paper" class="form-control" id="inputPaper" rows="10"><%=paper%></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Co-Authors (Hold Crtl To Select Multiple) </label>
+          <select name="coauthors" class="form-select form-control" multiple size="5">
+            <% for(let [idx, obj] of data.entries()) { %>
+              <option value="<%=obj.user_id%>"><%=obj.name%> - <%=obj.user_id%></option>
+            <% } %>
+          </select>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
       </form>
