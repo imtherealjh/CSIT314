@@ -4,11 +4,11 @@ require('dotenv').config()
 const host = process.env.GITLAB_CI ? "mysql" : "localhost";
 
 const connection = mysql.createConnection({
-    host: host,
+    host: "sql12.freemysqlhosting.net",
     port: 3306,
-    user: "root",
-    password: "root",
-    database: "CSIT314"
+    user: "sql12557404",
+    password: "qMEJdmxJDA",
+    database: "sql12557404"
 });
 
 connection.connect((err) => {
