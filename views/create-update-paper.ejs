@@ -1,17 +1,16 @@
 <%- include('partials/head.ejs') %>
-  <script type="text/javascript" src="./js/multiple-data-list.js"></script>
   </head>
 
   <body>
     <div class="container">
       <h1>
-        <%=nameOfPage%>
+        <%=title%>
       </h1>
       <form method="post">
         <div class="form-group">
           <label for="inputTitle">Title</label>
           <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Enter title"
-            value="<%=title%>">
+            value="<%=titleOfPaper%>">
         </div>
         <div class="form-group">
           <label for="inputPaper">Paper Details:</label>

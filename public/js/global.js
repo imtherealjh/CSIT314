@@ -7,7 +7,14 @@ $(function() {
 
     $("#search").keyup(function () {
         var value = $(this).val().toLowerCase();
-        $(".searchTable *").filter(function() {
+        $(".searchTable").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    $("#searchList").keyup(function () {
+        var value = $(this).val().toLowerCase();
+        $(".searchTableList *").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });

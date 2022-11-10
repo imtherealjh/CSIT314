@@ -48,12 +48,6 @@ module.exports = {
         const [rows] = await query(sql, [id]);
         return rows;
     },
-    getUserProfileByRole:  async(role) => {
-        const sql = "SELECT u.user_id, name, role_name FROM users u INNER JOIN" 
-                    + " users_profile up ON u.user_id = up.user_id WHERE role_name = ?";
-        const [rows] = await query(sql, [role]);
-        return rows;
-    },
     createUserProfile : (user_id, role_name) => {
         const sql = "INSERT INTO users_profile(user_id, role_name) VALUES (?,?)";
         return query(sql, [user_id, role_name]);

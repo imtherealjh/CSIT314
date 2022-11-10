@@ -47,6 +47,14 @@ router.route("/login")
         return res.redirect(redirection);
     });
 
+
+router.use((req, res, next) => {
+    if(!req.session.userid) {
+        return res.redirect("/login")
+    }
+    next();
+});
+
 router.use("/admin", adminRoute);
 router.use("/author", authorRoute);
 router.use("/reviewer", reviewerRoute);

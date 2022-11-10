@@ -4,7 +4,7 @@
 
   <body>
     <div class="container">
-      <h1>View Papers</h1>
+      <h1><%= title %></h1>
       <div class="input-group rounded">
         <input id="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
@@ -20,11 +20,13 @@
           </tr>
         </thead>
         <tbody class="searchTable">
-          <tr onclick="window.location='<%=link%>/123';">
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td><i class="fa-solid fa-upload"></i></td>
-          </tr>
+          <% for(let [idx, obj] of data.entries()) { %>
+            <tr onclick="window.location='<%=link%>/<%=obj.paper_id%>';">
+              <th scope="row"><%=idx%></th>
+              <td><%=obj.title%></td>
+              <td><i class="fa-solid fa-upload"></i></td>
+            </tr>
+          <% } %>
     </div>
 
     <script></script>

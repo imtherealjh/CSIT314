@@ -1,36 +1,71 @@
 const authorModel = require("../models/authorModel");
+const {connection, transaction} = require("../config/db");
 
 module.exports = {
-  createPaper: async (req, res) => {
-    const { userid } = req.session;
-    const { title, paper, coauthors } = req.body;
-    try {
-      const [ResultSetHeader] = await authorModel.createPaper(title, paper);
+    createPaper: async (req, res) => {
+        const { userid } = req.session;
+        let { title, paper, coauthors } = req.body;
 
-      let currentUser = coauthors.filter((e) => e == userid);
-      const coauthors = Objects.values(coauthors);
-      if (!currentUser) {
-        coauthors.push(userid);
-      }
-      console.log(coauthors);
+        await transaction();
+        try {
+            coauthors = coauthors ?? [userid];
+            coauthors = typeof(coauthors) == "string" ? [coauthors, userid] : coauthors;
+            const [ResultSetHeader] = await authorModel.createPaper(title, paper);
 
-      console.log(typeof coauthors);
-      coauthors = coauthors.map((e) => {
-        return [Number(e), ResultSetHeader.insertId];
-      });
+            coauthors = coauthors.map((e) => {
+                return [Number(e), ResultSetHeader.insertId];
+            });
 
-      console.log(coauthors);
-      console.log(ResultSetHeader);
-    } catch (e) {}
-    return res.redirect("/author");
+            await authorModel.createLinkAuthorsPaper(coauthors);
+            connection.commit();
+        } catch (e) {
+            connection.rollback();
+            console.log(e);
+            return;
+        };
+
+        return res.redirect("/author");
+    },
+    retrievePaper: async (req, res) => {
+        const id = req.params.id;
+
+        return res.render("view-single-paper-no-reviews");
+    },
+    updatePaper: async (req, res) => {
+        const { userid } = req.session;
+        const { id } = req.params
+        let { title, paper, coauthors } = req.body;
+
+       
+        await transaction();
+        try {
+            coauthors = coauthors ?? [userid];
+            coauthors = typeof(coauthors) == "string" ? [coauthors, userid] : coauthors;
+            coauthors = coauthors.map((e) => {
+                return [Number(e), id];
+            });
+
+            await authorModel.updatePaper(id, title, paper);
+            await authorModel.removeLinkAuthorsPaper(id);
+            await authorModel.createLinkAuthorsPaper(coauthors);
+            connection.commit();
+        } catch (e) {
+            connection.rollback();
+            console.log(e);
+            return;
+        };
+
+        return res.redirect("/author");
   },
-  retrievePaper: async (req, res) => {
-    const id = req.params.id;
-
-    return res.render("view-single-paper-no-reviews");
-  },
-  updatePaper: async (req, res) => {
-    console.log(req.body);
-  },
-  rateReviews: async (req, res) => {},
+  rateReviews: async (req, res) => {
+        const {rate} = req.body;
+        const {id} = req.params;
+        try {
+            await authorModel.rateReviews(id, rate);
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+        return res.redirect("/author");
+  }
 };
