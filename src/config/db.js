@@ -1,7 +1,7 @@
-const mysql = require('mysql2');
-const {Sequelize, DataTypes} = require("sequelize");
+ const mysql = require("mysql2");
+const { Sequelize, DataTypes } = require("sequelize");
 
-require('dotenv').config()
+require("dotenv").config();
 
 const host = process.env.GITLAB_CI ? "mysql" : "localhost";
 
@@ -44,28 +44,27 @@ sequelize
         console.error('Unable to connect to the database:', err);
     });
 
-    
 const online = {
-    host: "sql12.freemysqlhosting.net",
-    port: 3306,
-    user: "sql12557404",
-    password: "qMEJdmxJDA",
-    database: "sql12557404"
-}
+  host: "sql12.freemysqlhosting.net",   
+  port: 3306,
+  user: "sql12557404",
+  password: "qMEJdmxJDA",
+  database: "sql12557404",
+};
 
 const offline = {
-    host: host,
-    port: 3306,
-    user: "root",
-    password: "root",
-    database: "CSIT314"
-}
+  host: host,
+  port: 3306,
+  user: "root",
+  password: "root",
+  database: "CSIT314",
+};
 
-const connection = mysql.createConnection(offline);
+const connection = mysql.createConnection(online);
 
 connection.connect((err) => {
-    if(err) return console.log(err);
-    console.log(`Database connected!!`)
+  if (err) return console.log(err);
+  console.log(`Database connected!!`);
 });
 
 module.exports = {
@@ -77,5 +76,5 @@ module.exports = {
                             if (err) reject(err);
                             resolve();
                         });
-                    })
+                    }),
 };

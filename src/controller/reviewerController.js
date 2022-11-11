@@ -6,7 +6,7 @@ module.exports = {
     updateMaxNoOfPaper: async (req, res) => {
         const {maxNo} = req.body;
         const {userid} = req.session;
-        
+                    
         try {
             await reviewerModel.updateMaxNoOfPaper(userid, maxNo);
         } catch(err) {
