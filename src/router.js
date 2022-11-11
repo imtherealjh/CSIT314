@@ -44,7 +44,7 @@ router.route("/login")
 
         session = req.session;
         session.userid = result.user_id;
-        const redirection = getRedirection(result.role_name);
+        const redirection = getRedirection(result["profile.role_name"]);
         return res.redirect(redirection);
     });
 

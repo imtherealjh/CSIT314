@@ -1,6 +1,7 @@
 const adminModel = require("../models/adminModel");
+const profileModel = require("../models/userProfileModel")
 const reviewerModel = require("../models/reviewerModel");
-const {connection, transaction} = require("../config/db");
+const {sequelize} = require("../config/db");
 const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
         try {
             password = await bcrypt.hashPassword(password);
             result = await adminModel.createUser(name, email, password);
+            console.log(result);
         } catch (err) {
             console.log(err);
             return;
@@ -32,15 +34,15 @@ module.exports = {
     createUserProfile: async (req, res) => {
         const { user, role } = req.body;
 
-        await transaction();
+        const transaction = await sequelize.transaction()
         try {
-            await adminModel.createUserProfile(user, role);
+            await profileModel.createUserProfile(user, role);
             if (role == "reviewer") {
                 await reviewerModel.createMaxNoOfPaper(user);
             }
-            connection.commit();
+            await transaction.commit()
         } catch (err) {
-            connection.rollback();
+            await transaction.rollback();
             console.log(err);
             return;
         }

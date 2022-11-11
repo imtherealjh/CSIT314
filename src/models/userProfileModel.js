@@ -2,11 +2,23 @@ const {query, sequelize} = require("../config/db");
 const { Model, DataTypes } = require("sequelize");
 const { User } = require("../models/adminModel") 
 
-class UserProfile extends Model {};
+class UserProfile extends Model {
+    static associate(models) {
+        /*UserProfile.belongsTo(models.User, {
+            foreignKey: "user_id",
+            targetKey: "user_id"
+        });*/
+    }
+};
+
 UserProfile.init({
         user_id: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            references: {
+                model: User,
+                key: "user_id"
+            }
         },
         role_name: {
             type: DataTypes.STRING,
@@ -22,9 +34,12 @@ UserProfile.init({
     }
 );
 
-UserProfile.belongsTo(User, {foreignKey: 'user_id', targetKey:"user_id"});
-
 module.exports = {
     UserProfile: UserProfile,
-
+    createUserProfile: (user_id, role_name) => {
+        return UserProfile.create(
+            {user_id: user_id, role_name: role_name},
+            {raw: true}
+        )
+    },
 }

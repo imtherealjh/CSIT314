@@ -1,8 +1,13 @@
 const {query, sequelize} = require('../config/db');
-const { Model, DataTypes } = require("sequelize");
-const { userProfile } = require("../models/userProfileModel");
+const { Model, DataTypes, Op, Sequelize } = require("sequelize");
+const { UserProfile } = require("../models/userProfileModel");
 
-class User extends Model {};
+class User extends Model {
+    static associate(models) {
+        
+    }
+};
+
 User.init(
     {
         user_id: {
@@ -33,30 +38,34 @@ User.init(
     }
 )
 
-User.hasOne(userProfile, {foreignKey: 'userid', sourceKey: 'userid'})
+User.hasOne(UserProfile, {
+    as: "profile",
+    foreignKey: "user_id",
+    sourceKey: "user_id"
+});
+
+UserProfile.belongsTo(User, {
+    foreignKey: "user_id",
+    targetKey: "user_id"
+});
 
 module.exports = {
     User: User,
-    getAllUserDetails: async () => {
-        const result = await User.findAll({raw: true});
-        return result;
+    getAllUserDetails: () => {
+        return User.findAll({raw: true});
     }, 
-    getAllUserDetailsByEmail: async (email) => {
-        const result = await User.findAll({
+    getAllUserDetailsByEmail: (email) => {
+        return User.findOne({
+            include: [{
+                as: "profile",
+                model: UserProfile,
+                required: true,
+            }],
             where: {
                 email: email
             },
-            include: [{
-                model: userProfile,
-                required: true
-            }],
             raw: true
         });
-        console.log(result);
-        const sql = "SELECT * FROM users u LEFT JOIN users_profile up" +
-                        " ON u.user_id = up.user_id WHERE u.EMAIL = ?";
-        const [rows] = await query(sql, [email]);
-        return rows[0];
     },
     getUserById: async(user_id) => {
         const sql = "SELECT * FROM users WHERE USER_ID = ?";
@@ -69,18 +78,22 @@ module.exports = {
         return rows;
     },
     createUser: (name, email, password) => {
-        const sql = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
-        return query(sql, [name, email, password]);
+        return User.create(
+            {name: name, email: email, password: password},
+            {raw: true}
+        );
     },
     updateUser: (user_id, name, email, password) => {
         const sql = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
         return query(sql, [name, email, password, user_id]);
     },
-    getUserWithoutProfile: async () => {
-        const sql = "SELECT user_id, name FROM users WHERE user_id NOT IN" + 
-                        " (SELECT user_id FROM users_profile)";
-        const [rows] = await query(sql);
-        return rows;
+    getUserWithoutProfile: () => {
+        return User.findAll({
+            where: {
+                user_id: Sequelize.literal("`user_id` NOT IN (SELECT `up`.`user_id` FROM `users_profile` AS `up`)")
+            },
+            raw: true
+        })
     },
     getUserProfiles: async () => {
         const sql = "SELECT u.user_id, name, role_name FROM users u INNER JOIN" +
