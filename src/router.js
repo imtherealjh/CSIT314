@@ -4,6 +4,7 @@ const router = express.Router();
 const adminRoute = require("./routes/adminRoute");
 const authorRoute = require("./routes/authorRoute");
 const reviewerRoute = require("./routes/reviewerRoute");
+const cchairRoute = require("./routes/cchairRoute")
 
 const userModel = require("./models/adminModel");
 
@@ -13,7 +14,7 @@ function getRedirection(role) {
     if(role == "author") {
         return "/author";
     } else if(role == "conference-chair") {
-        return "/c-c";
+        return "/cc";
     } else if(role == "admin") {
         return "/admin";
     } else if(role == "reviewer") {
@@ -58,5 +59,6 @@ router.use((req, res, next) => {
 router.use("/admin", adminRoute);
 router.use("/author", authorRoute);
 router.use("/reviewer", reviewerRoute);
+router.use("/cc", cchairRoute);
 
 module.exports = router;

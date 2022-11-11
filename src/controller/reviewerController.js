@@ -23,7 +23,7 @@ module.exports = {
         try {
             papers = typeof(papers) == "string" ? [papers] : papers;
             papers = papers.map((paper_id) => {
-                return [userid, paper_id, 0];
+                return [userid, paper_id, 0, new Date()];
             });
 
             await reviewerModel.createBids(papers);

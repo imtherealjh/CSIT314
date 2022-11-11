@@ -1,4 +1,5 @@
 <%-include('partials/head.ejs')%>
+  <link rel="stylesheet" href="./css/bids.css" />
   </head>
 
   <body>
@@ -6,12 +7,18 @@
       <h1>Automatic Allocation Of Papers</h1>
       <form method="post">
         <div class="list-group">
-          <% for(let [idx, obj] of data.entries() ?? []) { %>
+          <% if(data.length > 0) { %>
+            <% for(let [idx, obj] of data.entries() ?? []) { %>
+              <label class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj.paper_id%>">
+                <%=obj.title + " - " + obj.paper_id%>
+              </label>
+              <% }  %>
+          <% } else {%>
             <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj%>">
-              <%=obj%>
+              There is no data to be displayed...
             </label>
-            <% } %>
+          <% }  %>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
       </form>

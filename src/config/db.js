@@ -1,7 +1,28 @@
 const mysql = require('mysql2');
+const {Sequelize, DataTypes} = require("sequelize");
+
 require('dotenv').config()
 
 const host = process.env.GITLAB_CI ? "mysql" : "localhost";
+
+const sequelize = new Sequelize(
+    'CSIT314','root','root',
+    {
+       host: host,
+       dialect: 'mysql',
+       port: 3306
+    }
+ );
+ 
+sequelize
+    .authenticate()
+    .then(async() => {
+        console.log('Connection has been established successfully.');
+        console.log(await sequelize.model("authors"))
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 
 const online = {
     host: "sql12.freemysqlhosting.net",
@@ -27,6 +48,7 @@ connection.connect((err) => {
 });
 
 module.exports = {
+    
     connection: connection,
     query: (sql, params) => connection.promise().query(sql, params),
     transaction: () => new Promise((resolve, reject) => {

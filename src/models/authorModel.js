@@ -7,13 +7,23 @@ module.exports = {
       const [rows] = await query(sql, [author_id]);
       return rows;
     },
+    getAllPapers: async () => {
+      const sql = "SELECT * FROM PAPERS";
+      const [rows] = await query(sql);
+      return rows;
+    },
     getPapersByAuthorId: async (author_id) => {
       const sql = "SELECT * FROM authors a INNER JOIN papers p ON" +
                     " a.paper_id = p.paper_id WHERE a.author_id = ?";
       const [rows] = await query(sql, [author_id]);
       return rows;
     },
-    getPaperById: async(paper_id, author_id) => {
+    getPaperById: async(paper_id) => {
+        const sql = "SELECT * FROM papers WHERE paper_id=?";
+        const [rows] = await query(sql, [paper_id]);
+        return rows[0];
+    },
+    getPaperByIds: async(paper_id, author_id) => {
       const sql = "SELECT * FROM authors a INNER JOIN papers p" + 
                     " ON a.paper_id = p.paper_id" +
                     " WHERE p.paper_id = ? AND author_id = ?";

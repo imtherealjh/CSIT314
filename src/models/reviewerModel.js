@@ -14,9 +14,10 @@ module.exports = {
         const sql = "UPDATE reviewers SET max_no_of_papers = ? WHERE reviewer_id = ?";
         return query(sql, [maxNo, reviewer_id]);
     },
-    getPapersByStatus: async (status="Submitted") => {
-        const sql = "SELECT * FROM papers WHERE status = ?";
-        const [rows] = await query(sql, [status]);
+    getPapersByBids: async (reviewer_id, status="Submitted") => {
+        const sql = "SELECT * FROM papers WHERE status = ? AND" +
+                        " paper_id not in (SELECT paper_id FROM bids WHERE reviewer_id = ?)";
+        const [rows] = await query(sql, [status, reviewer_id]);
         return rows;
     },
     createBids: async(bids) => {

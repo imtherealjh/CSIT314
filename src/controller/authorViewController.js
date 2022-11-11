@@ -39,7 +39,7 @@ module.exports = {
         const {userid} = req.session;
         const {id} = req.params;
         const authors = await authorModel.getNonCurrentAuthor(userid);
-        const paperObj = await authorModel.getPaperById(id, userid);
+        const paperObj = await authorModel.getPaperByIds(id, userid);
         const {title, paper} = paperObj
         return res.render("create-update-paper", {
                 title: "Update Paper",
@@ -60,7 +60,7 @@ module.exports = {
     renderRateReview: async(req, res) => {
         const {userid} = req.session;
         const {id} = req.params;
-        const paperObj = await authorModel.getPaperById(id, userid);
+        const paperObj = await authorModel.getPaperByIds(id, userid);
         const {title, paper, status} = paperObj; 
         return res.render("author-rate-review", {
             titleOfPaper: title,

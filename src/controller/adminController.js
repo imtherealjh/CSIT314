@@ -21,7 +21,7 @@ module.exports = {
         const userObject = await adminModel.getUserById(req.params.id);
 
         try {
-            password = password === "" ? rows[0].password : await bcrypt.hashPassword(password);
+            password = password === "" ? userObject.password : await bcrypt.hashPassword(password);
             result = await adminModel.updateUser(userObject.user_id, name, email, password);
         } catch (err) {
             console.log(err);

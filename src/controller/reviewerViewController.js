@@ -13,7 +13,8 @@ module.exports = {
     },
     renderSubmitBids: async (req, res) => {
         //return the list of submitted papers for bidding
-        const papers = await reviewerModel.getPapersByStatus();
+        const {userid} = req.session
+        const papers = await reviewerModel.getPapersByBids(userid);
         return res.render("add-remove-bids", {
             title: "Submit bids",
             data: papers

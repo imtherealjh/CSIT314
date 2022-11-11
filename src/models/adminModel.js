@@ -49,7 +49,7 @@ module.exports = {
         return rows;
     },
     getReviewersById: async(user_id) => {
-        const sql = "SELECT * FROM reviewers WHERE user_id = ?";
+        const sql = "SELECT * FROM reviewers WHERE reviewer_id = ?";
         const [rows] = await query(sql, [user_id]);
         return rows[0];
     },
