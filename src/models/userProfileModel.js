@@ -1,13 +1,12 @@
-const {query, sequelize} = require("../config/db");
+const {sequelize} = require("../config/db");
 const { Model, DataTypes } = require("sequelize");
-const { User } = require("../models/adminModel") 
 
 class UserProfile extends Model {
     static associate(models) {
-        /*UserProfile.belongsTo(models.User, {
+        UserProfile.belongsTo(models.users, {
             foreignKey: "user_id",
             targetKey: "user_id"
-        });*/
+        });
     }
 };
 
@@ -16,17 +15,21 @@ UserProfile.init({
             type: DataTypes.INTEGER,
             primaryKey: true,
             references: {
-                model: User,
+                model: sequelize.models.users,
                 key: "user_id"
             }
         },
         role_name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            get() {
+                const rawValue = this.getDataValue('role_name');
+                return rawValue ? rawValue.toUpperCase() : null;
+            }
         }
     } , {
         sequelize,
-        modelName: "UserProfile",
+        modelName: "users_profile",
         tableName: "users_profile",
         underscore: true,
         updatedAt: false,
@@ -35,11 +38,43 @@ UserProfile.init({
 );
 
 module.exports = {
-    UserProfile: UserProfile,
+    getUserProfiles: () => {
+        const User = sequelize.models.users;
+        return User.findAll({
+            attributes: ["user_id", "name", [sequelize.col("profile.role_name"), "role_name"]],
+            include: [{
+                as: "profile",
+                model: UserProfile,
+                required: true,
+            }],
+            raw: true
+        });
+    },
+    getUserProfileById: async (user_id) => {
+        const User = sequelize.models.users;
+        return User.findOne({
+            attributes: ["user_id", "name", [sequelize.col("profile.role_name"), "role_name"]],
+            include: [{
+                as: "profile",
+                model: UserProfile,
+                required: true,
+            }],
+            where: {
+                user_id: user_id
+            },
+            raw: true
+        });
+    },
     createUserProfile: (user_id, role_name) => {
         return UserProfile.create(
             {user_id: user_id, role_name: role_name},
             {raw: true}
         )
     },
+    updateUserProfile: (user_id, role_name) => {
+        return UserProfile.update(
+            {role_name: role_name},
+            {where: {user_id: user_id} }
+        )
+    }
 }

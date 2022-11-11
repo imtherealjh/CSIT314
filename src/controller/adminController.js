@@ -1,4 +1,4 @@
-const adminModel = require("../models/adminModel");
+const adminModel = require("../models/userModel");
 const profileModel = require("../models/userProfileModel")
 const reviewerModel = require("../models/reviewerModel");
 const {sequelize} = require("../config/db");
@@ -24,7 +24,7 @@ module.exports = {
 
         try {
             password = password === "" ? userObject.password : await bcrypt.hashPassword(password);
-            result = await adminModel.updateUser(userObject.user_id, name, email, password);
+            await adminModel.updateUser(userObject.user_id, name, email, password);
         } catch (err) {
             console.log(err);
             return;
@@ -37,6 +37,7 @@ module.exports = {
         const transaction = await sequelize.transaction()
         try {
             await profileModel.createUserProfile(user, role);
+            
             if (role == "reviewer") {
                 await reviewerModel.createMaxNoOfPaper(user);
             }
@@ -52,13 +53,14 @@ module.exports = {
         const { user, role } = req.body;
 
         try {
-            const rows = await adminModel.getReviewersById(user);
+            result = await profileModel.updateUserProfile(user, role);
+            /*
             if(!rows) {
-                result = await Promise.all([adminModel.updateUserProfile(user, role), 
+                result = await Promise.all([profileModel.updateUserProfile(user, role), 
                                             reviewerModel.createMaxNoOfPaper(user)]);
             } else {
-                result = await adminModel.updateUserProfile(user, role);
-            }
+                
+            }*/
         } catch (err) {
             console.log(err);
             return;

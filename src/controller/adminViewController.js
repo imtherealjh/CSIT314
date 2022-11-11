@@ -1,4 +1,5 @@
-const adminModel = require("../models/adminModel");
+const adminModel = require("../models/userModel");
+const userProfileModel = require("../models/userProfileModel")
 
 module.exports = {
     renderMainMenu: (req, res) => {
@@ -27,32 +28,31 @@ module.exports = {
         });
     },
     renderUpdateUser: async (req, res) => {
-        const rows = await adminModel.getUserDetailsById(req.params.id);
-        //to access the first data of the sql query
-        const data = rows[0];
+        //get data and render on page
+        const user = await adminModel.getUserById(req.params.id);
         return res.render("create-update-user", {
             title: "Update Users",
-            name: data.name,
-            email: data.email,
+            name: user.name,
+            email: user.email,
         });
     },
     renderCreateUserProfile: async (req, res) => {
         const rows = await adminModel.getUserWithoutProfile();
-        console.log(rows);
         return res.render("create-update-user-profile", {
             title: "Create User Profile",
             data: rows,
         });
     },
     renderViewUserProfile: async (req, res) => {
-        const rows = await adminModel.getUserProfiles();
+        const rows = await userProfileModel.getUserProfiles();
+        
         return res.render("view-user-profile", {
             title: "View User Profile",
             data: rows,
         });
     },
     renderUpdateUserProfileMain: async (req, res) => {
-        const rows = await adminModel.getUserProfiles();
+        const rows = await userProfileModel.getUserProfiles();
         return res.render("view-user-profile", {
             title: "Update User Profile",
             link: "/admin/user/profile/update",
@@ -60,7 +60,9 @@ module.exports = {
         });
     },
     renderUpdateUserProfile: async (req, res) => {
-        const rows = await adminModel.getUserProfileById(req.params.id);
+        const {id} = req.params
+        const obj = await userProfileModel.getUserProfileById(id);
+        const rows = [obj]
         return res.render("create-update-user-profile", {
             title: "Update User Profile",
             data: rows,

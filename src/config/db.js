@@ -1,12 +1,30 @@
  const mysql = require("mysql2");
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 require("dotenv").config();
 
 const host = process.env.GITLAB_CI ? "mysql" : "localhost";
 
+const online = {
+    host: "sql12.freemysqlhosting.net",   
+    port: 3306,
+    user: "sql12557404",
+    password: "qMEJdmxJDA",
+    database: "sql12557404",
+  };
+  
+  const offline = {
+    host: host,
+    port: 3306,
+    user: "root",
+    password: "root",
+    database: "CSIT314",
+  };
+
 const sequelize = new Sequelize(
-    'CSIT314','root','root',
+    'CSIT314',
+    'root',
+    'root',
     {
        host: host,
        dialect: 'mysql',
@@ -18,47 +36,29 @@ sequelize
     .authenticate()
     .then(async() => {
         console.log('Connection has been established successfully.');
-        /*const author = sequelize.define("users", {
-            id: {
-                type: DataTypes.INTEGER,
-                autoIncrement: true,
-                primaryKey: true
-            },
-            name: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            email: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                unique: true
-            },
-            password: {
-                type: DataTypes.STRING,
-                allowNull: false
-            }
-        });
-        await sequelize.sync({force: true});*/
+        await sequelize.sync({force:false});
+        
+        //check if there is an admin, else create one..
+        const User = sequelize.models.users;
+        const result = await User.findOne({user_id: 1});
+        if(result == null) {
+            const created_user = await User.create({
+                user_id: 1, 
+                name: "admin",
+                email: "admin@admin.com", 
+                password:"$2b$10$dRQOabemjKTBO1wmctmqSeVcUMZjzWoHaDTZLwXpw0VJYO3ke.5J2"
+            });
+
+            const UserProfile = sequelize.models.users_profile;
+            await UserProfile.create({
+                user_id: created_user.user_id, 
+                role_name: "admin"
+            });
+        }
     })
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
-
-const online = {
-  host: "sql12.freemysqlhosting.net",   
-  port: 3306,
-  user: "sql12557404",
-  password: "qMEJdmxJDA",
-  database: "sql12557404",
-};
-
-const offline = {
-  host: host,
-  port: 3306,
-  user: "root",
-  password: "root",
-  database: "CSIT314",
-};
 
 const connection = mysql.createConnection(online);
 
