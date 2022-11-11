@@ -3,7 +3,7 @@ const {connection, transaction} = require("../config/db");
 
 module.exports = {
     createPaper: async (req, res) => {
-        const { userid } = req.session;
+        const { userid } = req.session; 
         let { title, paper, coauthors } = req.body;
 
         await transaction();
@@ -32,7 +32,7 @@ module.exports = {
         return res.render("view-single-paper-no-reviews");
     },
     updatePaper: async (req, res) => {
-        const { userid } = req.session;
+        const { userid } = req.session; 
         const { id } = req.params
         let { title, paper, coauthors } = req.body;
 
