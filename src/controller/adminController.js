@@ -61,6 +61,7 @@ module.exports = {
             console.log(err);
             return;
         }
+        
         return res.redirect("/admin");
     }
 };

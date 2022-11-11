@@ -18,12 +18,33 @@ sequelize
     .authenticate()
     .then(async() => {
         console.log('Connection has been established successfully.');
-        console.log(await sequelize.model("authors"))
+        /*const author = sequelize.define("users", {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        });
+        await sequelize.sync({force: true});*/
     })
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
 
+    
 const online = {
     host: "sql12.freemysqlhosting.net",
     port: 3306,
@@ -48,7 +69,7 @@ connection.connect((err) => {
 });
 
 module.exports = {
-    
+    sequelize: sequelize,
     connection: connection,
     query: (sql, params) => connection.promise().query(sql, params),
     transaction: () => new Promise((resolve, reject) => {

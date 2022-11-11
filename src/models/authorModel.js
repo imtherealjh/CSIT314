@@ -1,4 +1,5 @@
-const { query } = require("../config/db");
+const { sequelize, query } = require("../config/db");
+
 
 module.exports = {
     getNonCurrentAuthor: async(author_id) => {

@@ -31,7 +31,7 @@ module.exports = {
         //to access the first data of the sql query
         const data = rows[0];
         return res.render("create-update-user", {
-            title: "Update Users        ",
+            title: "Update Users",
             name: data.name,
             email: data.email,
         });

@@ -1,12 +1,58 @@
-const {query} = require('../config/db');
+const {query, sequelize} = require('../config/db');
+const { Model, DataTypes } = require("sequelize");
+const { userProfile } = require("../models/userProfileModel");
+
+class User extends Model {};
+User.init(
+    {
+        user_id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    }, {
+        sequelize,
+        modelName: "user",
+        tableName: 'users',
+        underscore: true,
+        updatedAt: false,
+        createdAt: false
+    }
+)
+
+User.hasOne(userProfile, {foreignKey: 'userid', sourceKey: 'userid'})
 
 module.exports = {
+    User: User,
     getAllUserDetails: async () => {
-        const sql = "SELECT user_id, name, email FROM users";
-        const [rows] = await query(sql);
-        return rows;
+        const result = await User.findAll({raw: true});
+        return result;
     }, 
     getAllUserDetailsByEmail: async (email) => {
+        const result = await User.findAll({
+            where: {
+                email: email
+            },
+            include: [{
+                model: userProfile,
+                required: true
+            }],
+            raw: true
+        });
+        console.log(result);
         const sql = "SELECT * FROM users u LEFT JOIN users_profile up" +
                         " ON u.user_id = up.user_id WHERE u.EMAIL = ?";
         const [rows] = await query(sql, [email]);
