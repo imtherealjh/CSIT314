@@ -12,16 +12,16 @@ module.exports = {
 
         const transaction = await sequelize.transaction();
         try {
-            coauthors = coauthors ?? [userid];
-            coauthors = typeof(coauthors) == "string" ? [coauthors, userid] : coauthors;
+            let authors = [...coauthors];
+            authors.push(userid);
+
             const result = await paperEntity.createPaper(title, paper);
 
-            coauthors = coauthors.map((e) => {
+            authors = authors.map((e) => {
                 return {author_id: Number(e), paper_id: result.paper_id};
             });
 
-            Users.findAll()
-            await authorEntity.createLinkToAuthors(coauthors);
+            await authorEntity.createLinkToAuthors(authors);
             await transaction.commit();
         } catch (e) {
             await transaction.rollback();
@@ -48,16 +48,16 @@ module.exports = {
 
         const transaction = await sequelize.transaction();
         try {
-            coauthors = coauthors ?? [userid];
-            coauthors = typeof(coauthors) == "string" ? [coauthors, userid] : coauthors;
+            let authors = [...coauthors];
+            authors.push(userid);
 
             await paperEntity.updatePaper(id, title, paper);
-            coauthors = coauthors.map((e) => {
+            authors = authors.map((e) => {
                 return {author_id: Number(e), paper_id: id};
             });
 
             await authorEntity.removeLinkFromAuthors(id);
-            await authorEntity.createLinkToAuthors(coauthors);
+            await authorEntity.createLinkToAuthors(authors);
             await transaction.commit();
         } catch (e) {
             await transaction.rollback();

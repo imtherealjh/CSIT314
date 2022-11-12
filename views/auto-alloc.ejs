@@ -7,7 +7,7 @@
       <h1>Automatic Allocation Of Papers</h1>
       <form method="post">
         <div class="list-group">
-          <% if(data.length > 0) { %>
+          <% if(data != undefined && data.length > 0) { %>
             <% for(let [idx, obj] of data.entries() ?? []) { %>
               <label class="list-group-item">
                 <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj.paper_id%>">

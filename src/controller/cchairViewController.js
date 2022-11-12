@@ -1,4 +1,3 @@
-const authorEntity = require("../entity/author");
 const paperEntity = require("../entity/paper");
 
 const cchairController = require("../controller/cchairController");
@@ -17,7 +16,7 @@ module.exports = {
 
     },
     renderApproveMain : async (req, res) => {
-        const rows = await paperEntity.getAllPaper();
+        const rows = await cchairController.getAllPaper();
         return res.render("view-papers", {
             title: "Approve/Reject",
             link: "/cc/approve",
@@ -37,7 +36,29 @@ module.exports = {
     approvePaperHandler: async (req, res) => {
         const { id } = req.params;
         const { decisions, reasons } = req.body;
-        const redirect = await cchairController.acceptPaper(id, decisions, reasons);
-        return res.redirect(redirect);
+        await cchairController.acceptPaper(id, decisions, reasons);
+        return res.redirect("/cc");
+    },
+    renderNotifyUser: async (req, res) => {
+        const rows = await cchairController.getAllPaper();
+        return res.render("add-remove-bids", {
+                title: "Notify user",
+                data: rows,
+                error: ""
+        });
+    },
+    //handle post request
+    notifyUserHandler: async (req, res) => {
+        const {papers} = req.body;
+        if(!papers) {
+            const rows = await cchairController.getAllPaper();
+            return res.render("add-remove-bids", {
+                title: "Notify user",
+                data: rows,
+                error: "Please choose at least one of the choices..."
+            });
+        }
+        await cchairController.notifyUser(papers);
+        return res.redirect("/cc")
     }
 }

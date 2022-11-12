@@ -77,3 +77,10 @@ h1 {
 .two-button-container .btn-block+.btn-block {
   margin:0;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 2% 0;
+}
