@@ -17,14 +17,26 @@ module.exports = (sequelize) => {
       title: {
         type: DataTypes.STRING(45),
         allowNull: false,
+        get() {
+          const rawValue = this.getDataValue("title");
+          return rawValue ? rawValue : null;
+        },
       },
       paper: {
         type: DataTypes.TEXT,
         allowNull: false,
+        get() {
+          const rawValue = this.getDataValue("paper");
+          return rawValue ? rawValue : null;
+        },
       },
       status: {
         type: DataTypes.STRING(45),
         defaultValue: "Submitted",
+        get() {
+          const rawValue = this.getDataValue("status");
+          return rawValue ? rawValue : null;
+        },
       },
       ratings: {
         type: DataTypes.INTEGER(1),
@@ -40,5 +52,5 @@ module.exports = (sequelize) => {
     }
   );
 
-  return Paper
+  return Paper;
 };

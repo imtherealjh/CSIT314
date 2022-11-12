@@ -19,4 +19,7 @@ $(function() {
         });
     });
 
+    $("form[action='/logout'] i").click(function() {
+        $(this).parent().submit();
+    })
 });

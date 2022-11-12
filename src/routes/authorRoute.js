@@ -22,6 +22,6 @@ router.route("/paper/update/:id")
         .post(authorController.updatePaper);
 router.route("/paper/rate/:id")
         .get(viewController.renderRateReview)
-        .post(authorController.rateReviews);
+        .post(authorController.ratePaper);
 
 module.exports = router;

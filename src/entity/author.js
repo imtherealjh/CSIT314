@@ -25,11 +25,6 @@ module.exports = {
       raw: true
     });
   },
-  getPapersByAuthorId: (author_id) => {
-    return User.findByPk(author_id, {
-      include: [Paper]
-    });
-  },
   createLinkToAuthors: (co_authors) => {
     return Author.bulkCreate(co_authors,{ raw: true });
   },
@@ -40,5 +35,4 @@ module.exports = {
       }
     })
   }
-  
 };

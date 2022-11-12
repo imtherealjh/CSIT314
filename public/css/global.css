@@ -35,6 +35,16 @@
   --br-lg: 13px;
 }
 
+form[action="/logout"] {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: right;
+}
+
+form[action="/logout"] > i {
+  font-size: 2em;
+}
+
 body {
   background-color: var(--color-gray-100);
   min-height: 100vh;

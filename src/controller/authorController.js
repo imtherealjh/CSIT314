@@ -30,9 +30,10 @@ module.exports = {
         return res.redirect("/author");
     },
     retrievePaper: async (req, res) => {
-        const id = req.params.id;
-
-        return res.render("view-single-paper-no-reviews");
+        const {id} = req.params;
+        const paper = await paperEntity.getPaperById(id);
+        console.log(paper);
+        return res.render("view-single-paper-main");
     },
     updatePaper: async (req, res) => {
         const { userid } = req.session; 
@@ -61,10 +62,10 @@ module.exports = {
 
         return res.redirect("/author");
   },
-  rateReviews: async (req, res) => {
+  ratePaper: async (req, res) => {
         const {rate} = req.body;
         const {id} = req.params;
-        
+
         try {
             await paperEntity.ratePaper(id, rate);
         } catch(err) {
