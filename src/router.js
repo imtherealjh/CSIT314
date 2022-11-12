@@ -6,7 +6,7 @@ const authorRoute = require("./routes/authorRoute");
 const reviewerRoute = require("./routes/reviewerRoute");
 const cchairRoute = require("./routes/cchairRoute")
 
-const userModel = require("./models/userModel");
+const userModel = require("./entity/user");
 
 const bcrypt = require("./utils/bcrypt");
 
@@ -32,7 +32,7 @@ router.route("/login")
     .post(async (req, res) => {
         const {email, password} = req.body;
         console.log(password);
-        const result = await userModel.getAllUserDetailsByEmail(email);
+        const result = await userModel.getUserByEmail(email);
 
         console.log(result);
 

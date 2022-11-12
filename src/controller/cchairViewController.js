@@ -1,5 +1,5 @@
-const cchairModel = require("../models/cchairModel");
-const authorModel = require("../models/authorModel");
+const cchairModel = require("../entity/cchair");
+const authorModel = require("../entity/author");
 
 module.exports = {
     renderCCMainMenu: (req, res) => {

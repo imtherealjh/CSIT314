@@ -1,19 +1,19 @@
-const reviewerModel = require("../models/reviewerModel");
+const reviewerModel = require("../entity/reviewer");
 
 module.exports = {
     renderMainMenu: (req, res) => {
         return res.render("reviewer-main-menu")
     },
     renderMaxNoOfPaper: async (req, res) => {
-        const userId = req.session.userid
-        const maxNoObj = await reviewerModel.getMaxNoOfPaper(userId);
+        const {userid} = req.session;
+        const maxNoObj = await reviewerModel.getMaxNoOfPaper(userid);
         return res.render("max-no-of-paper", {
             maxNo: maxNoObj.max_no_of_paper
         })
     },
     renderSubmitBids: async (req, res) => {
         //return the list of submitted papers for bidding
-        const {userid} = req.session
+        const {userid} = req.session;
         const papers = await reviewerModel.getPapersByBids(userid);
         return res.render("add-remove-bids", {
             title: "Submit bids",

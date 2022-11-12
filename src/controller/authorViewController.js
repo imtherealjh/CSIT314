@@ -1,4 +1,5 @@
-const authorModel = require("../models/authorModel");
+const authorEntity = require("../entity/author");
+const paperEntity = require("../entity/paper");
 
 module.exports = {
     renderMainMenu: (req, res) => {
@@ -6,7 +7,7 @@ module.exports = {
     },
     renderCreatePaper: async (req, res) => {
         const {userid} = req.session;
-        const authors = await authorModel.getNonCurrentAuthor(userid);
+        const authors = await authorEntity.getNonCurrentAuthor(userid);
         return res.render("create-update-paper", {
                 title: "Submit Paper",
                 titleOfPaper: "",
@@ -15,31 +16,30 @@ module.exports = {
             });
     },
     retrieveAllPapers: async (req, res) => {
-        const {userid} = req.session;
-        const rows = await authorModel.getPapersByAuthorId(userid);
-        //get papers and pass to res.render
+        //get papers by currentUser and pass to res.render
         //specify link so that can use the same page to render views for view/select papers
+        const {userid} = req.session;
+        const currentUser = await authorEntity.getPapersByAuthorId(userid);
         return res.render("view-papers", {
             title: "View all papers",
             link: "/author/paper",
-            data: rows
+            data: currentUser.papers
         });
     },
     renderUpdateAllPapers: async (req, res) => {
         const author_id = req.session.userid;
-        const rows = await authorModel.getPapersByAuthorId(author_id);
-
+        const papers = await paperEntity.getPapersByAuthorId(author_id);
         return res.render("view-papers", {
             title: "View all papers",
             link: "/author/paper/update",
-            data: rows
+            data: papers
         });
     },
     renderUpdatePaper: async(req, res) => {
         const {userid} = req.session;
         const {id} = req.params;
-        const authors = await authorModel.getNonCurrentAuthor(userid);
-        const paperObj = await authorModel.getPaperByIds(id, userid);
+        const authors = await authorEntity.getNonCurrentAuthor(userid);
+        const paperObj = await paperEntity.getPaperById(id);
         const {title, paper} = paperObj
         return res.render("create-update-paper", {
                 title: "Update Paper",
@@ -50,17 +50,16 @@ module.exports = {
     },
     renderRateAllReviews: async(req, res) => {
         const {userid} = req.session;
-        const rows = await authorModel.getPapersByAuthorId(userid);
+        const papers = await paperEntity.getPapersByAuthorId(userid);
         return res.render("view-papers", {
             title: "Rate papers",
             link: "/author/paper/rate",
-            data: rows
+            data: papers
         });
     },
     renderRateReview: async(req, res) => {
-        const {userid} = req.session;
         const {id} = req.params;
-        const paperObj = await authorModel.getPaperByIds(id, userid);
+        const paperObj = await paperEntity.getPaperById(id);
         const {title, paper, status} = paperObj; 
         return res.render("author-rate-review", {
             titleOfPaper: title,

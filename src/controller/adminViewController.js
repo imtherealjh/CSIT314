@@ -1,5 +1,5 @@
-const adminModel = require("../models/userModel");
-const userProfileModel = require("../models/userProfileModel")
+const adminModel = require("../entity/user");
+const userProfileModel = require("../entity/userProfile")
 
 module.exports = {
     renderMainMenu: (req, res) => {
@@ -13,14 +13,14 @@ module.exports = {
         });
     },
     renderViewUser: async (req, res) => {
-        const rows = await adminModel.getAllUserDetails();
+        const rows = await adminModel.getAllUser();
         return res.render("view-users", {
             title: "View Users",
             data: rows,
         });
     },
     renderUpdateUserMain: async (req, res) => {
-        const rows = await adminModel.getAllUserDetails();
+        const rows = await adminModel.getAllUser();
         return res.render("view-users", {
             title: "Update Users",
             link: "/admin/user/update",
@@ -45,7 +45,6 @@ module.exports = {
     },
     renderViewUserProfile: async (req, res) => {
         const rows = await userProfileModel.getUserProfiles();
-        
         return res.render("view-user-profile", {
             title: "View User Profile",
             data: rows,

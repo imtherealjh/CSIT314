@@ -1,4 +1,4 @@
-const cchairModel = require("../models/cchairModel");
+const cchairModel = require("../entity/cchair");
 
 module.exports = {
     autoAllocateReviewers: async (req, res) => {

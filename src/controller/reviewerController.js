@@ -1,6 +1,6 @@
 
 // should be model/entity
-const reviewerModel = require("../models/reviewerModel");
+const reviewerModel = require("../entity/reviewer");
 
 module.exports = {
     updateMaxNoOfPaper: async (req, res) => {
