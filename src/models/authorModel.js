@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       tableName: "authors",
       underscore: true,
       updatedAt: false,
-      createdAt: false,
+      createdAt: false
     }
   );
 

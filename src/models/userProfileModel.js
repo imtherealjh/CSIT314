@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
       tableName: "users_profile",
       underscore: true,
       updatedAt: false,
-      createdAt: false,
+      createdAt: false
     }
   );
 

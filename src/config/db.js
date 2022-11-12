@@ -50,28 +50,39 @@ const UserProfile = require("../models/userProfileModel")(sequelize);
 User.hasOne(UserProfile, {
   as: "profile",
   foreignKey: "user_id",
-  sourceKey: "user_id"
+  sourceKey: "user_id",
 });
 
 UserProfile.belongsTo(User, {
   foreignKey: "user_id",
-  targetKey: "user_id"
+  targetKey: "user_id",
 });
 
 const Author = require("../models/authorModel")(sequelize);
 const Paper = require("../models/paperModel")(sequelize);
 
 User.belongsToMany(Paper, {
-    through: Author,
-    foreignKey: "author_id",
-    sourceKey: "user_id"
+  through: Author,
+  foreignKey: "author_id",
+  sourceKey: "user_id",
 });
 Paper.belongsToMany(User, {
-    through: Author,
-    foreignKey: "paper_id",
-    sourceKey: "paper_id",
+  through: Author,
+  foreignKey: "paper_id",
+  sourceKey: "paper_id",
 });
 
+const Bids = require("../models/bidsModel")(sequelize);
+Bids.belongsTo(User, {
+  through: Bids,
+  foreignKey: "reviewer_id",
+  targetKey: "user_id",
+});
+Bids.belongsTo(Paper, {
+  through: Bids,
+  foreignKey: "paper_id",
+  targetKey: "paper_id",
+});
 
 module.exports = db;
 

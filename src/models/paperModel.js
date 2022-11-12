@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
       tableName: "papers",
       underscore: true,
       updatedAt: false,
-      createdAt: false,
+      createdAt: false
     }
   );
 

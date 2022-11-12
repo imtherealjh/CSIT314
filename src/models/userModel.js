@@ -49,7 +49,7 @@ module.exports = (sequelize) => {
       tableName: "users",
       underscore: true,
       updatedAt: false,
-      createdAt: false,
+      createdAt: false
     }
   );
 

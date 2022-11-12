@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const cchairViewController = require("../controller/cchairViewController");
-const cchairController = require("../controller/cchairController");
 
 router.get("/", cchairViewController.renderCCMainMenu);
 
+router.get("/paper", cchairViewController.renderViewPapers);
+
+router.get("/paper/:id", cchairViewController.renderViewPaper);
+
 router.get("/allocate", cchairViewController.renderAllocate);
 
-router
-  .route("/allocate/auto")
-  .get(cchairViewController.renderAutoAllocate)
-  .post(cchairController.autoAllocateReviewers);
+router.route("/allocate/auto").get(cchairViewController.renderAutoAllocate);
 
 router
   .route("/allocate/view-papers")

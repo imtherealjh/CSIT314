@@ -13,7 +13,9 @@ module.exports = {
   },
   getPapersByAuthorId: async (author_id) => {
     const users = await User.findByPk(author_id, {
-      include: [Paper],
+      include: {
+        model: Paper
+      },
     });
     return users.papers;
   },
@@ -21,13 +23,13 @@ module.exports = {
     const storedPapers = await Paper.findAll({
       include: {
         model: User,
-        attributes: ["email"]
+        attributes: ["email"],
       },
       where: {
         paper_id: {
           [Op.in]: papers,
         },
-      }
+      },
     });
     return storedPapers;
   },
