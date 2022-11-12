@@ -23,10 +23,10 @@ module.exports = {
         }
 
         const result = await userModel.getUserByEmail(email);
-        if(typeof(result) === "undefined") {
+        if(typeof result == "undefined" || result == null) {
             return res.render("login", {error:"Account does not match the one in the system"});
         }
-        
+
         matches = await bcrypt.comparePassword(password, result.password);
         if(!matches) {
             return res.render("login", {error:"Account does not match the one in the system"});
@@ -39,7 +39,7 @@ module.exports = {
     },
     logoutUser: async (req, res) => {
         req.session.destroy((err) => {
-            if(err) return console.log(err);
+            if(err) return;
             return res.redirect("/");
         });
     }

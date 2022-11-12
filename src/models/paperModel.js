@@ -41,6 +41,20 @@ module.exports = (sequelize) => {
       ratings: {
         type: DataTypes.INTEGER(1),
       },
+      approved: {
+        type: DataTypes.BOOLEAN,
+        get() {
+            const rawValue = this.getDataValue("approved");
+            return rawValue? rawValue : null;
+        }
+      }, 
+      reasons: {
+        type: DataTypes.STRING,
+        get() {
+            const rawValue = this.getDataValue("reasons");
+            return rawValue? rawValue : null;
+        }
+      }
     },
     {
       sequelize,

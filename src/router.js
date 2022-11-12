@@ -10,7 +10,6 @@ const cchairRoute = require("./routes/cchairRoute")
 router.use("/", loginRoute)
 
 router.use((req, res, next) => {
-    console.log(req.session);
     if(!req.session.userid) {
         return res.redirect("/login")
     }

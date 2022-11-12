@@ -19,16 +19,16 @@ module.exports = {
         //get papers by currentUser and pass to res.render
         //specify link so that can use the same page to render views for view/select papers
         const {userid} = req.session;
-        const currentUser = await authorEntity.getPapersByAuthorId(userid);
+        const papers = await paperEntity.getPapersByAuthorId(userid);
         return res.render("view-papers", {
             title: "View all papers",
             link: "/author/paper",
-            data: currentUser.papers
+            data: papers
         });
     },
     renderUpdateAllPapers: async (req, res) => {
-        const author_id = req.session.userid;
-        const papers = await paperEntity.getPapersByAuthorId(author_id);
+        const {userid} = req.session;
+        const papers = await paperEntity.getPapersByAuthorId(userid);
         return res.render("view-papers", {
             title: "View all papers",
             link: "/author/paper/update",

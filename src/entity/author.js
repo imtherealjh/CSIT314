@@ -1,10 +1,9 @@
 const { sequelize } = require("../config/db");
-const { Op } = require("sequelize");
+const { Op, QueryTypes } = require("sequelize");
 
 const User = sequelize.models.users;
 const UserProfile = sequelize.models.users_profile;
 const Author = sequelize.models.authors;
-const Paper = sequelize.models.papers;
 
 module.exports = {
   getNonCurrentAuthor: (author_id) => {
@@ -32,7 +31,8 @@ module.exports = {
     return Author.destroy({
       where: {
         paper_id: paper_id
-      }
+      },
+      force: true
     })
   }
 };

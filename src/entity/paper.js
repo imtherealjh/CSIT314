@@ -28,6 +28,13 @@ module.exports = {
             { where: { paper_id: id } }
         );
     },
+    updateApproveStatus: (id, approved, reasons) => {
+        console.log(reasons);
+        return Paper.update(
+            { approved: approved, reasons: reasons },
+            { where: { paper_id: id } }
+        );
+    },
     ratePaper: (id, ratings) => {
         return Paper.update(
             { ratings: ratings },

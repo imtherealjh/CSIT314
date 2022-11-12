@@ -8,8 +8,9 @@
       <%-include('partials/view-single-paper.ejs')%>
         <form method="post">
           <div class="two-button-container">
-            <button type="submit" class="btn btn-success btn-lg btn-block" name="decision" value="approve">Approve</button>
-            <button type="submit" class="btn btn-danger btn-lg btn-block" name="decision" value="reject">Reject</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block" name="decisions" value="approve">Approve</button>
+            <button type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#confirmation">Reject</button>
+            <%-include('partials/approve-reject-modal.ejs')%>
           </div>
         </form>
     </div>

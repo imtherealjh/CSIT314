@@ -1,6 +1,7 @@
-const db = require("../config/db");
-const sequelize = db.sequelize;
+const {sequelize} = require("../config/db");
 
+const Users = sequelize.models.users;
+const Papers = sequelize.models.papers;
 const authorEntity = require("../entity/author");
 const paperEntity = require("../entity/paper");
 
@@ -16,9 +17,10 @@ module.exports = {
             const result = await paperEntity.createPaper(title, paper);
 
             coauthors = coauthors.map((e) => {
-                return {author_id: e, paper_id: result.paper_id};
+                return {author_id: Number(e), paper_id: result.paper_id};
             });
 
+            Users.findAll()
             await authorEntity.createLinkToAuthors(coauthors);
             await transaction.commit();
         } catch (e) {
@@ -31,9 +33,13 @@ module.exports = {
     },
     retrievePaper: async (req, res) => {
         const {id} = req.params;
-        const paper = await paperEntity.getPaperById(id);
-        console.log(paper);
-        return res.render("view-single-paper-main");
+        const storedPaper = await paperEntity.getPaperById(id);
+        const {title, paper, status} = storedPaper;
+        return res.render("view-single-paper-main", {
+            titleOfPaper: title,
+            paper: paper,
+            status: status
+        });
     },
     updatePaper: async (req, res) => {
         const { userid } = req.session; 
@@ -45,13 +51,12 @@ module.exports = {
             coauthors = coauthors ?? [userid];
             coauthors = typeof(coauthors) == "string" ? [coauthors, userid] : coauthors;
 
-            const result = await paperEntity.updatePaper(id, title, paper);
-            const paper_id = result[0];
+            await paperEntity.updatePaper(id, title, paper);
             coauthors = coauthors.map((e) => {
-                return {author_id: e, paper_id: paper_id};
+                return {author_id: Number(e), paper_id: id};
             });
 
-            await authorEntity.removeLinkFromAuthors(result[0]);
+            await authorEntity.removeLinkFromAuthors(id);
             await authorEntity.createLinkToAuthors(coauthors);
             await transaction.commit();
         } catch (e) {

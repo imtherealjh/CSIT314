@@ -21,6 +21,6 @@ router.route("/approve/view-papers")
 
 router.route("/approve/:id")
         .get(cchairViewController.renderApprovePaper)
-        .post(cchairController.acceptPaper);
+        .post(cchairViewController.approvePaperHandler);
 
 module.exports = router;
