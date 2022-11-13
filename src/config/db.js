@@ -7,6 +7,10 @@ const sequelize = new Sequelize("CSIT314", "root", "root", {
   host: host,
   dialect: "mysql",
   port: 3306,
+  dialectOptions: {
+    useUTC: false,
+  },
+  timezone: "+08:00",
 });
 
 sequelize
@@ -62,27 +66,43 @@ const Author = require("../models/authorModel")(sequelize);
 const Paper = require("../models/paperModel")(sequelize);
 
 User.belongsToMany(Paper, {
+  as: "author",
   through: Author,
   foreignKey: "author_id",
   sourceKey: "user_id",
 });
 Paper.belongsToMany(User, {
+  as: "author",
   through: Author,
   foreignKey: "paper_id",
   sourceKey: "paper_id",
 });
 
 const Bids = require("../models/bidsModel")(sequelize);
-Bids.belongsTo(User, {
+
+User.belongsToMany(Paper, {
+  as: "reviewer",
   through: Bids,
   foreignKey: "reviewer_id",
-  targetKey: "user_id",
+  sourceKey: "user_id",
 });
-Bids.belongsTo(Paper, {
+Paper.belongsToMany(User, {
+  as: "reviewer",
   through: Bids,
   foreignKey: "paper_id",
-  targetKey: "paper_id",
+  sourceKey: "paper_id",
 });
+
+// Bids.belongsTo(User, {
+//   through: Bids,
+//   foreignKey: "reviewer_id",
+//   targetKey: "user_id",
+// });
+// Bids.belongsTo(Paper, {
+//   through: Bids,
+//   foreignKey: "paper_id",
+//   targetKey: "paper_id",
+// });
 
 module.exports = db;
 

@@ -9,7 +9,6 @@ module.exports = {
     try {
       password = await bcrypt.hashPassword(password);
       result = await userEntity.createUser(name, email, password);
-      console.log(result);
     } catch (err) {
       console.log(err);
       return;
@@ -18,9 +17,9 @@ module.exports = {
   },
   updateUser: async (req, res) => {
     let { name, email, password } = req.body;
-    const userObject = await userEntity.getUserById(req.params.id);
 
     try {
+      const userObject = await userEntity.getUserById(req.params.id);
       password =
         password === ""
           ? userObject.password
@@ -34,6 +33,7 @@ module.exports = {
   },
   createUserProfile: async (req, res) => {
     const { user, role } = req.body;
+
     try {
       await userProfileEntity.createUserProfile(user, role);
     } catch (err) {

@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 
 const Paper = sequelize.models.papers;
 const User = sequelize.models.users;
+const Bids = sequelize.models.papers;
 
 module.exports = {
   getAllPaper: () => {
@@ -14,14 +15,18 @@ module.exports = {
   getPapersByAuthorId: async (author_id) => {
     const users = await User.findByPk(author_id, {
       include: {
-        model: Paper
+        as:"author",
+        model: Paper,
+        required: true
       },
     });
-    return users.papers;
+    //check if users exist and whether author is undefined, if not pass an empty array
+    return users?.author ?? [];
   },
   getAuthorsByPaperIds: async (papers) => {
     const storedPapers = await Paper.findAll({
       include: {
+        as: "author",
         model: User,
         attributes: ["email"],
       },

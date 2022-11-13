@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: { msg: "Email has already been registered..." },
         get() {
           const rawValue = this.getDataValue("email");
           return rawValue ? rawValue : null;
@@ -49,7 +49,7 @@ module.exports = (sequelize) => {
       tableName: "users",
       underscore: true,
       updatedAt: false,
-      createdAt: false
+      createdAt: false,
     }
   );
 

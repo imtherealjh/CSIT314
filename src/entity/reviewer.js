@@ -20,6 +20,6 @@ module.exports = {
     );
   },
   createBids: (bids) => {
-    return Bids.create(bids[0], {raw: true});
+    return Bids.bulkCreate(bids, {raw: true});
   },
 };

@@ -16,7 +16,7 @@ module.exports = {
   },
   renderViewPaper: async (req, res) => {
     const { id } = req.params;
-    const rows = await cchairController.getPaper(id);
+    const rows = await cchairController.getPaperById(id);
     const { title, paper, status } = rows;
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
@@ -33,7 +33,7 @@ module.exports = {
   },
   renderManualAllocateMain: async (req, res) => {},
   renderApproveMain: async (req, res) => {
-    const rows = await cchairController.getAllPaper();
+    const rows = await cchairController.getAllPapers();
     return res.render("view-papers", {
       title: "Approve/Reject",
       link: "/cc/approve",
@@ -57,7 +57,7 @@ module.exports = {
     return res.redirect("/cc");
   },
   renderNotifyUser: async (req, res) => {
-    const rows = await cchairController.getAllPaper();
+    const rows = await cchairController.getAllPapers();
     return res.render("add-remove-bids", {
       title: "Notify user",
       data: rows,
@@ -68,7 +68,7 @@ module.exports = {
   notifyUserHandler: async (req, res) => {
     const { papers } = req.body;
     if (!papers) {
-      const rows = await cchairController.getAllPaper();
+      const rows = await cchairController.getAllPapers();
       return res.render("add-remove-bids", {
         title: "Notify user",
         data: rows,

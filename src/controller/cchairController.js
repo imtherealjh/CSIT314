@@ -6,7 +6,7 @@ module.exports = {
   getAllPapers: () => {
     return paperEntity.getAllPaper();
   },
-  getPaper: (id) => {
+  getPaperById: (id) => {
     return paperEntity.getPaperById(id);
   },
   autoAllocateReviewers: (papers) => {
@@ -30,14 +30,15 @@ module.exports = {
   },
   notifyUser: async (papers) => {
     const researchPaperIds = typeof papers == "string" ? [papers] : papers;
-    const storedPapers = await paperEntity.getAuthorsByPaperIds(
-      researchPaperIds
-    );
+    const storedPapers = await paperEntity.getAuthorsByPaperIds(researchPaperIds);
+
+    console.log(storedPapers);
+
     //convert to string first before converting to json object
     const allPapersToNotify = JSON.parse(JSON.stringify(storedPapers));
 
     const allMails = allPapersToNotify.map((paper) => {
-      const to = paper.users.map((user) => user.email).join(", ");
+      const to = paper.author.map((user) => user.email).join(", ");
       const approvedMessage = paper.approved ? "Approved" : "Rejected";
       message =
         "Good day sir/mdm,<br><br>" +

@@ -10,11 +10,8 @@ module.exports = {
 
     const transaction = await sequelize.transaction();
     try {
-        console.log(coauthors);
       let authors = coauthors == undefined ? [] : [...coauthors];
       authors.push(userid);
-
-      console.log(authors);
 
       const result = await paperEntity.createPaper(title, paper);
 
