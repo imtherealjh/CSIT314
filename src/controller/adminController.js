@@ -3,21 +3,17 @@ const userProfileEntity = require("../entity/userProfile");
 const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
-  createUser: async (req, res) => {
-    let { name, email, password } = req.body;
-
+  createUser: async (name, email, password) => {
     try {
       password = await bcrypt.hashPassword(password);
       result = await userEntity.createUser(name, email, password);
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
-    return res.redirect("/admin");
   },
-  updateUser: async (req, res) => {
-    let { name, email, password } = req.body;
-
+  updateUser: async (name, email, password) => {
     try {
       const userObject = await userEntity.getUserById(req.params.id);
       password =
@@ -25,33 +21,28 @@ module.exports = {
           ? userObject.password
           : await bcrypt.hashPassword(password);
       await userEntity.updateUser(userObject.user_id, name, email, password);
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
-    return res.redirect("/admin");
   },
-  createUserProfile: async (req, res) => {
-    const { user, role } = req.body;
-
+  createUserProfile: async (user, role) => {
     try {
       await userProfileEntity.createUserProfile(user, role);
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
-    return res.redirect("/admin");
   },
-  updateUserProfile: async (req, res) => {
-    const { user, role } = req.body;
-
+  updateUserProfile: async (user, role) => {
     try {
       result = await userProfileEntity.updateUserProfile(user, role);
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
-
-    return res.redirect("/admin");
   },
 };

@@ -27,9 +27,16 @@ module.exports = {
   renderAllocate: (req, res) => {
     return res.render("allocate-main");
   },
-  renderAutoAllocate: async (req, res) => {},
+  renderAutoAllocate: async (req, res) => {
+    const rows = await cchairController.getAllPapers();
+    return res.render("auto-alloc", {
+      data: rows
+    })
+  },
   autoAllocateHandler: async (req, res) => {
-    return;
+    const { papers } = req.body;
+    const result = await cchairController.autoAllocate(papers);
+    return res.redirect("/cc");
   },
   renderManualAllocateMain: async (req, res) => {
     const rows = await cchairController.getAllPapers();

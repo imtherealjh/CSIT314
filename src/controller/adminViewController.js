@@ -1,5 +1,6 @@
 const userEntity = require("../entity/user");
 const userProfileEntity = require("../entity/userProfile");
+const adminController = require("./adminController");
 
 module.exports = {
   renderMainMenu: (req, res) => {
@@ -11,6 +12,11 @@ module.exports = {
       name: "",
       email: "",
     });
+  },
+  createUserHandler: async (req, res) => {
+    let { name, email, password } = req.body;
+    const result = adminController.createUser(name, email, password);
+    return res.redirect("/admin");
   },
   renderViewUser: async (req, res) => {
     const rows = await userEntity.getAllUser();
@@ -36,12 +42,22 @@ module.exports = {
       email: user.email,
     });
   },
+  updateUserHandler: async (req, res) => {
+    let { name, email, password } = req.body;
+    const result = adminController.updateUser(name, email, password);
+    return res.redirect("/admin");
+  },
   renderCreateUserProfile: async (req, res) => {
     const rows = await userEntity.getUserWithoutProfile();
     return res.render("create-update-user-profile", {
       title: "Create User Profile",
       data: rows,
     });
+  },
+  createUserProfileHandler: async (req, res) => {
+    const { user, role } = req.body;
+    const result = adminController.createUserProfile(user, role);
+    return res.redirect("/admin");
   },
   renderViewUserProfile: async (req, res) => {
     const rows = await userProfileEntity.getUserProfiles();
@@ -66,5 +82,10 @@ module.exports = {
       title: "Update User Profile",
       data: rows,
     });
+  },
+  updateUserProfileHandler : async (req, res) => {
+    const { user, role } = req.body;
+    const result = adminController.updateUserProfile(user, role);
+    return res.redirect("/admin");
   },
 };

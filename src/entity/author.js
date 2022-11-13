@@ -1,5 +1,5 @@
 const { sequelize } = require("../config/db");
-const { Op, QueryTypes } = require("sequelize");
+const { Op } = require("sequelize");
 
 const User = sequelize.models.users;
 const UserProfile = sequelize.models.users_profile;

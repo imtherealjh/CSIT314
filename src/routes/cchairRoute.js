@@ -1,50 +1,51 @@
 const express = require("express");
 const router = express.Router();
-const cchairViewController = require("../controller/cchairViewController");
+const viewController = require("../controller/cchairViewController");
 
-router.get("/", cchairViewController.renderCCMainMenu);
+router.get("/", viewController.renderCCMainMenu);
 
-router.get("/paper", cchairViewController.renderViewPapers);
+router.get("/paper", viewController.renderViewPapers);
 
-router.get("/paper/:id", cchairViewController.renderViewPaper);
+router.get("/paper/:id", viewController.renderViewPaper);
 
-router.get("/allocate", cchairViewController.renderAllocate);
-
-router.route("/allocate/auto").get(cchairViewController.renderAutoAllocate);
+router.get("/allocate", viewController.renderAllocate);
 
 router
-  .route("/allocate/manual")
-  .get(cchairViewController.renderManualAllocateMain);
+  .route("/allocate/auto")
+  .get(viewController.renderAutoAllocate)
+  .post(viewController.autoAllocateHandler);
+
+router.route("/allocate/manual").get(viewController.renderManualAllocateMain);
 
 router
   .route("/allocate/manual/:id")
-  .get(cchairViewController.renderManualAllocate)
-  .post(cchairViewController.manualAllocateHandler);
+  .get(viewController.renderManualAllocate)
+  .post(viewController.manualAllocateHandler);
 
-router.route("/re-allocate").get(cchairViewController.renderReallocateMain);
+router.route("/re-allocate").get(viewController.renderReallocateMain);
 
 router
   .route("/re-allocate/:id")
-  .get(cchairViewController.renderReallocate)
-  .post(cchairViewController.reallocateHandler);
+  .get(viewController.renderReallocate)
+  .post(viewController.reallocateHandler);
 
-router.route("/de-allocate").get(cchairViewController.renderDeallocateMain);
+router.route("/de-allocate").get(viewController.renderDeallocateMain);
 
 router
   .route("/de-allocate/:id")
-  .get(cchairViewController.renderDeallocate)
-  .post(cchairViewController.deallocateHandler);
+  .get(viewController.renderDeallocate)
+  .post(viewController.deallocateHandler);
 
-router.route("/approve").get(cchairViewController.renderApproveMain);
+router.route("/approve").get(viewController.renderApproveMain);
 
 router
   .route("/approve/:id")
-  .get(cchairViewController.renderApprovePaper)
-  .post(cchairViewController.approvePaperHandler);
+  .get(viewController.renderApprovePaper)
+  .post(viewController.approvePaperHandler);
 
 router
   .route("/notify")
-  .get(cchairViewController.renderNotifyUser)
-  .post(cchairViewController.notifyUserHandler);
+  .get(viewController.renderNotifyUser)
+  .post(viewController.notifyUserHandler);
 
 module.exports = router;

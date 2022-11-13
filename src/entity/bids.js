@@ -2,20 +2,36 @@ const { sequelize } = require("../config/db");
 const { Op } = require("sequelize");
 
 const User = sequelize.models.users;
-const Paper = sequelize.models.papers;
 const Bids = sequelize.models.bids;
 
 module.exports = {
-  getBidsById: (paper_id) => {
-    return User.findAll({
+  countNumberOfBids: (user_id) => {
+    return User.count({
       include: [
         {
           model: Bids,
           as: "userBids",
           attributes: [],
-          required: true,
           where: {
-            [Op.and]: [{ paper_id: paper_id }, {"allocated": false}],
+            allocated: true,
+          },
+        },
+      ],
+      where: {
+        user_id: user_id,
+      },
+    });
+  },
+  getNonAllocatedBidsById: (paper_id) => {
+    return User.findAll({
+      include: [
+        {
+          model: Bids,
+          as: "userBids",
+          required: true,
+          attributes: [],
+          where: {
+            [Op.and]: [{ paper_id: paper_id }, { allocated: false }],
           },
         },
       ],
@@ -33,7 +49,7 @@ module.exports = {
           attributes: [],
           required: true,
           where: {
-            [Op.and]: [{ paper_id: paper_id }, {"allocated": true}],
+            [Op.and]: [{ paper_id: paper_id }, { allocated: true }],
           },
         },
       ],
@@ -43,6 +59,7 @@ module.exports = {
     });
   },
   createPaperAllocation: (paper_id, allocated) => {
+    console.log(allocated, paper_id);
     return Bids.update(
       { allocated: true },
       {
@@ -75,6 +92,7 @@ module.exports = {
         where: {
           [Op.and]: [
             { paper_id: paper_id },
+            { allocated: { [Op.ne]: true } },
             { reviewer_id: { [Op.notIn]: allocated } },
           ],
         },
@@ -83,7 +101,7 @@ module.exports = {
   },
   removeAllocation: (paper_id, allocated) => {
     return Bids.update(
-      { allocated: false},
+      { allocated: false },
       {
         where: {
           [Op.and]: [
@@ -93,5 +111,5 @@ module.exports = {
         },
       }
     );
-  }
+  },
 };

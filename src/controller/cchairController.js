@@ -1,6 +1,7 @@
 const paperEntity = require("../entity/paper");
 const bidsEntity = require("../entity/bids");
 const { sendMail } = require("../config/mail");
+const bids = require("../entity/bids");
 require("dotenv").config();
 
 module.exports = {
@@ -10,23 +11,38 @@ module.exports = {
   getPaperById: (id) => {
     return paperEntity.getPaperById(id);
   },
-  autoAllocateReviewers: (papers) => {
+  autoAllocate: async (papers) => {
     try {
+      papers = [...papers];
+      papers.forEach(async (paper) => {
+        const nonAllocatedBids = await bids.getNonAllocatedBidsById(paper);
+        for (const object of nonAllocatedBids) {
+          const getCounts = await bidsEntity.countNumberOfBids(object.user_id);
+          if (object.max_no_of_paper - getCounts >= 1) {
+            selected = [object.user_id];
+            await Promise.all[
+              (bidsEntity.createPaperAllocation(Number(paper), selected),
+              bidsEntity.updateSuccessfulBids(Number(paper), selected),
+              bidsEntity.updateFailedBids(Number(paper), selected))
+            ];
+          }
+        }
+      });
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
-    return "success";
   },
   getAllocationDetails: async (paper_id, alloc = true, unalloc = false) => {
     try {
       const result = {};
-
       const paper = await paperEntity.getPaperById(paper_id);
       result.titleOfPaper = paper.title;
 
       if (alloc) {
-        const reviewers = await bidsEntity.getBidsById(paper_id);
+        const reviewers = await bidsEntity.getNonAllocatedBidsById(paper_id);
+        console.log(reviewers);
         result.alloc = reviewers;
       }
 
@@ -118,7 +134,7 @@ module.exports = {
       return sendMail(mailOptions);
     });
 
-    const result = await Promise.all(allMails);
+    await Promise.all(allMails);
     return "success";
   },
 };

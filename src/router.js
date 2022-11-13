@@ -7,7 +7,10 @@ const authorRoute = require("./routes/authorRoute");
 const reviewerRoute = require("./routes/reviewerRoute");
 const cchairRoute = require("./routes/cchairRoute")
 
-router.use("/", loginRoute)
+router.use("/", loginRoute);
+router.get("/test", async (req, res)=>{
+
+});
 
 // router.use((req, res, next) => {
 //     if(!req.session.userid) {

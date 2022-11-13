@@ -38,6 +38,20 @@ module.exports = {
     });
     return storedPapers;
   },
+  getReviewersByPaperId : async (id) => {
+    const storedPapers = await Paper.findAll({
+      include: {
+        as: "reviewer",
+        model: User
+      },
+      where: {
+        paper_id: id
+      },
+      raw: true,
+      nest: true
+    });
+    return storedPapers;
+  },
   createPaper: (title, paper) => {
     return Paper.create({ title: title, paper: paper }, { raw: true });
   },

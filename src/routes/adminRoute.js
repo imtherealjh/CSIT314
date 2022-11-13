@@ -8,14 +8,14 @@ router.route("/user").get(viewController.renderViewUser);
 router
   .route("/user/create")
   .get(viewController.renderCreateUser)
-  .post(adminController.createUser);
+  .post(viewController.createUserHandler);
 router.route("/user/update").get(viewController.renderUpdateUserMain);
 
 router.route("/user/profile").get(viewController.renderViewUserProfile);
 router
   .route("/user/profile/create")
   .get(viewController.renderCreateUserProfile)
-  .post(adminController.createUserProfile);
+  .post(viewController.createUserProfileHandler);
 router
   .route("/user/profile/update")
   .get(viewController.renderUpdateUserProfileMain);
@@ -24,10 +24,10 @@ router
 router
   .route("/user/update/:id")
   .get(viewController.renderUpdateUser)
-  .post(adminController.updateUser);
+  .post(viewController.updateUserHandler);
 router
   .route("/user/profile/update/:id")
   .get(viewController.renderUpdateUserProfile)
-  .post(adminController.updateUserProfile);
+  .post(viewController.updateUserProfileHandler);
 
 module.exports = router;
