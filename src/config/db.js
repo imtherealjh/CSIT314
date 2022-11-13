@@ -7,10 +7,7 @@ const sequelize = new Sequelize("CSIT314", "root", "root", {
   host: host,
   dialect: "mysql",
   port: 3306,
-  dialectOptions: {
-    useUTC: false,
-  },
-  timezone: "+08:00",
+  timezone: "+08:00"
 });
 
 sequelize

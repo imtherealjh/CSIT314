@@ -11,6 +11,9 @@ module.exports = {
   getPaperById: (id) => {
     return paperEntity.getPaperById(id);
   },
+  getAllSubmittedPapers: () => {
+    return paperEntity.getAllSubmittedPapers();
+  },
   autoAllocate: async (papers) => {
     try {
       papers = [...papers];

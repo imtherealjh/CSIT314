@@ -10,73 +10,35 @@
 <% if(locals.reviews ? true : false) { %>
 <h5>Reviews</h5>
 <div class="reviews-container">
-    <div class="reviews-wrapper">
-        <div class="reviews">
-            <span>
-                Aliquet risus feugiat in ante metus dictum. Lobortis feugiat vivamus at augue eget arcu. Varius quam
-                quisque id diam vel quam. Orci a scelerisque purus semper. Ut diam quam nulla porttitor massa id neque
-                aliquam. Nisi est sit amet facilisis magna etiam tempor orci eu. Consectetur libero id faucibus nisl
-                tincidunt eget nullam non. Quam viverra orci sagittis eu volutpat odio. Lacus viverra vitae congue eu
-                consequat ac. Nulla facilisi etiam dignissim diam quis enim. Consectetur adipiscing elit pellentesque
-                habitant morbi. Massa tincidunt dui ut ornare lectus sit amet est placerat. Amet aliquam id diam
-                maecenas ultricies. Quis enim lobortis scelerisque fermentum dui faucibus in ornare. Scelerisque purus
-                semper eget duis. Sed tempus urna et pharetra. Blandit cursus risus at ultrices mi tempus imperdiet
-                nulla. Sed ullamcorper morbi tincidunt ornare massa eget.
-            </span>
-            <div class="comment-ratings">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </div>
-        </div>
-        <div class="sub-reviews">
-            <button id="show-reviews"> 
-                <i class="fa-solid fa-caret-down"></i>
-                <span>Show comments</span>
-            </button>
+    <% const reviews = locals.reviews ? locals.reviews : [] %>
+    <% var noOfChar = 200; %>
+    <% reviews.forEach(review => { %>
+        <% var message = review.reviews %>
+        <% var m1 = message.substring(0, noOfChar); %>
+        <% var m2 = message.substring(noOfChar); %>
+        <div class="reviews-wrapper">
             <div class="reviews">
                 <span>
-                    <span>${m1}</span>${m2}
+                    <span><%=m1%></span>
+                    <%if (m2) {%>
+                    <span class="more"><%=m2%></span>
+                    <span class="dots">...</span>
+                    <a href="#" class="read-more">Read More</a>
+                    <% } %>
                 </span>
                 <div class="comment-ratings">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
+                    <%= review.ratings %> <i class="fa-solid fa-star"></i>
                 </div>
             </div>
+            <% if(review.subreviews > 0) { %>
+            <div class="sub-reviews">
+                <button id="show-reviews"> 
+                    <i class="fa-solid fa-caret-down"></i>
+                    <span>Show all comments</span>
+                </button>
+            </div>
+            <% } %>
         </div>
-    </div>
+    <% }) %>
 </div>
 <% } %>
-<script>
-    var message = '<%=(locals.message) ? message : ""%>'
-
-    var length = message.length;
-
-    noOfChar = 150;
-
-    m1 = message.substring(0, noOfChar);
-    m2 = message.substring(noOfChar);
-
-    const container = $(".reviews-container")
-    if (m2) {
-        m2 = `<span class="more">${m2}</span>
-            <span class="dots">...</span>
-            <a href="#" class="read-more">Read More</a>`
-
-    }
-    container.append(
-        `<div class="reviews">
-                <span>
-                    <span>${m1}</span>${m2}
-                </span>
-                <div class="comment-ratings">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-            </div>`
-    );
-
-</script>

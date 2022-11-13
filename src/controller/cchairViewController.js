@@ -9,7 +9,7 @@ module.exports = {
   renderViewPapers: async (req, res) => {
     const rows = await cchairController.getAllPapers();
     return res.render("view-papers", {
-      title: "Approve/Reject",
+      title: "View All Papers",
       link: "/cc/paper",
       data: rows,
     });
@@ -18,10 +18,20 @@ module.exports = {
     const { id } = req.params;
     const rows = await cchairController.getPaperById(id);
     const { title, paper, status } = rows;
+    const message = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Quis auctor elit sed vulputate mi sit amet mauris. Tortor vitae purus faucibus ornare. Nulla facilisi etiam dignissim diam quis. Aenean vel elit scelerisque mauris pellentesque. Duis at consectetur lorem donec massa sapien faucibus et molestie. Natoque penatibus et magnis dis parturient montes nascetur. Nunc congue nisi vitae suscipit tellus mauris a. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Ultricies tristique nulla aliquet enim tortor at. Felis donec et odio pellentesque diam. Auctor eu augue ut lectus arcu bibendum at varius. Egestas sed tempus urna et.
+    Nibh cras pulvinar mattis nunc sed blandit libero volutpat sed. Vitae congue eu consequat ac felis. Egestas sed sed risus pretium quam vulputate dignissim suspendisse in. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Sit amet mauris commodo quis. Sed enim ut sem viverra aliquet eget sit amet. Dis parturient montes nascetur ridiculus mus. Pharetra vel turpis nunc eget lorem dolor. Id volutpat lacus laoreet non curabitur gravida. Posuere sollicitudin aliquam ultrices sagittis. Feugiat in ante metus dictum at. Elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Diam maecenas sed enim ut sem viverra. Quis varius quam quisque id diam vel quam. Enim nec dui nunc mattis.`
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
       status: status,
+      reviews: [
+        {
+          name: "Reviewer 1",
+          reviews: message,
+          ratings: 100,
+          subreviews: 5
+        }
+      ]
     });
   },
   renderAllocate: (req, res) => {
@@ -96,7 +106,7 @@ module.exports = {
     return res.redirect("/cc");
   },
   renderApproveMain: async (req, res) => {
-    const rows = await cchairController.getAllPapers();
+    const rows = await cchairController.getAllSubmittedPapers();
     return res.render("view-papers", {
       title: "Approve/Reject",
       link: "/cc/approve",

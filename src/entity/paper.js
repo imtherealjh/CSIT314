@@ -12,6 +12,15 @@ module.exports = {
   getPaperById: (id) => {
     return Paper.findByPk(id);
   },
+  getAllSubmittedPapers: () => {
+    return Paper.findAll({
+      where: {
+        approved: {
+          [Op.eq]: null
+        }
+      }
+    });
+  },
   getPapersByAuthorId: async (author_id) => {
     const users = await User.findByPk(author_id, {
       include: {
