@@ -6,7 +6,7 @@ const Paper = sequelize.models.papers;
 const Bids = sequelize.models.bids;
 
 module.exports = {
-  getBidsByPaperId: (paper_id) => {
+  getBidsById: (paper_id) => {
     return User.findAll({
       include: [
         {
@@ -24,7 +24,7 @@ module.exports = {
       nest: true,
     });
   },
-  getAllocatedBids: (paper_id) => {
+  getAllocatedBidsById: (paper_id) => {
     return User.findAll({
       include: [
         {
@@ -42,17 +42,56 @@ module.exports = {
       nest: true,
     });
   },
-  createPaperAllocation: (paper_id, allocations) => {
+  createPaperAllocation: (paper_id, allocated) => {
     return Bids.update(
-      { allocated: true, successful: true },
+      { allocated: true },
       {
         where: {
           [Op.and]: [
             { paper_id: paper_id },
-            { reviewer_id: { [Op.in]: allocations } },
+            { reviewer_id: { [Op.in]: allocated } },
           ],
         },
       }
     );
   },
+  updateSuccessfulBids: (paper_id, allocated) => {
+    return Bids.update(
+      { successful: true },
+      {
+        where: {
+          [Op.and]: [
+            { paper_id: paper_id },
+            { reviewer_id: { [Op.in]: allocated } },
+          ],
+        },
+      }
+    );
+  },
+  updateFailedBids: (paper_id, allocated) => {
+    return Bids.update(
+      { allocated: false, successful: false },
+      {
+        where: {
+          [Op.and]: [
+            { paper_id: paper_id },
+            { reviewer_id: { [Op.notIn]: allocated } },
+          ],
+        },
+      }
+    );
+  },
+  removeAllocation: (paper_id, allocated) => {
+    return Bids.update(
+      { allocated: false},
+      {
+        where: {
+          [Op.and]: [
+            { paper_id: paper_id },
+            { reviewer_id: { [Op.notIn]: allocated } },
+          ],
+        },
+      }
+    );
+  }
 };

@@ -63,6 +63,31 @@ module.exports = {
     const allocation = await cchairController.getAllocationDetails(id, true, true);
     return res.render("manual-alloc", allocation);
   },
+  reallocateHandler: async (req, res) => {
+    const { id } = req.params;
+    const { selected } = req.body;
+    await cchairController.updatePaperAllocation(id, selected);
+    return res.redirect("/cc");
+  },
+  renderDeallocateMain: async (req, res) => {
+    const rows = await cchairController.getAllPapers();
+    return res.render("view-papers", {
+      title: "Deallocation Of Papers",
+      link: "/cc/de-allocate",
+      data: rows,
+    });
+  },
+  renderDeallocate: async (req, res) => {
+    const { id } = req.params;
+    const allocation = await cchairController.getAllocationDetails(id, false, true);
+    return res.render("manual-alloc", allocation);
+  },
+  deallocateHandler: async (req, res) => {
+    const { id } = req.params;
+    const { selected } = req.body;
+    await cchairController.updatePaperAllocation(id, selected);
+    return res.redirect("/cc");
+  },
   renderApproveMain: async (req, res) => {
     const rows = await cchairController.getAllPapers();
     return res.render("view-papers", {

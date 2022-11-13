@@ -23,7 +23,17 @@ router
 
 router.route("/re-allocate").get(cchairViewController.renderReallocateMain);
 
-router.route("/re-allocate/:id").get(cchairViewController.renderReallocate);
+router
+  .route("/re-allocate/:id")
+  .get(cchairViewController.renderReallocate)
+  .post(cchairViewController.reallocateHandler);
+
+router.route("/de-allocate").get(cchairViewController.renderDeallocateMain);
+
+router
+  .route("/de-allocate/:id")
+  .get(cchairViewController.renderDeallocate)
+  .post(cchairViewController.deallocateHandler);
 
 router.route("/approve").get(cchairViewController.renderApproveMain);
 

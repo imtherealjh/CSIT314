@@ -1,6 +1,6 @@
 const paperEntity = require("../entity/paper");
 const bidsEntity = require("../entity/bids");
-const { sendMail } = require("../config/mail");;
+const { sendMail } = require("../config/mail");
 require("dotenv").config();
 
 module.exports = {
@@ -21,17 +21,20 @@ module.exports = {
   getAllocationDetails: async (paper_id, alloc = true, unalloc = false) => {
     try {
       const result = {};
+
       const paper = await paperEntity.getPaperById(paper_id);
       result.titleOfPaper = paper.title;
+
       if (alloc) {
         const reviewers = await bidsEntity.getBidsById(paper_id);
-        console.log(reviewers);
         result.alloc = reviewers;
       }
 
-      if(unalloc) {
-        const allocatedReviewers = await bidsEntity.getAllocatedBidsById(paper_id);
-        result.unalloc = allocatedReviewers
+      if (unalloc) {
+        const allocatedReviewers = await bidsEntity.getAllocatedBidsById(
+          paper_id
+        );
+        result.unalloc = allocatedReviewers;
       }
 
       return result;
@@ -40,18 +43,37 @@ module.exports = {
       return;
     }
   },
-  createPaperAllocation : async (paper_id, selected) => {
-    try{
+  createPaperAllocation: async (paper_id, selected) => {
+    try {
       selected = [...selected];
       selected = selected.filter(Number);
-      selected = selected.map(val => Number(val));
-      
+      selected = selected.map((val) => Number(val));
+
       paper_id = Number(paper_id);
 
-      const result = await bidsEntity.createPaperAllocation(paper_id, selected);
-      console.log(result);
+      await Promise.all([
+        bidsEntity.createPaperAllocation(paper_id, selected),
+        bidsEntity.updateSuccessfulBids(paper_id, selected),
+        bidsEntity.updateFailedBids(paper_id, selected),
+      ]);
+      return "success";
+    } catch (err) {
+      console.log(err);
+      return;
     }
-    catch(err) {
+  },
+  updatePaperAllocation: async (paper_id, selected) => {
+    try {
+      selected = [...selected];
+      selected = selected.filter(Number);
+      selected = selected.map((val) => Number(val));
+
+      paper_id = Number(paper_id);
+      await Promise.all([
+        bidsEntity.removeAllocation(paper_id, selected),
+        bidsEntity.createPaperAllocation(paper_id, selected),
+      ]);
+    } catch (err) {
       console.log(err);
       return;
     }
