@@ -83,36 +83,32 @@ const Bids = require("../models/bidsModel")(sequelize);
 User.belongsToMany(Paper, {
   as: "reviewer",
   through: Bids,
-  foreignKey: "reviewer_id",
-  sourceKey: "user_id",
+  foreignKey: "reviewer_id"
 });
 Paper.belongsToMany(User, {
   as: "reviewer",
   through: Bids,
-  foreignKey: "paper_id",
-  sourceKey: "paper_id",
+  foreignKey: "paper_id"
 });
 
 User.hasMany(Bids, {
   as: "userBids",
   foreignKey: "reviewer_id",
-  sourceKey: "user_id",
-});
-Bids.belongsTo(User, {
-  as: "userBids",
-  foreignKey: "reviewer_id",
-  targetKey: "user_id",
 });
 
 Paper.hasMany(Bids, {
   as: "paperBids",
-  foreignKey: "paper_id",
-  sourceKey: "paper_id",
+  foreignKey: "paper_id"
 });
+
+Bids.belongsTo(User, {
+  as: "userBids",
+  foreignKey: "reviewer_id",
+});
+
 Bids.belongsTo(Paper, {
   as: "paperBids",
-  foreignKey: "paper_id",
-  targetKey: "paper_id",
+  foreignKey: "paper_id"
 });
 
 

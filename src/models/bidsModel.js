@@ -8,6 +8,10 @@ module.exports = (sequelize) => {
         successful: {
             type: DataTypes.BOOLEAN
         },
+        allocated: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false
+        }
     },
     {
       sequelize,

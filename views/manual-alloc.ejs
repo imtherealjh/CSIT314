@@ -20,8 +20,8 @@
             <select class="form-select searchTableList" size="20" multiple>
               <% let allocations = locals.alloc ?? [] %>
               <% if(allocations.length > 0) { %>
-                <% for(let [idx, obj] of allocations) { %>
-                  <option value="1">One</option>
+                <% for(let obj of allocations) { %>
+                  <option value="<%=obj.user_id%>"><%=obj.name + " - " + obj.user_id%></option>
                  <% } %>
               <% } %>
             </select>
@@ -37,9 +37,12 @@
           <div class="select-label-container">
             <label>Allocated</label>
             <select name="temp-allocated" class="form-select searchTableList" size="20" multiple>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <% let unallocations = locals.unalloc ?? []; console.log(locals.unalloc) %>
+                <% if(unallocations.length > 0) { %>
+                  <% for(let obj of unallocations) { %>
+                  <option value="<%=obj.user_id%>"><%=obj.name + " - " + obj.user_id%></option>
+                 <% } %>
+              <% } %>
             </select>
           </div>
         </div>

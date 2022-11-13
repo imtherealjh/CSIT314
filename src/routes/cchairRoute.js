@@ -18,7 +18,12 @@ router
 
 router
   .route("/allocate/manual/:id")
-  .get(cchairViewController.renderManualAllocate);
+  .get(cchairViewController.renderManualAllocate)
+  .post(cchairViewController.manualAllocateHandler);
+
+router.route("/re-allocate").get(cchairViewController.renderReallocateMain);
+
+router.route("/re-allocate/:id").get(cchairViewController.renderReallocate);
 
 router.route("/approve").get(cchairViewController.renderApproveMain);
 

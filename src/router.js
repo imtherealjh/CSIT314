@@ -9,12 +9,12 @@ const cchairRoute = require("./routes/cchairRoute")
 
 router.use("/", loginRoute)
 
-router.use((req, res, next) => {
-    if(!req.session.userid) {
-        return res.redirect("/login")
-    }
-    next();
-});
+// router.use((req, res, next) => {
+//     if(!req.session.userid) {
+//         return res.redirect("/login")
+//     }
+//     next();
+// });
 
 router.use("/admin", adminRoute);
 router.use("/author", authorRoute);

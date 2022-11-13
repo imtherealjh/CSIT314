@@ -1,7 +1,6 @@
 const paperEntity = require("../entity/paper");
 const bidsEntity = require("../entity/bids");
-const { sendMail } = require("../config/mail");
-const { parse } = require("dotenv");
+const { sendMail } = require("../config/mail");;
 require("dotenv").config();
 
 module.exports = {
@@ -22,14 +21,37 @@ module.exports = {
   getAllocationDetails: async (paper_id, alloc = true, unalloc = false) => {
     try {
       const result = {};
+      const paper = await paperEntity.getPaperById(paper_id);
+      result.titleOfPaper = paper.title;
       if (alloc) {
-        const paperData = await bidsEntity.getBidsByPaperId(paper_id);
-        console.log(paperData.dataValues.reviewer);
-       
-        //result.alloc = [JSON.parse(JSON.stringify(...paperData.paperBids))];
-        return result;
+        const reviewers = await bidsEntity.getBidsById(paper_id);
+        console.log(reviewers);
+        result.alloc = reviewers;
       }
+
+      if(unalloc) {
+        const allocatedReviewers = await bidsEntity.getAllocatedBidsById(paper_id);
+        result.unalloc = allocatedReviewers
+      }
+
+      return result;
     } catch (err) {
+      console.log(err);
+      return;
+    }
+  },
+  createPaperAllocation : async (paper_id, selected) => {
+    try{
+      selected = [...selected];
+      selected = selected.filter(Number);
+      selected = selected.map(val => Number(val));
+      
+      paper_id = Number(paper_id);
+
+      const result = await bidsEntity.createPaperAllocation(paper_id, selected);
+      console.log(result);
+    }
+    catch(err) {
       console.log(err);
       return;
     }

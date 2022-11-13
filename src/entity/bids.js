@@ -7,22 +7,52 @@ const Bids = sequelize.models.bids;
 
 module.exports = {
   getBidsByPaperId: (paper_id) => {
-    return Paper.findByPk(paper_id, {
-      include: {
-        model: User,
-        as: "reviewer",
-        required: true,
-        include: [
-          {
-            attributes: ["createdAt"],
-            model: Bids,
-            as: "userBids",
-            required: true,
-            separate: true,
-            order: [["createdAt", "ASC"]],
+    return User.findAll({
+      include: [
+        {
+          model: Bids,
+          as: "userBids",
+          attributes: [],
+          required: true,
+          where: {
+            [Op.and]: [{ paper_id: paper_id }, {"allocated": false}],
           },
-        ],
-      },
+        },
+      ],
+      order: [["userBids", "createdAt", "DESC"]],
+      raw: true,
+      nest: true,
     });
+  },
+  getAllocatedBids: (paper_id) => {
+    return User.findAll({
+      include: [
+        {
+          model: Bids,
+          as: "userBids",
+          attributes: [],
+          required: true,
+          where: {
+            [Op.and]: [{ paper_id: paper_id }, {"allocated": true}],
+          },
+        },
+      ],
+      order: [["userBids", "createdAt", "DESC"]],
+      raw: true,
+      nest: true,
+    });
+  },
+  createPaperAllocation: (paper_id, allocations) => {
+    return Bids.update(
+      { allocated: true, successful: true },
+      {
+        where: {
+          [Op.and]: [
+            { paper_id: paper_id },
+            { reviewer_id: { [Op.in]: allocations } },
+          ],
+        },
+      }
+    );
   },
 };
