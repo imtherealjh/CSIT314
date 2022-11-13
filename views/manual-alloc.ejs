@@ -5,7 +5,7 @@
 
   <body>
     <div class="container">
-      <h1>Cyber security paper</h1>
+      <h1><%= titleOfPaper %></h1>
       <div class="input-group rounded">
         <input id="searchList" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
           aria-describedby="search-addon" />
@@ -18,9 +18,12 @@
           <div class="select-label-container">
             <label>Not allocated</label>
             <select class="form-select searchTableList" size="20" multiple>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <% let allocations = locals.alloc ?? [] %>
+              <% if(allocations.length > 0) { %>
+                <% for(let [idx, obj] of allocations) { %>
+                  <option value="1">One</option>
+                 <% } %>
+              <% } %>
             </select>
           </div>
           <div class="two-item-up-down-container">
@@ -33,7 +36,7 @@
           </div>
           <div class="select-label-container">
             <label>Allocated</label>
-            <select name="temp-allocated" class="form-select searchTable" size="20" multiple>
+            <select name="temp-allocated" class="form-select searchTableList" size="20" multiple>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>

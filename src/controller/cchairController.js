@@ -1,5 +1,7 @@
 const paperEntity = require("../entity/paper");
+const bidsEntity = require("../entity/bids");
 const { sendMail } = require("../config/mail");
+const { parse } = require("dotenv");
 require("dotenv").config();
 
 module.exports = {
@@ -17,22 +19,37 @@ module.exports = {
     }
     return "success";
   },
+  getAllocationDetails: async (paper_id, alloc = true, unalloc = false) => {
+    try {
+      const result = {};
+      if (alloc) {
+        const paperData = await bidsEntity.getBidsByPaperId(paper_id);
+        console.log(paperData.dataValues.reviewer);
+       
+        //result.alloc = [JSON.parse(JSON.stringify(...paperData.paperBids))];
+        return result;
+      }
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  },
   acceptPaper: async (id, decisions, reasons) => {
     decisions = decisions == "approve" ? 1 : 0;
     reasons = decisions == 1 ? "Approved with no special reason..." : reasons;
     try {
       await paperEntity.updateApproveStatus(id, decisions, reasons);
+      return "success";
     } catch (err) {
       console.log(err);
       return "error";
     }
-    return "success";
   },
   notifyUser: async (papers) => {
     const researchPaperIds = typeof papers == "string" ? [papers] : papers;
-    const storedPapers = await paperEntity.getAuthorsByPaperIds(researchPaperIds);
-
-    console.log(storedPapers);
+    const storedPapers = await paperEntity.getAuthorsByPaperIds(
+      researchPaperIds
+    );
 
     //convert to string first before converting to json object
     const allPapersToNotify = JSON.parse(JSON.stringify(storedPapers));

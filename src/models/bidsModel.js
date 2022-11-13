@@ -5,14 +5,6 @@ module.exports = (sequelize) => {
 
   Bids.init(
     {
-        reviewer_id:{
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-        },
-        paper_id:{ 
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-        },
         successful: {
             type: DataTypes.BOOLEAN
         },

@@ -93,16 +93,28 @@ Paper.belongsToMany(User, {
   sourceKey: "paper_id",
 });
 
-// Bids.belongsTo(User, {
-//   through: Bids,
-//   foreignKey: "reviewer_id",
-//   targetKey: "user_id",
-// });
-// Bids.belongsTo(Paper, {
-//   through: Bids,
-//   foreignKey: "paper_id",
-//   targetKey: "paper_id",
-// });
+User.hasMany(Bids, {
+  as: "userBids",
+  foreignKey: "reviewer_id",
+  sourceKey: "user_id",
+});
+Bids.belongsTo(User, {
+  as: "userBids",
+  foreignKey: "reviewer_id",
+  targetKey: "user_id",
+});
+
+Paper.hasMany(Bids, {
+  as: "paperBids",
+  foreignKey: "paper_id",
+  sourceKey: "paper_id",
+});
+Bids.belongsTo(Paper, {
+  as: "paperBids",
+  foreignKey: "paper_id",
+  targetKey: "paper_id",
+});
+
 
 module.exports = db;
 

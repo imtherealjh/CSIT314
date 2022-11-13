@@ -13,10 +13,12 @@ router.get("/allocate", cchairViewController.renderAllocate);
 router.route("/allocate/auto").get(cchairViewController.renderAutoAllocate);
 
 router
-  .route("/allocate/view-papers")
+  .route("/allocate/manual")
   .get(cchairViewController.renderManualAllocateMain);
 
-router.route("/allocate/manual");
+router
+  .route("/allocate/manual/:id")
+  .get(cchairViewController.renderManualAllocate);
 
 router.route("/approve").get(cchairViewController.renderApproveMain);
 
