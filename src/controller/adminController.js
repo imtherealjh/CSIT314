@@ -3,6 +3,12 @@ const userProfileEntity = require("../entity/userProfile");
 const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
+  getAllUsers: async() => {
+    return userEntity.getAllUser();
+  },
+  getUserById: async(id) => {
+    return userEntity.getUserById(id);
+  },
   createUser: async (name, email, password) => {
     try {
       password = await bcrypt.hashPassword(password);
@@ -26,6 +32,12 @@ module.exports = {
       console.log(err);
       return "error";
     }
+  },
+  getUserProfile: async() => {
+    return userProfileEntity.getUserProfiles()
+  },
+  getUserProfileById: async(id) => {
+    return userProfileEntity.getUserProfileById(id);
   },
   createUserProfile: async (user, role) => {
     try {

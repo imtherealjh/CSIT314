@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const adminController = require("../controller/adminController");
 const viewController = require("../controller/adminViewController");
 
 router.get("/", viewController.renderMainMenu);

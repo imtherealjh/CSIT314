@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const authorController = require("../controller/authorController");
 const viewController = require("../controller/authorViewController");
 
 router.get("/", viewController.renderMainMenu);
+router.get("/paper", viewController.renderViewPapers);
+
 router
   .route("/paper/submit")
   .get(viewController.renderCreatePaper)
-  .post(authorController.createPaper);
+  .post(viewController.createPaperHandler);
 router.route("/paper/update").get(viewController.renderUpdateAllPapers);
 router.route("/paper/rate").get(viewController.renderRateAllReviews);
 
@@ -15,10 +16,11 @@ router.route("/paper/rate").get(viewController.renderRateAllReviews);
 router
   .route("/paper/update/:id")
   .get(viewController.renderUpdatePaper)
-  .post(authorController.updatePaper);
+  .post(viewController.updatePaperHandler);
 router
   .route("/paper/rate/:id")
   .get(viewController.renderRateReview)
-  .post(authorController.ratePaper);
+  .post(viewController.ratePaperHandler);
+router.get("/paper/:id", viewController.renderSinglePaper);
 
 module.exports = router;

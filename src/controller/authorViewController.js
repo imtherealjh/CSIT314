@@ -1,9 +1,31 @@
+const authorController  = require("../controller/authorController");
 const authorEntity = require("../entity/author");
 const paperEntity = require("../entity/paper");
 
 module.exports = {
   renderMainMenu: (req, res) => {
     return res.render("author-main-menu");
+  },
+  renderSinglePaper: async (req, res) => {
+    const { id } = req.params;
+    const storedPaper = await authorController.getPaperById(id);
+    const { title, paper, status } = storedPaper;
+    return res.render("view-single-paper-main", {
+      titleOfPaper: title,
+      paper: paper,
+      status: status,
+    });
+  },
+  renderViewPapers: async (req, res) => {
+    //get papers by currentUser and pass to res.render
+    //specify link so that can use the same page to render views for view/select papers
+    const { userid } = req.session;
+    const papers = await authorController.getPapersByAuthorId(userid);
+    return res.render("view-papers", {
+      title: "View all papers",
+      link: "/author/paper",
+      data: papers,
+    });
   },
   renderCreatePaper: async (req, res) => {
     const { userid } = req.session;
@@ -15,16 +37,11 @@ module.exports = {
       data: authors,
     });
   },
-  retrieveAllPapers: async (req, res) => {
-    //get papers by currentUser and pass to res.render
-    //specify link so that can use the same page to render views for view/select papers
+  createPaperHandler: async (req, res) => {
     const { userid } = req.session;
-    const papers = await paperEntity.getPapersByAuthorId(userid);
-    return res.render("view-papers", {
-      title: "View all papers",
-      link: "/author/paper",
-      data: papers,
-    });
+    let { title, paper, coauthors } = req.body;
+    const result = await authorController.createPaper(userid, title, paper, coauthors);
+    return res.redirect("/author")
   },
   renderUpdateAllPapers: async (req, res) => {
     const { userid } = req.session;
@@ -39,7 +56,7 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params;
     const authors = await authorEntity.getNonCurrentAuthor(userid);
-    const paperObj = await paperEntity.getPaperById(id);
+    const paperObj = await authorController.getPaperById(id);
     const { title, paper } = paperObj;
     return res.render("create-update-paper", {
       title: "Update Paper",
@@ -48,9 +65,16 @@ module.exports = {
       data: authors,
     });
   },
+  updatePaperHandler: async (req, res) => {
+    const { userid } = req.session;
+    const { id } = req.params;
+    let { title, paper, coauthors } = req.body;
+    const result = await authorController.updatePaper(userid, id, title, paper, coauthors);
+    return res.redirect("/author")
+  },
   renderRateAllReviews: async (req, res) => {
     const { userid } = req.session;
-    const papers = await paperEntity.getPapersByAuthorId(userid);
+    const papers = await authorController.getPapersByAuthorId(userid);
     return res.render("view-papers", {
       title: "Rate papers",
       link: "/author/paper/rate",
@@ -59,7 +83,7 @@ module.exports = {
   },
   renderRateReview: async (req, res) => {
     const { id } = req.params;
-    const paperObj = await paperEntity.getPaperById(id);
+    const paperObj = await authorController.getPaperById(id);
     const { title, paper, status } = paperObj;
     return res.render("author-rate-review", {
       titleOfPaper: title,
@@ -67,4 +91,10 @@ module.exports = {
       status: status,
     });
   },
+  ratePaperHandler: async(req, res) => {
+    const { rate } = req.body;
+    const { id } = req.params;
+    const result = await authorController.ratePaper(id, rate);
+    return res.redirect("/author");
+  }
 };
