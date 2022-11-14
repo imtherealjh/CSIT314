@@ -33,7 +33,7 @@ module.exports = {
       return "error";
     }
   },
-  getUserProfile: async() => {
+  getUserProfiles: async() => {
     return userProfileEntity.getUserProfiles()
   },
   getUserProfileById: async(id) => {

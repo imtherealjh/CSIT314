@@ -6,6 +6,12 @@
 
   <body>
     <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/author">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Papers to review</li>
+        </ol>
+      </nav>
       <%-include('partials/view-single-paper.ejs')%>
       <form method="post">
         <div style="justify-content: center; align-items: center;" class="ratings">
