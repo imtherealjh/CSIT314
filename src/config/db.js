@@ -2,7 +2,9 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const bcrypt = require("../utils/bcrypt");
 
-const host = process.env.GITLAB_CI ? "mysql" : "containers-us-west-109.railway.app";
+const host = process.env.GITLAB_CI
+  ? "mysql"
+  : "containers-us-west-109.railway.app";
 
 const sequelize = new Sequelize("railway", "root", "TDTFWn4AcVZe0fqtNfnV", {
   host: host,
@@ -27,8 +29,7 @@ sequelize
         email: "admin@admin.com",
         // password:
         //   "$2b$10$dRQOabemjKTBO1wmctmqSeVcUMZjzWoHaDTZLwXpw0VJYO3ke.5J2",
-        password:
-          await bcrypt.hashPassword("jeff"),
+        password: await bcrypt.hashPassword("jeff"),
       });
 
       const UserProfile = sequelize.models.users_profile;
@@ -83,12 +84,12 @@ const Bids = require("../models/bidsModel")(sequelize);
 User.belongsToMany(Paper, {
   as: "reviewer",
   through: Bids,
-  foreignKey: "reviewer_id"
+  foreignKey: "reviewer_id",
 });
 Paper.belongsToMany(User, {
   as: "reviewer",
   through: Bids,
-  foreignKey: "paper_id"
+  foreignKey: "paper_id",
 });
 
 User.hasMany(Bids, {
@@ -98,7 +99,7 @@ User.hasMany(Bids, {
 
 Paper.hasMany(Bids, {
   as: "paperBids",
-  foreignKey: "paper_id"
+  foreignKey: "paper_id",
 });
 
 Bids.belongsTo(User, {
@@ -108,9 +109,29 @@ Bids.belongsTo(User, {
 
 Bids.belongsTo(Paper, {
   as: "paperBids",
-  foreignKey: "paper_id"
+  foreignKey: "paper_id",
 });
 
+const reviews = require("../models/reviewModel")(sequelize);
+const comments = require("../models/commentModel")(sequelize);
+
+Paper.hasOne(reviews, {
+  foreignKey: "paper_id",
+});
+
+reviews.belongsTo(Paper, {
+  foreignKey: "paper_id",
+});
+
+reviews.hasMany(comments, {
+  foreignKey: "review_id",
+  targetKey: "review_id"
+});
+
+comments.belongsTo(reviews, {
+  foreignKey: "review_id",
+  sourceKey: "review_id"
+});
 
 module.exports = db;
 
