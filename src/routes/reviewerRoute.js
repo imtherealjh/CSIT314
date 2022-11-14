@@ -16,5 +16,18 @@ router
   .route("/specify/max-no-of-paper")
   .get(viewController.renderMaxNoOfPaper)
   .post(reviewerController.updateMaxNoOfPaper);
+router
+  .route("/papers")
+  .get(viewController.renderListPapers)
+router
+  .route("/review-paper")
+  .get(viewController.renderReviewPaperList)
+  router
+    .route("/review-paper/:id")
+    .get(viewController.renderReviewPaper)
+    .post(reviewerController.updatePaperReview);
+router
+.route("/review-paper/:id/remove")
+.post(reviewerController.removePaperReview);
 
 module.exports = router;

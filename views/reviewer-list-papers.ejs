@@ -1,0 +1,23 @@
+<%- include('partials/head.ejs') %>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">List of Papers</li>
+        </ol>
+      </nav>
+      <h1>List of Papers</h1>
+      <div class="list-group">
+        <% for(let [idx, obj] of data.entries() ?? []) { %>
+          <label class="list-group-item">
+            <%=obj.title%>
+          </label>
+          <% } %>
+      </div>
+    </div>
+  </body>
+
+  </html>

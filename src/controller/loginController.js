@@ -40,6 +40,7 @@ module.exports = {
 
     session = req.session;
     session.userid = result.user_id;
+    console.log("SET SESSION", session, result);
     const redirection = getRedirection(result["profile.role_name"]);
     return res.redirect(redirection);
   },

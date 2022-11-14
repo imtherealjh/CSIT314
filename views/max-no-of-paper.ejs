@@ -3,11 +3,17 @@
 
   <body>
     <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Max number of papers</li>
+        </ol>
+      </nav>
       <h1>Specify Max No Of Paper</h1>
       <form method="post">
         <div class="form-group">
           <label for="maxNo">Max No Of Paper</label>
-          <input type="number" name="maxNo" class="form-control" id="inputTitle" placeholder="Enter no of paper"
+          <input type="number" name="maxNo" class="form-control" id="inputTitle" max=4 placeholder="Enter no of paper"
             value="<%=maxNo%>">
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>

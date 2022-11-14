@@ -1,0 +1,30 @@
+<%-include('partials/head.ejs')%>
+  <link rel="stylesheet" href="./css/bids.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Papers to review</li>
+        </ol>
+      </nav>
+      <h1>
+        <%=title%>
+      </h1>
+      <div class="list-group">
+        <% for(let [idx, obj] of data.entries() ?? []) { %>
+          <label class="list-group-item" onclick="window.location='/reviewer/review-paper/<%=obj.paper_id%>'" data-id="<%=obj.paper_id%>" style="cursor: pointer">
+            <%=obj.title%>
+          </label>
+          <% } %>
+      </div>
+      <div class="error">
+        <%=error%>
+      </div>
+    </div>
+    <script></script>
+  </body>
+
+  </html>
