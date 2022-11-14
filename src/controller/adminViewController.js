@@ -18,14 +18,14 @@ module.exports = {
     return res.redirect("/admin");
   },
   renderViewUser: async (req, res) => {
-    const rows = await adminController.getAllUser();
+    const rows = await adminController.getAllUsers();
     return res.render("view-users", {
       title: "View Users",
       data: rows,
     });
   },
   renderUpdateUserMain: async (req, res) => {
-    const rows = await adminController.getAllUser();
+    const rows = await adminController.getAllUsers();
     return res.render("view-users", {
       title: "Update Users",
       link: "/admin/user/update",
