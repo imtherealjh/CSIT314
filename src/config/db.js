@@ -10,7 +10,7 @@ const sequelize = new Sequelize("railway", "root", "TDTFWn4AcVZe0fqtNfnV", {
   host: host,
   dialect: "mysql",
   port: 7315,
-  timezone: "+08:00"
+  timezone: "+08:00",
 });
 
 sequelize
@@ -125,12 +125,32 @@ reviews.belongsTo(Paper, {
 
 reviews.hasMany(comments, {
   foreignKey: "review_id",
-  targetKey: "review_id"
+  targetKey: "review_id",
 });
 
 comments.belongsTo(reviews, {
   foreignKey: "review_id",
-  sourceKey: "review_id"
+  sourceKey: "review_id",
+});
+
+User.hasOne(comments, {
+  foreignKey: "user_id",
+  targetKey: "user_id",
+});
+
+comments.belongsTo(reviews, {
+  foreignKey: "user_id",
+  sourceKey: "user_id",
+});
+
+User.hasMany(reviews, {
+  foreignKey: "user_id",
+  targetKey: "user_id",
+});
+
+reviews.belongsTo(User, {
+  foreignKey: "user_id",
+  sourceKey: "user_id",
 });
 
 module.exports = db;
