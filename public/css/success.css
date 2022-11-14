@@ -1,0 +1,11 @@
+.successBox{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+.successBox button{
+    margin-top: 1.2em;
+}
