@@ -92,7 +92,10 @@ module.exports = (sequelize) => {
     foreignKey: "user_id",
     sourceKey: "user_id",
   });
-
+  comments.hasOne(User, {
+    foreignKey: "user_id",
+    sourceKey: "user_id",
+  });
   User.hasMany(reviews, {
     foreignKey: "user_id",
     targetKey: "user_id",
