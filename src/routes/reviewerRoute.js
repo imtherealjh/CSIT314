@@ -22,6 +22,7 @@ router
 router
   .route("/papers/:id")
   .get(viewController.renderListPapersComments)
+  .post(reviewerController.createComments);
 router
   .route("/review-paper")
   .get(viewController.renderReviewPaperList)

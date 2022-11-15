@@ -131,11 +131,14 @@ comments.belongsTo(reviews, {
   sourceKey: "review_id",
 });
 
-User.hasOne(comments, {
+User.hasMany(comments, {
   foreignKey: "user_id",
   targetKey: "user_id",
 });
-
+comments.hasOne(User, {
+  foreignKey: "user_id",
+  sourceKey: "user_id",
+});
 comments.belongsTo(reviews, {
   foreignKey: "user_id",
   sourceKey: "user_id",

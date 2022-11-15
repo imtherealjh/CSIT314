@@ -34,8 +34,9 @@
       <div class="container pt-5">
         <div class ="container">
         <form method="post">
+        <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="comments"></textarea>
             <button class="btn rounded-0 btn-primary btn-sm float-right"
                       type="submit">Comment</button>
         </form>
@@ -43,6 +44,19 @@
             <label for="floatingTextarea" style="text-decoration:underline;">Comments</label>
         </div>
         </div>
+          </div>
+          <div class="container pt-5">
+            <div class ="container">
+            <div class ="row">
+            <% comm.forEach((comm,comment_id) => {%>
+            <p>
+              <strong><%=comm.user.name%></strong>
+              <br> 
+              <%=comm.comments%>
+            </p>
+            </div>
+            <% }) %>
+            </div>
           </div>
   </div>
     

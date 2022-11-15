@@ -1,6 +1,8 @@
 const reviewerModel = require("../entity/reviewer");
 const paperEntity = require("../entity/paper");
 const paperModel = require("../models/paperModel");
+const commentModel = require("../models/commentModel");
+const reviewModel = require("../models/reviewModel");
 
 module.exports = {
   renderMainMenu: (req, res) => {
@@ -23,10 +25,12 @@ module.exports = {
   },
   renderListPapersComments: async (req, res) => {
     const { userid } = req.session;
-    const { id } = req.params
+    const { id } = req.params;
     const paper = await paperEntity.getPaperById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("reviewer-comments", {
       data: paper,
+      comm: ccoments,
       error: ""
     });
   },
@@ -75,6 +79,7 @@ module.exports = {
     const paper = await paperEntity.getPaperById(id);
     return res.render("reviewer-review-paper", {
       data: paper,
+      update: reviewModel,
       error: ""
     });
   },

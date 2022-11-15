@@ -1,8 +1,11 @@
 const { sequelize } = require("../config/db");
+const { Op } = require("sequelize");
 
 const User = sequelize.models.users;
 const Bids = sequelize.models.bids;
 const Papers = sequelize.models.papers;
+const Reviews = sequelize.models.reviews;
+const Comments = sequelize.models.comments;
 
 module.exports = {
   getMaxNoOfPaper: async (reviewer_id) => {
@@ -72,5 +75,25 @@ module.exports = {
   },
   createBids: (bids) => {
     return Bids.bulkCreate(bids, { raw: true });
+  },
+  createComments: (reviewId, comm, userId) => {
+    return Comments.create({ comments: comm, review_id: reviewId , user_id : userId});
+  },
+  getCommentsById: (id) => {
+    return Comments.findByPk(id);
+  },
+  getAllCommentsByPaperId: (id) => {
+    return Comments.findAll({
+      where: {
+        review_id: {
+          [Op.eq]: id
+        },
+      },
+      include: [
+        {
+           model: User
+        },
+       ]
+    });
   },
 };

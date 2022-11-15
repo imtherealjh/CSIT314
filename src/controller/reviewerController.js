@@ -30,6 +30,18 @@ module.exports = {
 
     return res.redirect("/reviewer/review-paper");
   },
+  createComments: async (req, res) => {
+    const { comments, paper_id: reviewId } = req.body;
+    const { userid } = req.session;
+    try {
+      await reviewerModel.createComments(reviewId, comments, userid)
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+    return res.redirect("/reviewer/papers/"+reviewId);
+  },
   removePaperReview: async (req, res) => {
     const { id } = req.params;
 
