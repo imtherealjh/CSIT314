@@ -6,19 +6,19 @@ const host = process.env.GITLAB_CI
   ? "mysql"
   : "containers-us-west-109.railway.app";
 
-const sequelize = new Sequelize("railway", "root", "TDTFWn4AcVZe0fqtNfnV", {
-  host: host,
-  dialect: "mysql",
-  port: 7315,
-  timezone: "+08:00",
-});
-
-// const sequelize = new Sequelize("CSIT314", "root", "root", {
-//   host: "localhost",
+// const sequelize = new Sequelize("railway", "root", "TDTFWn4AcVZe0fqtNfnV", {
+//   host: host,
 //   dialect: "mysql",
-//   port: 3306,
+//   port: 7315,
 //   timezone: "+08:00",
 // });
+
+const sequelize = new Sequelize("CSIT314", "root", "root", {
+  host: "localhost",
+  dialect: "mysql",
+  port: 3306,
+  timezone: "+08:00",
+});
 
 sequelize
   .authenticate()

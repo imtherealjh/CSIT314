@@ -1,8 +1,11 @@
-const admin = require("../entity/user");
-const adminController = require("../controller/adminController");
+const userEntity = require("../entity/user");
+const userController = require("../controller/adminController");
+const userProfileEntity = require("../entity/userProfile");
+const userProfileController = require("../controller/adminController");
 const { sequelize } = require("../config/db");
 
 import { expect, jest, test } from "@jest/globals";
+import bcrypt from "../utils/bcrypt";
 
 async function initializeDatabase() {
   await sequelize.sync({ force: true });
@@ -74,8 +77,8 @@ afterAll(async () => {
 describe("User", () => {
   describe("Testing user functions", () => {
     it("Should get all users", async () => {
-      const spy = jest.spyOn(admin, "getAllUsers");
-      const result = await adminController.getAllUsers();
+      const spy = jest.spyOn(userEntity, "getAllUsers");
+      const result = await userController.getAllUsers();
       expect(spy).toBeCalledTimes(1);
       expect(result).toStrictEqual([
         {
@@ -113,8 +116,8 @@ describe("User", () => {
       ]);
     });
     it("Should get user by id", async () => {
-      const spy = jest.spyOn(admin, "getUserById");
-      const result = await adminController.getUserById(1);
+      const spy = jest.spyOn(userEntity, "getUserById");
+      const result = await userController.getUserById(1);
       expect(spy).toBeCalledTimes(1);
       const myObj = JSON.parse(JSON.stringify(result));
       expect(myObj).toEqual({
@@ -132,18 +135,65 @@ describe("User", () => {
         user_id: 5,
         name: "myReview",
         email: "myReview@myReview.com",
-        password:
-          "$2b$10$xV8odMOMgrzgMFsjjGiflOYuChV5qkfAowvdvH0peehzBYMZi8IBG",
         max_no_of_paper: null,
       };
-      
-      const spy = jest.spyOn(admin, "createUser");
-      const result = await adminController.createUser("myReview", "myReview@myReview.com", "jeff");
+
+      const spy = jest.spyOn(userEntity, "createUser");
+      const result = await userController.createUser(
+        "myReview",
+        "myReview@myReview.com",
+        "jeff"
+      );
       expect(spy).toBeCalledTimes(1);
-      console.log(result);
-      //expect(result).toBe("success");
-      const user = await adminController.getUserById(5);
-      expect(user).toBe(userToInsert);
+      const user = await userController.getUserById(5);
+
+      const myObj = JSON.parse(JSON.stringify(user));
+      const password = myObj.password;
+
+      const matches = await bcrypt.comparePassword("jeff", password);
+      expect(matches).toBe(true);
+
+      delete myObj.password;
+      expect(myObj).toStrictEqual(userToInsert);
+    });
+
+    it("Should update single user", async () => {
+      const userToUpdate = {
+        user_id: 5,
+        name: "myReview",
+        email: "myReview@myReview.com",
+        max_no_of_paper: null,
+      };
+
+      const spy = jest.spyOn(userEntity, "updateUser");
+      userToUpdate.name = "myNameJeff";
+      const result = await userController.updateUser(
+        userToUpdate.user_id,
+        userToUpdate.name,
+        userToUpdate.email,
+        "jeff"
+      );
+
+      expect(spy).toBeCalledTimes(1);
+      expect(result).toBe("success");
+      const user = await userController.getUserById(5);
+
+      const myObj = JSON.parse(JSON.stringify(user));
+      const password = myObj.password;
+
+      const matches = await bcrypt.comparePassword("jeff", password);
+      expect(matches).toBe(true);
+
+      delete myObj.password;
+      expect(myObj).toStrictEqual(userToUpdate);
     });
   });
 });
+
+describe("User Profile", () => {
+  describe("Testing user profile functions", () => {
+    it("Should get all users", async () => {
+
+    });
+  });
+})
