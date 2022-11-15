@@ -1,6 +1,8 @@
 const reviewerModel = require("../entity/reviewer");
 const paperEntity = require("../entity/paper");
 const paperModel = require("../models/paperModel");
+const commentModel = require("../models/commentModel");
+const reviewModel = require("../models/reviewModel");
 
 module.exports = {
   renderMainMenu: (req, res) => {
@@ -19,6 +21,20 @@ module.exports = {
     const papers = await paperEntity.getAllPaper()
     return res.render("reviewer-list-papers", {
       data: papers,
+    });
+  },
+  renderListPapersComments: async (req, res) => {
+    const { userid } = req.session;
+    const { id } = req.params;
+    const paper = await paperEntity.getPaperById(id);
+    const revData = await reviewerModel.getReviewsById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    return res.render("reviewer-comments", {
+      data: paper,
+      review: revData,
+      comm: ccoments,
+      user_id: userid,
+      error: ""
     });
   },
   renderSubmitBids: async (req, res) => {
@@ -64,8 +80,10 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params
     const paper = await paperEntity.getPaperById(id);
+    const revData = await reviewerModel.getReviewsById(id);
     return res.render("reviewer-review-paper", {
-      data: paper,
+      data : paper,
+      review: revData,
       error: ""
     });
   },

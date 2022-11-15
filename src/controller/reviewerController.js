@@ -16,13 +16,28 @@ module.exports = {
     return res.redirect("/reviewer");
   },
   updatePaperReview: async (req, res) => {
-    const { ratings, reasons, paper_id } = req.body;
+    const { ratings, reviews, paper_id } = req.body;
+    const { user_id } = req.session;
+
+    console.log({ ratings, reviews, paper_id, user_id });
 
     try {
-      await reviewerModel.updatePaperReview(paper_id, {
+      await reviewerModel.upsertPaperReview(paper_id,  {
         ratings,
-        reasons
-      });
+        reviews
+      })
+      // const review = await reviewerModel.getReviewsById(paper_id);
+      // if (!review) {
+      //   await reviewerModel.createPaperReview(paper_id,  {
+      //     ratings,
+      //     reviews
+      //   })
+      // } else {
+      // await reviewerModel.updatePaperReview(paper_id, user_id, {
+      //   ratings,
+      //   reviews
+      // });
+      // }
     } catch (err) {
       console.log(err);
       return;
@@ -30,14 +45,34 @@ module.exports = {
 
     return res.redirect("/reviewer/review-paper");
   },
+  createComments: async (req, res) => {
+    const { comments, paper_id: reviewId } = req.body;
+    const { userid } = req.session;
+    try {
+      await reviewerModel.createComments(reviewId, comments, userid)
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+    return res.redirect("/reviewer/papers/"+reviewId);
+  },
+  
+  deleteComment: async (req, res) => {
+    const {  comment_id } = req.params;
+    try {
+      await reviewerModel.deleteComment(comment_id)
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    return res.redirect("/reviewer/papers/");
+  },
   removePaperReview: async (req, res) => {
     const { id } = req.params;
 
     try {
-      await reviewerModel.updatePaperReview(id, {
-        ratings: null,
-        reasons: null
-      });
+      await reviewerModel.removePaperReview(id);
     } catch (err) {
       console.log(err);
       return;

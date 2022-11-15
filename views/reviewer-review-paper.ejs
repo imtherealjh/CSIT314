@@ -13,25 +13,26 @@
 
       <h1>Review Paper</h1>
 
-      <div class="list-group">
+      <div class="list-group" style="font-weight:600; text-decoration:underline;">
         <%=data.title%>
       </div>
 
 
       <form method="post">
         <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
+        
         <div class="form-group">
           <label for="ratings">Rating</label>
           <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
-            value="<%=data.ratings || 0%>">
+            value="<%=review ? review.ratings || 0 : 0%>">
         </div>
         <div class="form-group">
-          <label for="reasons">Reason</label>
-          <input  name="reasons" class="form-control" id="reasons" placeholder="Enter Reason for review"
-            value="<%=data.reasons%>">
+          <label for="reviews">Description for review</label>
+          <input  name="reviews" class="form-control" id="reviews" placeholder="Enter description for review"
+            value="<%=review ? review.reviews || 0 : 0%>">
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block"><%=data.ratings == null ? 'Review' : 'Update Review'%></button>
-        <% if(data.ratings != null){ %>
+        <button type="submit" class="btn btn-primary btn-lg btn-block"><%=review && review.ratings == null ? 'Review' : 'Update Review'%></button>
+        <% if(review && review.ratings != null){ %>
           <button type="button" onclick="remove('<%=data.paper_id%>')" class="btn btn-danger btn-lg btn-block">Remove Review</button>
        <% } %>
       </form>
