@@ -98,7 +98,7 @@ module.exports = {
   },
   updateUserProfileHandler: async (req, res) => {
     const { user, role } = req.body;
-    const result = adminController.updateUserProfile(user, role);
+    const result = await adminController.updateUserProfile(user, role);
     if (result == "success") {
       return res.render("success", { link: "/admin" });
     } else {
