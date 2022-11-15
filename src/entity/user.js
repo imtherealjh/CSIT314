@@ -5,7 +5,7 @@ const User = sequelize.models.users;
 const UserProfile = sequelize.models.users_profile;
 
 module.exports = {
-  getAllUser: () => {
+  getAllUsers: () => {
     return User.findAll({ raw: true });
   },
   getUserByEmail: (email) => {
@@ -23,7 +23,7 @@ module.exports = {
       raw: true,
     });
   },
-  getUserById: async (user_id) => {
+  getUserById: (user_id) => {
     return User.findByPk(user_id);
   },
   getUserWithoutProfile: () => {

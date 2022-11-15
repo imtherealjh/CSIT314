@@ -78,7 +78,7 @@ module.exports = {
       return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
   },
   updatePaperAllocation: async (paper_id, selected) => {
@@ -92,9 +92,10 @@ module.exports = {
         bidsEntity.removeAllocation(paper_id, selected),
         bidsEntity.createPaperAllocation(paper_id, selected),
       ]);
+      return "success";
     } catch (err) {
       console.log(err);
-      return;
+      return "error";
     }
   },
   acceptPaper: async (id, decisions, reasons) => {

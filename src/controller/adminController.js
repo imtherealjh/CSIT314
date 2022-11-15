@@ -4,24 +4,26 @@ const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
   getAllUsers: async() => {
-    return userEntity.getAllUser();
+    return userEntity.getAllUsers();
   },
   getUserById: async(id) => {
     return userEntity.getUserById(id);
   },
   createUser: async (name, email, password) => {
     try {
+      console.log(password);
       password = await bcrypt.hashPassword(password);
       result = await userEntity.createUser(name, email, password);
+      console.log(JSON.parse(JSON.stringify(result)));
       return "success";
     } catch (err) {
       console.log(err);
       return "error";
     }
   },
-  updateUser: async (name, email, password) => {
+  updateUser: async (id, name, email, password) => {
     try {
-      const userObject = await userEntity.getUserById(req.params.id);
+      const userObject = await userEntity.getUserById(id);
       password =
         password === ""
           ? userObject.password

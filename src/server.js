@@ -1,5 +1,5 @@
 const app = require('./app')
-const PORT = 8000
+const PORT = 1234
 
 app.listen(PORT, (error) => {
     if (error) return console.log(`Error occured! : ${error}`);
