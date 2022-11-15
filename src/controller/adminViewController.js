@@ -14,18 +14,22 @@ module.exports = {
   },
   createUserHandler: async (req, res) => {
     let { name, email, password } = req.body;
-    const result = adminController.createUser(name, email, password);
-    return res.redirect("/admin");
+    const result = await adminController.createUser(name, email, password);
+    if (result == "success") {
+      return res.render("success", { link: "/admin" });
+    } else {
+      return res.render("error", { link: "/admin" });
+    }
   },
   renderViewUser: async (req, res) => {
-    const rows = await adminController.getAllUser();
+    const rows = await adminController.getAllUsers();
     return res.render("view-users", {
       title: "View Users",
       data: rows,
     });
   },
   renderUpdateUserMain: async (req, res) => {
-    const rows = await adminController.getAllUser();
+    const rows = await adminController.getAllUsers();
     return res.render("view-users", {
       title: "Update Users",
       link: "/admin/user/update",
@@ -43,9 +47,14 @@ module.exports = {
     });
   },
   updateUserHandler: async (req, res) => {
+    const { id } = req.params;
     let { name, email, password } = req.body;
-    const result = adminController.updateUser(name, email, password);
-    return res.redirect("/admin");
+    const result = await adminController.updateUser(id, name, email, password);
+    if (result == "success") {
+      return res.render("success", { link: "/admin" });
+    } else {
+      return res.render("error", { link: "/admin" });
+    }
   },
   renderCreateUserProfile: async (req, res) => {
     const rows = await userEntity.getUserWithoutProfile();
@@ -56,8 +65,12 @@ module.exports = {
   },
   createUserProfileHandler: async (req, res) => {
     const { user, role } = req.body;
-    const result = adminController.createUserProfile(user, role);
-    return res.redirect("/admin");
+    const result = await adminController.createUserProfile(user, role);
+    if (result == "success") {
+      return res.render("success", { link: "/admin" });
+    } else {
+      return res.render("error", { link: "/admin" });
+    }
   },
   renderViewUserProfile: async (req, res) => {
     const rows = await adminController.getUserProfiles();
@@ -85,7 +98,11 @@ module.exports = {
   },
   updateUserProfileHandler: async (req, res) => {
     const { user, role } = req.body;
-    const result = adminController.updateUserProfile(user, role);
-    return res.redirect("/admin");
+    const result = await adminController.updateUserProfile(user, role);
+    if (result == "success") {
+      return res.render("success", { link: "/admin" });
+    } else {
+      return res.render("error", { link: "/admin" });
+    }
   },
 };

@@ -21,7 +21,7 @@ module.exports = {
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
-      status: status
+      status: status,
     });
   },
   renderAllocate: (req, res) => {
@@ -30,13 +30,17 @@ module.exports = {
   renderAutoAllocate: async (req, res) => {
     const rows = await cchairController.getAllPapers();
     return res.render("auto-alloc", {
-      data: rows
-    })
+      data: rows,
+    });
   },
   autoAllocateHandler: async (req, res) => {
     const { papers } = req.body;
     const result = await cchairController.autoAllocate(papers);
-    return res.redirect("/cc");
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
   renderManualAllocateMain: async (req, res) => {
     const rows = await cchairController.getAllPapers();
@@ -54,8 +58,12 @@ module.exports = {
   manualAllocateHandler: async (req, res) => {
     const { id } = req.params;
     const { selected } = req.body;
-    await cchairController.createPaperAllocation(id, selected);
-    return res.redirect("/cc");
+    const result = await cchairController.createPaperAllocation(id, selected);
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
   renderReallocateMain: async (req, res) => {
     const rows = await cchairController.getAllPapers();
@@ -67,14 +75,22 @@ module.exports = {
   },
   renderReallocate: async (req, res) => {
     const { id } = req.params;
-    const allocation = await cchairController.getAllocationDetails(id, true, true);
+    const allocation = await cchairController.getAllocationDetails(
+      id,
+      true,
+      true
+    );
     return res.render("manual-alloc", allocation);
   },
   reallocateHandler: async (req, res) => {
     const { id } = req.params;
     const { selected } = req.body;
-    await cchairController.updatePaperAllocation(id, selected);
-    return res.redirect("/cc");
+    const result = await cchairController.updatePaperAllocation(id, selected);
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
   renderDeallocateMain: async (req, res) => {
     const rows = await cchairController.getAllPapers();
@@ -86,14 +102,22 @@ module.exports = {
   },
   renderDeallocate: async (req, res) => {
     const { id } = req.params;
-    const allocation = await cchairController.getAllocationDetails(id, false, true);
+    const allocation = await cchairController.getAllocationDetails(
+      id,
+      false,
+      true
+    );
     return res.render("manual-alloc", allocation);
   },
   deallocateHandler: async (req, res) => {
     const { id } = req.params;
     const { selected } = req.body;
-    await cchairController.updatePaperAllocation(id, selected);
-    return res.redirect("/cc");
+    const result = await cchairController.updatePaperAllocation(id, selected);
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
   renderApproveMain: async (req, res) => {
     const rows = await cchairController.getAllSubmittedPapers();
@@ -116,8 +140,12 @@ module.exports = {
   approvePaperHandler: async (req, res) => {
     const { id } = req.params;
     const { decisions, reasons } = req.body;
-    await cchairController.acceptPaper(id, decisions, reasons);
-    return res.redirect("/cc");
+    const result = await cchairController.acceptPaper(id, decisions, reasons);
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
   renderNotifyUser: async (req, res) => {
     const rows = await cchairController.getAllPapers();
@@ -138,7 +166,11 @@ module.exports = {
         error: "Please choose at least one of the choices...",
       });
     }
-    await cchairController.notifyUser(papers);
-    return res.redirect("/cc");
+    const result = await cchairController.notifyUser(papers);
+    if (result == "success") {
+      return res.render("success", { link: "/cc" });
+    } else {
+      return res.render("error", { link: "/cc" });
+    }
   },
 };

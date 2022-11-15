@@ -26,6 +26,8 @@ app.set("views", path.join(process.cwd(), 'views'));
 app.use('*/css',express.static('public/css'));
 // Mount the middleware at "/js" to serve js content only when their request path is prefixed with "/js".
 app.use('*/js',express.static('public/js'));
+// Mount the middleware at "/img" to serve img content only when their request path is prefixed with "/img".
+app.use('*/img',express.static('public/img'));
 // For font awesome
 // Mount the middleware at "/webfonts" to serve webfonts content only when their request path is prefixed with "/webfonts".
 app.use('*/webfonts',express.static('public/webfonts'));

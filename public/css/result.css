@@ -1,0 +1,11 @@
+.box{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+.box button{
+    margin-top: 1.2em;
+}

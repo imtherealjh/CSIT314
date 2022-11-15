@@ -41,7 +41,11 @@ module.exports = {
     const { userid } = req.session;
     let { title, paper, coauthors } = req.body;
     const result = await authorController.createPaper(userid, title, paper, coauthors);
-    return res.redirect("/author")
+    if (result == "success") {
+      return res.render("success", { link: "/author" });
+    } else {
+      return res.render("error", { link: "/author" });
+    }
   },
   renderUpdateAllPapers: async (req, res) => {
     const { userid } = req.session;
@@ -70,7 +74,11 @@ module.exports = {
     const { id } = req.params;
     let { title, paper, coauthors } = req.body;
     const result = await authorController.updatePaper(userid, id, title, paper, coauthors);
-    return res.redirect("/author")
+    if (result == "success") {
+      return res.render("success", { link: "/author" });
+    } else {
+      return res.render("error", { link: "/author" });
+    }
   },
   renderRateAllReviews: async (req, res) => {
     const { userid } = req.session;
@@ -95,6 +103,10 @@ module.exports = {
     const { rate } = req.body;
     const { id } = req.params;
     const result = await authorController.ratePaper(id, rate);
-    return res.redirect("/author");
+    if (result == "success") {
+      return res.render("success", { link: "/author" });
+    } else {
+      return res.render("error", { link: "/author" });
+    }
   }
 };

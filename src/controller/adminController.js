@@ -4,7 +4,7 @@ const bcrypt = require("../utils/bcrypt");
 
 module.exports = {
   getAllUsers: async() => {
-    return userEntity.getAllUser();
+    return userEntity.getAllUsers();
   },
   getUserById: async(id) => {
     return userEntity.getUserById(id);
@@ -19,9 +19,9 @@ module.exports = {
       return "error";
     }
   },
-  updateUser: async (name, email, password) => {
+  updateUser: async (id, name, email, password) => {
     try {
-      const userObject = await userEntity.getUserById(req.params.id);
+      const userObject = await userEntity.getUserById(id);
       password =
         password === ""
           ? userObject.password
@@ -33,8 +33,8 @@ module.exports = {
       return "error";
     }
   },
-  getUserProfile: async() => {
-    return userProfileEntity.getUserProfiles()
+  getUserProfiles: async() => {
+    return userProfileEntity.getUserProfiles();
   },
   getUserProfileById: async(id) => {
     return userProfileEntity.getUserProfileById(id);
