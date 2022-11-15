@@ -17,12 +17,27 @@ module.exports = {
   },
   updatePaperReview: async (req, res) => {
     const { ratings, reviews, paper_id } = req.body;
+    const { user_id } = req.session;
+
+    console.log({ ratings, reviews, paper_id, user_id });
 
     try {
-      await reviewerModel.updatePaperReview(paper_id, {
+      await reviewerModel.upsertPaperReview(paper_id,  {
         ratings,
         reviews
-      });
+      })
+      // const review = await reviewerModel.getReviewsById(paper_id);
+      // if (!review) {
+      //   await reviewerModel.createPaperReview(paper_id,  {
+      //     ratings,
+      //     reviews
+      //   })
+      // } else {
+      // await reviewerModel.updatePaperReview(paper_id, user_id, {
+      //   ratings,
+      //   reviews
+      // });
+      // }
     } catch (err) {
       console.log(err);
       return;
@@ -57,10 +72,7 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      await reviewerModel.updatePaperReview(id, {
-        ratings: null,
-        reviews: null
-      });
+      await reviewerModel.removePaperReview(id);
     } catch (err) {
       console.log(err);
       return;

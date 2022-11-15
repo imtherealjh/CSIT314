@@ -25,12 +25,12 @@
         <div class="form-group">
           <label for="ratings">Rating</label>
           <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
-            value="<%=review.ratings || 0%>" disabled>
+            value="<%=review ? review.ratings || 0 : 0%>" disabled>
         </div>
         <div class="form-group">
           <label for="reviews">Description for review</label>
           <input name="reviews" class="form-control" id="reviews" placeholder="Enter description for review"
-            value="<%=review.reviews%>" disabled>
+            value="<%=review ? review.reviews || 0 : 0%>" disabled>
         </div>
       </form>
       <div>
@@ -41,9 +41,11 @@
               name="comments"></textarea>
             <button class="btn rounded-0 btn-primary btn-sm float-right" type="submit">Comment</button>
         </form>
-        <div class=" pt-5">
-          <label for="floatingTextarea" style="text-decoration:underline;">Comments</label>
-        </div>
+        <% if(comm.length > 0) {%>
+          <div class=" pt-5">
+            <label for="floatingTextarea" style="text-decoration:underline;">Comments</label>
+          </div>
+        <% } %>
       </div>
     </div>
     <div>

@@ -63,19 +63,24 @@ module.exports = {
       }
     );
   },
-  updatePaperReview: (paperId, data) => {
-  // data = {
-  //   ratings: null,
-  //   reviews: null
-  // }
-    return Reviews.update(
-      data,
-      {
-        where: {
-          paper_id: paperId,
-        },
+  createPaperReview: (paperId, data) => {
+    return Reviews.create({
+      ...data,
+      review_id: paperId,
+    })
+  },
+  upsertPaperReview: (paperId, data) => {
+    return Reviews.upsert({
+      ...data,
+      review_id: paperId,
+    })
+  },
+  removePaperReview: (review_id) => {
+    return Reviews.destroy({
+      where: {
+        review_id: review_id,
       }
-    );
+    })
   },
   createBids: (bids) => {
     return Bids.bulkCreate(bids, { raw: true });
