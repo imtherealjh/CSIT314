@@ -7,7 +7,7 @@ import { expect, jest, test } from "@jest/globals";
 import bcrypt from "../utils/bcrypt";
 
 async function initializeDatabase() {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   let users = [
     {
       user_id: 1,
@@ -65,9 +65,9 @@ beforeAll(async () => {
   return await initializeDatabase();
 });
 
-afterAll(async () => {
-  return await sequelize.sync({ force: true });
-});
+// afterAll(async () => {
+//   return await sequelize.sync({ force: true });
+// });
 
 describe("User", () => {
   describe("Testing user functions", () => {

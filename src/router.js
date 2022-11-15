@@ -9,7 +9,7 @@ const cchairRoute = require("./routes/cchairRoute");
 
 router.use("/", loginRoute);
 router.get("/test", (req, res) => {
-  return res.render("success", { link: "/cc" });
+  return res.render("search-bids");
 });
 
 // router.use((req, res, next) => {

@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" errors="0" time="2.885">
-  <testsuite name="User" errors="0" failures="0" skipped="0" timestamp="2022-11-15T12:12:42" time="2.742" tests="9">
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="2.649">
+  <testsuite name="User" errors="0" failures="0" skipped="0" timestamp="2022-11-15T12:50:35" time="2.496" tests="8">
     <testcase classname="User Testing user functions Should get all users" name="User Testing user functions Should get all users" time="0.008">
     </testcase>
     <testcase classname="User Testing user functions Should get user by id" name="User Testing user functions Should get user by id" time="0.005">
     </testcase>
-    <testcase classname="User Testing user functions Should create single user" name="User Testing user functions Should create single user" time="0.121">
+    <testcase classname="User Testing user functions Should create single user" name="User Testing user functions Should create single user" time="0.118">
     </testcase>
-    <testcase classname="User Testing user functions Should update single user" name="User Testing user functions Should update single user" time="0.115">
+    <testcase classname="User Testing user functions Should update single user" name="User Testing user functions Should update single user" time="0.118">
     </testcase>
-    <testcase classname="User Profile Testing user profile functions Should get all users profile" name="User Profile Testing user profile functions Should get all users profile" time="0.006">
+    <testcase classname="User Profile Testing user profile functions Should get all users profile" name="User Profile Testing user profile functions Should get all users profile" time="0.007">
     </testcase>
     <testcase classname="User Profile Testing user profile functions Should get single users profile" name="User Profile Testing user profile functions Should get single users profile" time="0.005">
     </testcase>
     <testcase classname="User Profile Testing user profile functions Should create single users profile" name="User Profile Testing user profile functions Should create single users profile" time="0.008">
     </testcase>
-    <testcase classname="User Profile Testing user profile functions Should update single users profile" name="User Profile Testing user profile functions Should update single users profile" time="0.01">
-    </testcase>
-    <testcase classname="Paper Testing paper functions Should create single paper" name="Paper Testing paper functions Should create single paper" time="0.001">
+    <testcase classname="User Profile Testing user profile functions Should update single users profile" name="User Profile Testing user profile functions Should update single users profile" time="0.012">
     </testcase>
   </testsuite>
 </testsuites>
