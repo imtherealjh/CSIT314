@@ -110,6 +110,46 @@ Bids.belongsTo(Paper, {
   as: "paperBids",
   foreignKey: "paper_id"
 });
+const reviews = require("../models/reviewModel")(sequelize);
+const comments = require("../models/commentModel")(sequelize);
+
+Paper.hasOne(reviews, {
+  foreignKey: "paper_id",
+});
+
+reviews.belongsTo(Paper, {
+  foreignKey: "paper_id",
+});
+
+reviews.hasMany(comments, {
+  foreignKey: "review_id",
+  targetKey: "review_id",
+});
+
+comments.belongsTo(reviews, {
+  foreignKey: "review_id",
+  sourceKey: "review_id",
+});
+
+User.hasOne(comments, {
+  foreignKey: "user_id",
+  targetKey: "user_id",
+});
+
+comments.belongsTo(reviews, {
+  foreignKey: "user_id",
+  sourceKey: "user_id",
+});
+
+User.hasMany(reviews, {
+  foreignKey: "user_id",
+  targetKey: "user_id",
+});
+
+reviews.belongsTo(User, {
+  foreignKey: "user_id",
+  sourceKey: "user_id",
+});
 
 
 module.exports = db;
