@@ -1,0 +1,75 @@
+<%- include('partials/head.ejs') %>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
+          <li class="breadcrumb-item"><a href="/reviewer/papers">List of Papers</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><%=data.paper_id%></li>
+        </ol>
+      </nav>
+
+      <h1>Reviewed Papers</h1>
+
+      <div class="list-group">
+        <%=data.title%>
+      </div>
+
+
+      <form method="get">
+        <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
+        <div class="form-group">
+          <label for="ratings">Rating</label>
+          <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3
+            value="<%=data.ratings || 0%>" disabled>
+        </div>
+        <div class="form-group">
+          <label for="reasons">Reason</label>
+          <input  name="reasons" class="form-control" id="reasons"
+            value="<%=data.reasons%>" disabled>
+        </div>
+      </form>
+      <div class="container pt-5">
+        <div class ="container">
+        <form method="post">
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <button class="btn rounded-0 btn-primary btn-sm float-right"
+                      type="submit">Comment</button>
+        </form>
+        <div class="container pt-5">
+            <label for="floatingTextarea" style="text-decoration:underline;">Comments</label>
+        </div>
+        </div>
+          </div>
+  </div>
+    
+  </body>
+
+  <!--
+    <script>
+
+
+    let submitting = false
+    async function remove(id) {
+      if (submitting) return
+
+      submitting = true
+      console.log('remove', id);try {
+      const res = await fetch(`/reviewer/review-paper/${id}/remove`, {
+        method: "POST"
+      })
+      console.log(res);
+      } catch (err) {
+        console.log("Failed to delete reivew", err)
+      } finally {
+        submitting =false
+      }
+      location.reload()
+    }
+  </script> 
+-->
+
+  </html>

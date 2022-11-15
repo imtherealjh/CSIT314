@@ -12,7 +12,7 @@
       <h1>List of Papers</h1>
       <div class="list-group">
         <% for(let [idx, obj] of data.entries() ?? []) { %>
-          <label class="list-group-item">
+          <label class="list-group-item" onclick="window.location='/reviewer/papers/<%=obj.paper_id%>'" data-id="<%=obj.paper_id%>" style="cursor: pointer;">
             <%=obj.title%>
           </label>
           <% } %>
