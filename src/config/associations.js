@@ -83,7 +83,7 @@ module.exports = (sequelize) => {
     sourceKey: "review_id",
   });
 
-  User.hasOne(comments, {
+  User.hasMany(comments, {
     foreignKey: "user_id",
     targetKey: "user_id",
   });
