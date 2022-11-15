@@ -14,7 +14,7 @@ module.exports = {
   },
   createUserHandler: async (req, res) => {
     let { name, email, password } = req.body;
-    const result = adminController.createUser(name, email, password);
+    const result = await adminController.createUser(name, email, password);
     if (result == "success") {
       return res.render("success", { link: "/admin" });
     } else {
@@ -49,7 +49,7 @@ module.exports = {
   updateUserHandler: async (req, res) => {
     const { id } = req.params;
     let { name, email, password } = req.body;
-    const result = adminController.updateUser(id, name, email, password);
+    const result = await adminController.updateUser(id, name, email, password);
     if (result == "success") {
       return res.render("success", { link: "/admin" });
     } else {
@@ -65,7 +65,7 @@ module.exports = {
   },
   createUserProfileHandler: async (req, res) => {
     const { user, role } = req.body;
-    const result = adminController.createUserProfile(user, role);
+    const result = await adminController.createUserProfile(user, role);
     if (result == "success") {
       return res.render("success", { link: "/admin" });
     } else {

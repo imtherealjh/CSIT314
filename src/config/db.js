@@ -28,7 +28,7 @@ sequelize
 
     //check if there is an admin, else create one..
     const User = sequelize.models.users;
-    const result = await User.findOne({ user_id: 1 });
+    const result = await User.findOne({ where: { user_id: 1 } });
     if (result == null) {
       const created_user = await User.create({
         user_id: 1,

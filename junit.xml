@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="1" errors="0" time="2.001">
+  <testsuite name="User" errors="0" failures="1" skipped="0" timestamp="2022-11-15T10:02:29" time="1.888" tests="3">
+    <testcase classname="User Testing user functions Should get all users" name="User Testing user functions Should get all users" time="0.008">
+    </testcase>
+    <testcase classname="User Testing user functions Should get user by id" name="User Testing user functions Should get user by id" time="0.005">
+    </testcase>
+    <testcase classname="User Testing user functions Should create single user" name="User Testing user functions Should create single user" time="0.074">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+- Expected  - 1
++ Received  + 1
+
+  Object {
+    &quot;email&quot;: &quot;myReview@myReview.com&quot;,
+    &quot;max_no_of_paper&quot;: null,
+    &quot;name&quot;: &quot;myReview&quot;,
+-   &quot;password&quot;: &quot;$2b$10$xV8odMOMgrzgMFsjjGiflOYuChV5qkfAowvdvH0peehzBYMZi8IBG&quot;,
++   &quot;password&quot;: &quot;$2b$10$X5p.Vh5BTFnLZSP34ZyJiOwmS7nuojteNJUZklZ7I6DdxaScWEH3i&quot;,
+    &quot;user_id&quot;: 5,
+  }
+    at toBe (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:146:20)
+    at tryCatch (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:2:1)
+    at Generator.&lt;anonymous&gt; (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:2:1)
+    at Generator.next (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:2:1)
+    at asyncGeneratorStep (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:2:1)
+    at _next (C:\Users\santa\Desktop\Software Development\CSIT314\src\__test__\userTest.test.js:2:1)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
