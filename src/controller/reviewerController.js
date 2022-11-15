@@ -16,12 +16,12 @@ module.exports = {
     return res.redirect("/reviewer");
   },
   updatePaperReview: async (req, res) => {
-    const { ratings, reasons, paper_id } = req.body;
+    const { ratings, reviews, paper_id } = req.body;
 
     try {
       await reviewerModel.updatePaperReview(paper_id, {
         ratings,
-        reasons
+        reviews
       });
     } catch (err) {
       console.log(err);
@@ -42,13 +42,24 @@ module.exports = {
 
     return res.redirect("/reviewer/papers/"+reviewId);
   },
+  
+  deleteComment: async (req, res) => {
+    const {  comment_id } = req.params;
+    try {
+      await reviewerModel.deleteComment(comment_id)
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    return res.redirect("/reviewer/papers/");
+  },
   removePaperReview: async (req, res) => {
     const { id } = req.params;
 
     try {
       await reviewerModel.updatePaperReview(id, {
         ratings: null,
-        reasons: null
+        reviews: null
       });
     } catch (err) {
       console.log(err);

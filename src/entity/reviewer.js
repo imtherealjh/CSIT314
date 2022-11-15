@@ -64,7 +64,11 @@ module.exports = {
     );
   },
   updatePaperReview: (paperId, data) => {
-    return Papers.update(
+  // data = {
+  //   ratings: null,
+  //   reviews: null
+  // }
+    return Reviews.update(
       data,
       {
         where: {
@@ -79,8 +83,18 @@ module.exports = {
   createComments: (reviewId, comm, userId) => {
     return Comments.create({ comments: comm, review_id: reviewId , user_id : userId});
   },
+  deleteComment: (comment_id) => {
+    return Comments.destroy({
+      where: {
+        comment_id: comment_id
+      }
+    })
+  },
   getCommentsById: (id) => {
     return Comments.findByPk(id);
+  },
+  getReviewsById: (id) => {
+    return Reviews.findByPk(id);
   },
   getAllCommentsByPaperId: (id) => {
     return Comments.findAll({

@@ -27,10 +27,13 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params;
     const paper = await paperEntity.getPaperById(id);
+    const revData = await reviewerModel.getReviewsById(id);
     const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("reviewer-comments", {
       data: paper,
+      review: revData,
       comm: ccoments,
+      user_id: userid,
       error: ""
     });
   },
@@ -77,9 +80,10 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params
     const paper = await paperEntity.getPaperById(id);
+    const revData = await reviewerModel.getReviewsById(id);
     return res.render("reviewer-review-paper", {
-      data: paper,
-      update: reviewModel,
+      data : paper,
+      review: revData,
       error: ""
     });
   },

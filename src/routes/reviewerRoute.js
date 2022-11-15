@@ -20,9 +20,12 @@ router
   .route("/papers")
   .get(viewController.renderListPapers)
 router
-  .route("/papers/:id")
-  .get(viewController.renderListPapersComments)
-  .post(reviewerController.createComments);
+    .route("/papers/:id")
+    .get(viewController.renderListPapersComments)
+    .post(reviewerController.createComments);
+router
+  .route("/comment/:comment_id/remove")
+  .post(reviewerController.deleteComment);
 router
   .route("/review-paper")
   .get(viewController.renderReviewPaperList)
