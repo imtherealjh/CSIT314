@@ -21,6 +21,13 @@ module.exports = {
       data: papers,
     });
   },
+    renderListPapersReview: async (req, res) => {
+    const { userid } = req.session;
+    const papers = await paperEntity.getPaperById(req.params.id)
+    return res.render("reviewer-paper", {
+      data: papers,
+    });
+  },
   renderSubmitBids: async (req, res) => {
     //return the list of submitted papers for bidding
     const { userid } = req.session;

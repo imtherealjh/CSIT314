@@ -19,6 +19,9 @@ router
 router
   .route("/papers")
   .get(viewController.renderListPapers)
+  router
+    .route("/papers/:id")
+    .get(viewController.renderListPapersReview)
 router
   .route("/review-paper")
   .get(viewController.renderReviewPaperList)

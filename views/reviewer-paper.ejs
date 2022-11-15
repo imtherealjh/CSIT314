@@ -1,0 +1,60 @@
+<%- include('partials/head.ejs') %>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
+          <li class="breadcrumb-item"><a href="/reviewer/papers">List of Papers</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><%=data.paper_id%></li>
+        </ol>
+      </nav>
+
+      <h1>Paper Reviews</h1>
+
+      <form method="get">
+        <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
+        <div class="form-group">
+          <label for="ratings">Rating</label>
+          <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
+            value="<%=data.ratings || 0%>" disabled>
+        </div>
+        <div class="form-group">
+          <label for="reasons">Reason</label>
+          <input  name="reasons" class="form-control" id="reasons"
+            value="<%=data.reasons%>" disabled>
+        </div>
+         </div>
+      </form>
+        <div class="container pt-5">
+          <div class ="container">
+          <form method="post">
+          <div class="form-floating">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Comments</label>
+          </div>
+          <button class="btn rounded-0 btn-primary btn-lg float-right"
+                        type="submit">Comment</button>
+          </form>
+            </div>
+    </div>
+      <div class="container pt-5">
+        <div class ="container">
+        <div class ="row">
+        <% data.comments.forEach((comment) => {%>
+        <p>
+          <strong><%=data.name%></strong>
+          <br> 
+          <%=Comments.comments%>
+        </p>
+        </div>
+        <% }) %>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
+  
+            <input  name="comments" class="form-control" id="comments" placeholder="Enter comments for review"
+            value="<%=data.comments%>">
