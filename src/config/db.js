@@ -13,8 +13,12 @@ const host = process.env.GITLAB_CI
 //   timezone: "+08:00",
 // });
 
+const offline = process.env.GITLAB_CI
+  ? "mysql"
+  : "localhost";
+
 const sequelize = new Sequelize("CSIT314", "root", "root", {
-  host: "localhost",
+  host: offline,
   dialect: "mysql",
   port: 3306,
   timezone: "+08:00",

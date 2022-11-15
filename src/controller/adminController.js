@@ -34,7 +34,7 @@ module.exports = {
     }
   },
   getUserProfiles: async() => {
-    return userProfileEntity.getUserProfiles()
+    return userProfileEntity.getUserProfiles();
   },
   getUserProfileById: async(id) => {
     return userProfileEntity.getUserProfileById(id);

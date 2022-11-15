@@ -1,7 +1,6 @@
 const userEntity = require("../entity/user");
 const userController = require("../controller/adminController");
 const userProfileEntity = require("../entity/userProfile");
-const userProfileController = require("../controller/adminController");
 const { sequelize } = require("../config/db");
 
 import { expect, jest, test } from "@jest/globals";
@@ -55,11 +54,7 @@ async function initializeDatabase() {
     {
       user_id: 3,
       role_name: "author",
-    },
-    {
-      user_id: 4,
-      role_name: "reviewer",
-    },
+    }
   ];
 
   const users_profile = sequelize.models.users_profile;
@@ -139,7 +134,7 @@ describe("User", () => {
       };
 
       const spy = jest.spyOn(userEntity, "createUser");
-      const result = await userController.createUser(
+      await userController.createUser(
         "myReview",
         "myReview@myReview.com",
         "jeff"
@@ -192,8 +187,80 @@ describe("User", () => {
 
 describe("User Profile", () => {
   describe("Testing user profile functions", () => {
-    it("Should get all users", async () => {
+    it("Should get all users profile", async () => {
+      const spy = jest.spyOn(userProfileEntity, "getUserProfiles");
+      const result = await userController.getUserProfiles();
+      expect(spy).toBeCalledTimes(1);
+      expect(result).toStrictEqual([
+        {
+          user_id: 1,
+          role_name: "admin",
+          name: "admin",
+          "profile.user_id": 1,
+          "profile.role_name": "admin",
+        },
+        {
+          user_id: 2,
+          role_name: "conference-chair",
+          name: "cchair",
+          "profile.user_id": 2,
+          "profile.role_name": "conference-chair",
+        },
+        {
+          user_id: 3,
+          role_name: "author",
+          name: "author",
+          "profile.user_id": 3,
+          "profile.role_name": "author",
+        }
+      ]);
+    });
 
+    it("Should get single users profile", async () => {
+      const spy = jest.spyOn(userProfileEntity, "getUserProfileById");
+      const result = await userController.getUserProfileById(3);
+      const userProfileObj = JSON.parse(JSON.stringify(result));
+      expect(spy).toBeCalledTimes(1);
+      expect(userProfileObj).toStrictEqual({
+        user_id: 3,
+        role_name: "author",
+        name: "author",
+        "profile.user_id": 3,
+        "profile.role_name": "author",
+      });
+    });
+
+    it("Should create single users profile", async () => {
+      const spy = jest.spyOn(userProfileEntity, "createUserProfile");
+      const result = await userController.createUserProfile(4, "reviewer");
+      
+      expect(spy).toBeCalledTimes(1);
+      expect(result).toBe("success");
+  
+      const obj = await userController.getUserProfileById(4);
+      expect(obj).toStrictEqual({
+        user_id: 4,
+        role_name: "reviewer",
+        name: "reviewer",
+        "profile.user_id": 4,
+        "profile.role_name": "reviewer",
+      });
+    });
+  
+    it("Should update single users profile", async () => {
+      const spy = jest.spyOn(userProfileEntity, "updateUserProfile");
+      await userController.updateUserProfile(4, "conference-chair");
+      
+      expect(spy).toBeCalledTimes(1);
+  
+      const obj = await userController.getUserProfileById(4);
+      expect(obj).toStrictEqual({
+        user_id: 4,
+        role_name: "conference-chair",
+        name: "reviewer",
+        "profile.user_id": 4,
+        "profile.role_name": "conference-chair",
+      });
     });
   });
-})
+});
