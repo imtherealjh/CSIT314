@@ -37,7 +37,7 @@ sequelize
   .authenticate()
   .then(async () => {
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     await require("./setup_db")(sequelize);
   })
   .catch((err) => {
