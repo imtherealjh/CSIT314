@@ -3,8 +3,22 @@ const { Op } = require("sequelize");
 
 const User = sequelize.models.users;
 const Bids = sequelize.models.bids;
+const Paper = sequelize.models.papers;
 
 module.exports = {
+  searchBids: () => {
+    return User.findAll({
+      include: [
+        {
+          model: Paper,
+          as: "reviewer",
+          required: true
+        },
+      ],
+      raw: true,
+      nested: true
+    });
+  },
   countNumberOfBids: (user_id) => {
     return User.count({
       include: [

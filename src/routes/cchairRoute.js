@@ -11,6 +11,11 @@ router.get("/paper/:id", viewController.renderViewPaper);
 router.get("/allocate", viewController.renderAllocate);
 
 router
+  .route("/search")
+  .get(viewController.renderSearchUserPage)
+  .post(viewController.searchUserHandler);
+
+router
   .route("/allocate/auto")
   .get(viewController.renderAutoAllocate)
   .post(viewController.autoAllocateHandler);

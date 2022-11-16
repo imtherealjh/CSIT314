@@ -1,6 +1,7 @@
 const authorController  = require("../controller/authorController");
 const authorEntity = require("../entity/author");
 const paperEntity = require("../entity/paper");
+const reviewerModel = require("../entity/reviewer");
 
 module.exports = {
   renderMainMenu: (req, res) => {
@@ -10,10 +11,14 @@ module.exports = {
     const { id } = req.params;
     const storedPaper = await authorController.getPaperById(id);
     const { title, paper, status } = storedPaper;
+    const revData = await reviewerModel.getReviewsById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
       status: status,
+      review: revData,
+      comm: ccoments,
     });
   },
   renderViewPapers: async (req, res) => {

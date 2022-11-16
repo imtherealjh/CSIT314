@@ -1,5 +1,5 @@
 const paperEntity = require("../entity/paper");
-
+const reviewerModel = require("../entity/reviewer");
 const cchairController = require("../controller/cchairController");
 
 module.exports = {
@@ -18,10 +18,14 @@ module.exports = {
     const { id } = req.params;
     const rows = await cchairController.getPaperById(id);
     const { title, paper, status } = rows;
+    const revData = await reviewerModel.getReviewsById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
       status: status,
+      review: revData,
+      comm: ccoments,
     });
   },
   renderAllocate: (req, res) => {
@@ -153,6 +157,18 @@ module.exports = {
       title: "Notify user",
       data: rows,
       error: "",
+    });
+  },
+  renderSearchUserPage: (req, res) => {
+    return res.render("search-bids", {
+      data: [],
+    });
+  },
+  searchUserHandler: async (req, res) => {
+    const { search } = req.body;
+    const rows = await cchairController.searchBids(search);
+    return res.render("search-bids", {
+      data: rows
     });
   },
   //handle post request

@@ -20,12 +20,12 @@ const offline = process.env.GITLAB_CI
   : "localhost";
 
 const sequelize = new Sequelize(
-  host === RAILWAY_URL ? "railway" : "CSIT314",
-  "root", host === RAILWAY_URL ? 'TDTFWn4AcVZe0fqtNfnV' : 'root',
+  "CSIT314",
+  "root", 'root',
   {
-    host: host,
+    host: "localhost",
     dialect: "mysql",
-    port: host === RAILWAY_URL ? 7315 : 3306,
+    port: "3306",
     timezone: "+08:00",
   });
 

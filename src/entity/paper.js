@@ -3,7 +3,6 @@ const { Op } = require("sequelize");
 
 const Paper = sequelize.models.papers;
 const User = sequelize.models.users;
-const Bids = sequelize.models.papers;
 
 module.exports = {
   getAllPaper: () => {

@@ -9,11 +9,36 @@
             </ol>
         </nav>
         <h1>Search bids</h1>
-        <div class="input-group rounded">
-            <input id="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-                <i class="fas fa-search"></i>
-            </span>
+        <form method="post">
+            <div class="input-group rounded">
+                <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+        </form>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Paper</th>
+              </tr>
+            </thead>
+            <tbody class="searchTable">
+              <% if(data != undefined && data.length > 0) { %>
+                <% for(let [idx, obj] of data.entries()) { %>
+                  <tr>
+                    <th scope="row"><%=idx%></th>
+                    <td><%=obj.name%></td>
+                    <td><%=obj['reviewer.title']%></td>
+                  </tr>
+                <% } %>
+              <% } else { %>
+                <th scope="row">No data is available now...</th>
+                <td></td>
+                <td></td>
+              <% } %>
         </div>
     </div>
     <script></script>
