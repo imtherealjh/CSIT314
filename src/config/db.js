@@ -16,13 +16,13 @@ const host = process.env.GITLAB_CI ? "mysql" : RAILWAY_URL;
 const offline = process.env.GITLAB_CI ? "mysql" : "localhost";
 
 const sequelize = new Sequelize(
-  (host === host) !== "mysql" ? "railway" : "CSIT314",
+  host !== "mysql" ? "railway" : "CSIT314",
   "root",
-  (host === host) !== "mysql" ? "TDTFWn4AcVZe0fqtNfnV" : "root",
+  host !== "mysql" ? "TDTFWn4AcVZe0fqtNfnV" : "root",
   {
     host: host,
     dialect: "mysql",
-    port: (host === host) !== "mysql" ? 7315 : 3306,
+    port: host !== "mysql" ? 7315 : 3306,
     timezone: "+08:00",
   }
 );
