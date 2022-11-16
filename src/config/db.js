@@ -8,30 +8,30 @@ const host = process.env.GITLAB_CI ? "mysql" : RAILWAY_URL;
 
 const offline = process.env.GITLAB_CI ? "mysql" : "localhost";
 
-// const sequelize = new Sequelize(
-//   host !== "mysql" ? "railway" : "CSIT314",
-//   "root",
-//   host !== "mysql" ? "TDTFWn4AcVZe0fqtNfnV" : "root",
-//   {
-//     host: host,
-//     dialect: "mysql",
-//     port: host !== "mysql" ? 7315 : 3306,
-//     timezone: "+08:00",
-//   }
-// );
-
-
 const sequelize = new Sequelize(
-  "CSIT314",
+  host !== "mysql" ? "railway" : "CSIT314",
   "root",
-  "root",
+  host !== "mysql" ? "TDTFWn4AcVZe0fqtNfnV" : "root",
   {
-    host: "localhost",
+    host: host,
     dialect: "mysql",
-    port: 3306,
+    port: host !== "mysql" ? 7315 : 3306,
     timezone: "+08:00",
   }
 );
+
+
+// const sequelize = new Sequelize(
+//   "CSIT314",
+//   "root",
+//   "root",
+//   {
+//     host: "localhost",
+//     dialect: "mysql",
+//     port: 3306,
+//     timezone: "+08:00",
+//   }
+// );
 
 sequelize
   .authenticate()

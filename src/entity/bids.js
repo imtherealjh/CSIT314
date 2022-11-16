@@ -73,7 +73,6 @@ module.exports = {
     });
   },
   createPaperAllocation: (paper_id, allocated) => {
-    console.log(allocated, paper_id);
     return Bids.update(
       { allocated: true },
       {

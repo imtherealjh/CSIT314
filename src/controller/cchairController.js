@@ -1,7 +1,7 @@
 const paperEntity = require("../entity/paper");
 const bidsEntity = require("../entity/bids");
+const userEntity = require("../entity/user");
 const { sendMail } = require("../config/mail");
-const reviewer = require("../entity/reviewer");
 require("dotenv").config();
 
 module.exports = {
@@ -17,7 +17,10 @@ module.exports = {
   searchBids: async (searchField) => {
     try {
       const rows = await bidsEntity.searchBids(searchField);
-      const result = rows.filter(row => row.name === searchField || row["reviewer.title"] === searchField);
+      const result = rows.filter(
+        (row) =>
+          row.name === searchField || row["reviewer.title"] === searchField
+      );
       return result;
     } catch (err) {
       console.log(err);
@@ -28,7 +31,9 @@ module.exports = {
     try {
       papers = [...papers];
       papers.forEach(async (paper) => {
-        const nonAllocatedBids = await bidsEntity.getNonAllocatedBidsById(paper);
+        const nonAllocatedBids = await bidsEntity.getNonAllocatedBidsById(
+          paper
+        );
         for (const object of nonAllocatedBids) {
           const getCounts = await bidsEntity.countNumberOfBids(object.user_id);
           if (object.max_no_of_paper - getCounts >= 1) {
@@ -55,7 +60,6 @@ module.exports = {
 
       if (alloc) {
         const reviewers = await bidsEntity.getNonAllocatedBidsById(paper_id);
-        console.log(reviewers);
         result.alloc = reviewers;
       }
 
@@ -80,11 +84,24 @@ module.exports = {
 
       paper_id = Number(paper_id);
 
-      await Promise.all([
-        bidsEntity.createPaperAllocation(paper_id, selected),
-        bidsEntity.updateSuccessfulBids(paper_id, selected),
-        bidsEntity.updateFailedBids(paper_id, selected),
-      ]);
+      const enoughSpace = [];
+      for (const user_id of selected) {
+        const user = await userEntity.getUserById(user_id);
+        console.log(user);
+        const getCounts = await bidsEntity.countNumberOfBids(user_id);
+        if (user.max_no_of_paper - getCounts >= 1) {
+          enoughSpace.append(user_id);
+        }
+      }
+
+      if (enoughSpace.length > 0) {
+        await Promise.all([
+          bidsEntity.createPaperAllocation(paper_id, selected),
+          bidsEntity.updateSuccessfulBids(paper_id, selected),
+          bidsEntity.updateFailedBids(paper_id, selected),
+        ]);
+      }
+
       return "success";
     } catch (err) {
       console.log(err);
@@ -98,10 +115,22 @@ module.exports = {
       selected = selected.map((val) => Number(val));
 
       paper_id = Number(paper_id);
-      await Promise.all([
-        bidsEntity.removeAllocation(paper_id, selected),
-        bidsEntity.createPaperAllocation(paper_id, selected),
-      ]);
+
+      const enoughSpace = [];
+      for (const user_id of selected) {
+        const user = await userEntity.getUserById(user_id);
+        console.log(user);
+        const getCounts = await bidsEntity.countNumberOfBids(user_id);
+        if (user.max_no_of_paper - getCounts >= 1) {
+          enoughSpace.append(user_id);
+        }
+      }
+      if (enoughSpace.length > 0) {
+        await Promise.all([
+          bidsEntity.removeAllocation(paper_id, selected),
+          bidsEntity.createPaperAllocation(paper_id, selected),
+        ]);
+      }
       return "success";
     } catch (err) {
       console.log(err);

@@ -53,7 +53,7 @@ async function setup_users(sequelize) {
   await User.create({
     user_id: 12,
     name: "cctest",
-    email: "cctest" + i + "@cctest.com",
+    email: "cctest@cctest.com",
     password: await bcrypt.hashPassword("jeff"),
   });
 
