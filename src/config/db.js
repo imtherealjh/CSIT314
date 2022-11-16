@@ -1,7 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
-
 const RAILWAY_URL = "containers-us-west-109.railway.app";
 
 const host = process.env.GITLAB_CI ? "mysql" : RAILWAY_URL;
@@ -20,7 +19,6 @@ const sequelize = new Sequelize(
   }
 );
 
-
 // const sequelize = new Sequelize(
 //   "CSIT314",
 //   "root",
@@ -38,7 +36,9 @@ sequelize
   .then(async () => {
     console.log("Connection has been established successfully.");
     await sequelize.sync({ force: false });
-    await require("./setup_db")(sequelize);
+    if (host === RAILWAY_URL) {
+      await require("./setup_db")(sequelize);
+    }
   })
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
