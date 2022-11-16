@@ -29,6 +29,8 @@ module.exports = {
     const paper = await paperEntity.getPaperById(id);
     const revData = await reviewerModel.getReviewsById(id);
     const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    console.log(revData);
+    console.log(ccoments);
     return res.render("reviewer-comments", {
       data: paper,
       review: revData,

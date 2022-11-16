@@ -1,0 +1,31 @@
+<%-include('partials/head.ejs')%>
+  <link rel="stylesheet" href="./css/bids.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/cc">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Notify</li>
+        </ol>
+      </nav>
+      <h1>
+        <%=title%>
+      </h1>
+      <form method="post">
+        <div class="list-group">
+          <% for(let [idx, obj] of data.entries() ?? []) { %>
+            <label class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" name="papers" value="<%=obj.paper_id%>">
+              <%=obj.title%>
+            </label>
+            <% } %>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+      </form>
+    </div>
+    <script></script>
+  </body>
+
+  </html>

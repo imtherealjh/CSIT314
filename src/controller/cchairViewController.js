@@ -155,14 +155,6 @@ module.exports = {
       return res.render("error", { link: "/cc" });
     }
   },
-  renderNotifyUser: async (req, res) => {
-    const rows = await cchairController.getAllPapers();
-    return res.render("add-remove-bids", {
-      title: "Notify user",
-      data: rows,
-      error: "",
-    });
-  },
   renderSearchUserPage: (req, res) => {
     return res.render("search-bids", {
       data: [],
@@ -172,7 +164,14 @@ module.exports = {
     const { search } = req.body;
     const rows = await cchairController.searchBids(search);
     return res.render("search-bids", {
-      data: rows
+      data: rows,
+    });
+  },
+  renderNotifyUser: async (req, res) => {
+    const rows = await cchairController.getAllPapers();
+    return res.render("notify-user", {
+      title: "Notify user",
+      data: rows,
     });
   },
   //handle post request
