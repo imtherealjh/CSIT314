@@ -61,12 +61,14 @@ module.exports = {
       console.log(paper.title);
 
       if (alloc) {
-        let available = []
+        let available = [];
         const reviewers = await bidsEntity.getNonAllocatedBidsById(paper_id);
         for (let reviewer of reviewers) {
-          const getCounts = await bidsEntity.countNumberOfBids(reviewer.user_id);
-          if(reviewer.max_no_of_paper - getCounts >= 1) {
-            available.push(reviewer)
+          const getCounts = await bidsEntity.countNumberOfBids(
+            reviewer.user_id
+          );
+          if (reviewer.max_no_of_paper - getCounts >= 1) {
+            available.push(reviewer);
           }
         }
         result.alloc = available;
@@ -132,18 +134,19 @@ module.exports = {
           enoughSpace.push(user_id);
         }
       }
-      if (enoughSpace.length > 0) {
-        await Promise.all([
-          bidsEntity.removeAllocation(paper_id, selected),
-          bidsEntity.createPaperAllocation(paper_id, selected),
-        ]);
-      }
+
+      await Promise.all([
+        bidsEntity.removeAllocation(paper_id, enoughSpace),
+        bidsEntity.createPaperAllocation(paper_id, enoughSpace)
+      ]);
+
       return "success";
     } catch (err) {
       console.log(err);
       return "error";
     }
   },
+
   acceptPaper: async (id, decisions, reasons) => {
     decisions = decisions == "approve" ? 1 : 0;
     reasons = decisions == 1 ? "Approved with no special reason..." : reasons;

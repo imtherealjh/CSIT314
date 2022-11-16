@@ -7,7 +7,6 @@ async function setup_users(sequelize) {
   const result = await User.findOne({ where: { user_id: 1 } });
   if (result == null) {
     const created_user = await User.create({
-      user_id: 1,
       name: "admin",
       email: "admin@admin.com",
       // password:
@@ -21,70 +20,62 @@ async function setup_users(sequelize) {
     });
   }
 
-  for (var i = 1; i < 6; i++) {
-    await User.create({
-      user_id: i + 1,
-      name: "review" + i,
-      email: "review" + i + "@review.com",
-      password: await bcrypt.hashPassword("jeff"),
-    });
-
-    await UserProfile.create({
-      user_id: i + 1,
-      role_name: "reviewer",
-    });
-  }
-
-  const startIdx = 5;
-  for (var i = 1; i < 6; i++) {
-    await User.create({
-      user_id: startIdx + i + 1,
-      name: "author" + i,
-      email: "author" + i + "@author.com",
-      password: await bcrypt.hashPassword("jeff"),
-    });
-
-    await UserProfile.create({
-      user_id: startIdx + i + 1,
-      role_name: "author",
-    });
-  }
-
-  await User.create({
-    user_id: 12,
+  const cc = await User.create({
     name: "cctest",
     email: "cctest@cctest.com",
     password: await bcrypt.hashPassword("jeff"),
   });
 
   await UserProfile.create({
-    user_id: 12,
+    user_id: cc.user_id,
     role_name: "conference-chair",
   });
+
+  for (var i = 1; i < 6; i++) {
+    const reviewer = await User.create({
+      name: "review" + i,
+      email: "review" + i + "@review.com",
+      password: await bcrypt.hashPassword("jeff"),
+    });
+
+    await UserProfile.create({
+      user_id: reviewer.user_id,
+      role_name: "reviewer",
+    });
+  }
 }
 
 async function setup_papers(sequelize) {
   const authors = sequelize.models.authors;
   const papers = sequelize.models.papers;
+  const User = sequelize.models.users;
+  const UserProfile = sequelize.models.users_profile;
 
-  const startIdx = 5;
-  let startIdxBackwards = 6;
+
   for (var i = 1; i < 6; i++) {
-    await papers.create({
-        paper_id: i,
-        title: "test paper " + i,
-        paper: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    const author = await User.create({
+      name: "author" + i,
+      email: "author" + i + "@author.com",
+      password: await bcrypt.hashPassword("jeff"),
     });
 
-    
-    const authorPapers = [{author_id: startIdx + i + 1, paper_id: i}, {author_id: startIdx + i + 1, paper_id: startIdxBackwards}]
-    await authors.bulkCreate(authorPapers)
+    await UserProfile.create({
+      user_id: author.user_id,
+      role_name: "author",
+    });
 
-    startIdxBackwards -= 1
-    
+    const paper = await papers.create({
+      title: "test paper " + i,
+      paper:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    });
+
+    const authorPapers = [
+      { author_id: author.user_id, paper_id: paper.paper_id },
+    ];
+
+    await authors.bulkCreate(authorPapers);
   }
-
-
 }
 
 module.exports = async (sequelize) => {
