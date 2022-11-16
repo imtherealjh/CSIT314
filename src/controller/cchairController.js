@@ -140,7 +140,7 @@ module.exports = {
         "QWERTY Team<br><br>" +
         "<div style='font-weight:bold'>Please do not reply this message, as it is auto generated...</div>";
       mailOptions = {
-        from: process.env.GMAIL_USER,
+        from: "csit314qwerty@gmail.com",
         to: to,
         subject: `Result for ${paper.title} - id ${paper.paper_id}`,
         html: message,
