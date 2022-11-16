@@ -16,7 +16,7 @@ function getRedirection(role) {
 }
 
 module.exports = {
-  loginUser: async (req, res) => {
+  verifyLogin: async (req, res) => {
     const { email, password } = req.body;
     if (email == "") {
       return res.render("login", {
@@ -44,7 +44,7 @@ module.exports = {
     const redirection = getRedirection(result["profile.role_name"]);
     return res.redirect(redirection);
   },
-  logoutUser: async (req, res) => {
+  logout: async (req, res) => {
     req.session.destroy((err) => {
       if (err) return;
       return res.redirect("/");
