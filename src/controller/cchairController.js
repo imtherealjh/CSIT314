@@ -69,8 +69,6 @@ module.exports = {
             available.push(reviewer)
           }
         }
-        
-        console.log(available);
         result.alloc = available;
       }
 
