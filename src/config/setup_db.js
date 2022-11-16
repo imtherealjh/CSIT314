@@ -35,7 +35,7 @@ async function setup_users(sequelize) {
     });
   }
 
-  startIdx = 5;
+  const startIdx = 5;
   for (var i = 1; i < 6; i++) {
     await User.create({
       user_id: startIdx + i + 1,
@@ -45,12 +45,44 @@ async function setup_users(sequelize) {
     });
 
     await UserProfile.create({
-        user_id: startIdx + i + 1,
-        role_name: "author",
-      });
+      user_id: startIdx + i + 1,
+      role_name: "author",
+    });
+  }
+
+  await User.create({
+    user_id: 12,
+    name: "cctest",
+    email: "cctest" + i + "@cctest.com",
+    password: await bcrypt.hashPassword("jeff"),
+  });
+
+  await UserProfile.create({
+    user_id: 12,
+    role_name: "conference-chair",
+  });
+}
+
+async function setup_papers(sequelize) {
+  const authors = sequelize.models.authors;
+  const papers = sequelize.models.papers;
+
+  const startIdx = 5;
+  for (var i = 1; i < 6; i++) {
+    await papers.create({
+        paper_id: i,
+        title: "test paper " + i,
+        paper: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    });
+
+    await authors.create({
+        author_id: startIdx + i + 1,
+        paper_id: i
+    });
   }
 }
 
 module.exports = async (sequelize) => {
   await setup_users(sequelize);
+  await setup_papers(sequelize);
 };
