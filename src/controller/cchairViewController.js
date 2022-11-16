@@ -135,10 +135,14 @@ module.exports = {
     const { id } = req.params;
     const rows = await paperEntity.getPaperById(id);
     const { title, paper, status } = rows;
+    const revData = await reviewerModel.getReviewsById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("approve-reject", {
       titleOfPaper: title,
       paper: paper,
       status: status,
+      review: revData,
+      comm: ccoments,
     });
   },
   approvePaperHandler: async (req, res) => {

@@ -2,11 +2,9 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const bcrypt = require("../utils/bcrypt");
 
-const RAILWAY_URL = "containers-us-west-109.railway.app"
+const RAILWAY_URL = "containers-us-west-109.railway.app";
 
-const host = process.env.GITLAB_CI
-  ? "mysql"
-  : RAILWAY_URL;
+const host = process.env.GITLAB_CI ? "mysql" : RAILWAY_URL;
 
 // const sequelize = new Sequelize("railway", "root", "TDTFWn4AcVZe0fqtNfnV", {
 //   host: host,
@@ -15,19 +13,19 @@ const host = process.env.GITLAB_CI
 //   timezone: "+08:00",
 // });
 
-const offline = process.env.GITLAB_CI
-  ? "mysql"
-  : "localhost";
+const offline = process.env.GITLAB_CI ? "mysql" : "localhost";
 
 const sequelize = new Sequelize(
-  "CSIT314",
-  "root", 'root',
+  (host === host) !== "mysql" ? "railway" : "CSIT314",
+  "root",
+  (host === host) !== "mysql" ? "TDTFWn4AcVZe0fqtNfnV" : "root",
   {
-    host: "localhost",
+    host: host,
     dialect: "mysql",
-    port: "3306",
+    port: (host === host) !== "mysql" ? 7315 : 3306,
     timezone: "+08:00",
-  });
+  }
+);
 
 sequelize
   .authenticate()
