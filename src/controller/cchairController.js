@@ -58,9 +58,20 @@ module.exports = {
       const paper = await paperEntity.getPaperById(paper_id);
       result.titleOfPaper = paper.title;
 
+      console.log(paper.title);
+
       if (alloc) {
+        let available = []
         const reviewers = await bidsEntity.getNonAllocatedBidsById(paper_id);
-        result.alloc = reviewers;
+        for (let reviewer of reviewers) {
+          const getCounts = await bidsEntity.countNumberOfBids(reviewer.user_id);
+          if(reviewer.max_no_of_paper - getCounts >= 1) {
+            available.push(reviewer)
+          }
+        }
+        
+        console.log(available);
+        result.alloc = available;
       }
 
       if (unalloc) {
@@ -87,10 +98,9 @@ module.exports = {
       const enoughSpace = [];
       for (const user_id of selected) {
         const user = await userEntity.getUserById(user_id);
-        console.log(user);
         const getCounts = await bidsEntity.countNumberOfBids(user_id);
         if (user.max_no_of_paper - getCounts >= 1) {
-          enoughSpace.append(user_id);
+          enoughSpace.push(user_id);
         }
       }
 
@@ -119,10 +129,9 @@ module.exports = {
       const enoughSpace = [];
       for (const user_id of selected) {
         const user = await userEntity.getUserById(user_id);
-        console.log(user);
         const getCounts = await bidsEntity.countNumberOfBids(user_id);
         if (user.max_no_of_paper - getCounts >= 1) {
-          enoughSpace.append(user_id);
+          enoughSpace.push(user_id);
         }
       }
       if (enoughSpace.length > 0) {
