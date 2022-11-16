@@ -98,10 +98,14 @@ module.exports = {
     const { id } = req.params;
     const paperObj = await authorController.getPaperById(id);
     const { title, paper, status } = paperObj;
+    const revData = await reviewerModel.getReviewsById(id);
+    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
     return res.render("author-rate-review", {
       titleOfPaper: title,
       paper: paper,
       status: status,
+      review: revData,
+      comm: ccoments,
     });
   },
   ratePaperHandler: async(req, res) => {
