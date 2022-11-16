@@ -68,6 +68,7 @@ async function setup_papers(sequelize) {
   const papers = sequelize.models.papers;
 
   const startIdx = 5;
+  let startIdxBackwards = 6;
   for (var i = 1; i < 6; i++) {
     await papers.create({
         paper_id: i,
@@ -75,11 +76,15 @@ async function setup_papers(sequelize) {
         paper: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     });
 
-    await authors.create({
-        author_id: startIdx + i + 1,
-        paper_id: i
-    });
+    
+    const authorPapers = [{author_id: startIdx + i + 1, paper_id: i}, {author_id: startIdx + i + 1, paper_id: startIdxBackwards}]
+    await authors.bulkCreate(authorPapers)
+
+    startIdxBackwards -= 1
+    
   }
+
+
 }
 
 module.exports = async (sequelize) => {
