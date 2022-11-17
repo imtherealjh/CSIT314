@@ -1,9 +1,9 @@
-<h1><%=titleOfPaper%></h1>
+<h1><%=paper.title%></h1>
 <div class="spacer">
   <b>Status:</b>
-  <span class="underline"><%=status%></span>
+  <span class="underline"><%=paper.status%></span>
 </div>
-<div><%=paper%></div>
+<div><%=paper.paper%></div>
 <div class="spacer"></div>
 <% for(let obj of review) { %>
 <div style="display: flex; flex-direction: column">
@@ -43,6 +43,4 @@
     <% }) %>
   </div>
 </div>
-  <% } %>
-
-
+<% } %>

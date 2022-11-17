@@ -18,13 +18,10 @@ module.exports = {
   },
   renderViewPaper: async (req, res) => {
     const { id } = req.params;
-    const rows = await cchairController.getPaperById(id);
-    const { title, paper, status } = rows;
+    const storedPaper = await cchairController.getPaperById(id);
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
-      titleOfPaper: title,
-      paper: paper,
-      status: status,
+      paper: storedPaper,
       review: revData
     });
   },
@@ -133,13 +130,10 @@ module.exports = {
   },
   renderApprovePaper: async (req, res) => {
     const { id } = req.params;
-    const rows = await paperEntity.getPaperById(id);
-    const { title, paper, status } = rows;
+    const storedPaper = await paperEntity.getPaperById(id);
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("approve-reject", {
-      titleOfPaper: title,
-      paper: paper,
-      status: status,
+      paper: storedPaper,
       review: revData
     });
   },

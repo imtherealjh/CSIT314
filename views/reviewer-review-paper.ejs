@@ -12,11 +12,13 @@
       </nav>
 
       <h1>Review Paper</h1>
-
       <div class="list-group" style="font-weight:600; text-decoration:underline;">
-        <%=data.title%>
+        <%=data.title + " - " + data.status%>
       </div>
-
+      <div>
+        <%=data.paper%>
+      </div>
+      &nbsp;
 
       <form method="post">
         <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">

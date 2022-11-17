@@ -13,11 +13,8 @@ module.exports = {
     const { title, paper, status } = storedPaper;
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
-      titleOfPaper: title,
-      paper: paper,
-      status: status,
-      review: revData,
-      comm: ccoments,
+      paper: storedPaper,
+      review: revData
     });
   },
   renderViewPapers: async (req, res) => {
