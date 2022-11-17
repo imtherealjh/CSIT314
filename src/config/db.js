@@ -35,7 +35,7 @@ sequelize
   .authenticate()
   .then(async () => {
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
     if (host === RAILWAY_URL) {
       
       await require("./setup_db")(sequelize);

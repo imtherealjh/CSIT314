@@ -31,18 +31,7 @@ async function setup_users(sequelize) {
     role_name: "conference-chair",
   });
 
-  for (var i = 1; i < 6; i++) {
-    const reviewer = await User.create({
-      name: "review" + i,
-      email: "review" + i + "@review.com",
-      password: await bcrypt.hashPassword("jeff"),
-    });
-
-    await UserProfile.create({
-      user_id: reviewer.user_id,
-      role_name: "reviewer",
-    });
-  }
+  for (var i = 1; i < 6; i++) {}
 }
 
 async function setup_papers(sequelize) {
@@ -50,7 +39,8 @@ async function setup_papers(sequelize) {
   const papers = sequelize.models.papers;
   const User = sequelize.models.users;
   const UserProfile = sequelize.models.users_profile;
-
+  const bids = sequelize.models.bids;
+  const reviews = sequelize.models.reviews;
 
   for (var i = 1; i < 6; i++) {
     const author = await User.create({
@@ -64,6 +54,18 @@ async function setup_papers(sequelize) {
       role_name: "author",
     });
 
+    const reviewer = await User.create({
+      name: "review" + i,
+      email: "review" + i + "@review.com",
+      password: await bcrypt.hashPassword("jeff"),
+      max_no_of_paper: 2,
+    });
+
+    await UserProfile.create({
+      user_id: reviewer.user_id,
+      role_name: "reviewer",
+    });
+
     const paper = await papers.create({
       title: "test paper " + i,
       paper:
@@ -73,8 +75,35 @@ async function setup_papers(sequelize) {
     const authorPapers = [
       { author_id: author.user_id, paper_id: paper.paper_id },
     ];
-
     await authors.bulkCreate(authorPapers);
+
+    if (i >= 3 && i < 5) {
+      const reviewerBid = [
+        { reviewer_id: reviewer.user_id, paper_id: paper.paper_id },
+      ];
+      bids.bulkCreate(reviewerBid);
+    }
+
+    if (i >= 5) {
+      const reviewerBid = [
+        {
+          reviewer_id: reviewer.user_id,
+          paper_id: paper.paper_id,
+          allocated: true,
+          successful: true,
+        },
+      ];
+      bids.bulkCreate(reviewerBid);
+
+      const newReviews = [{
+        user_id: reviewer.user_id,
+        paper_id: paper.paper_id,
+        ratings: 2,
+        reviews: "This is a great paper to be reviewed"
+      }]
+
+      reviews.bulkCreate(newReviews)
+    }
   }
 }
 
