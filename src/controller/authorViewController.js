@@ -1,4 +1,4 @@
-const authorController  = require("../controller/authorController");
+const authorController = require("../controller/authorController");
 const authorEntity = require("../entity/author");
 const paperEntity = require("../entity/paper");
 const reviewerModel = require("../entity/reviewer");
@@ -11,8 +11,7 @@ module.exports = {
     const { id } = req.params;
     const storedPaper = await authorController.getPaperById(id);
     const { title, paper, status } = storedPaper;
-    const revData = await reviewerModel.getReviewsById(id);
-    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
@@ -45,7 +44,12 @@ module.exports = {
   createPaperHandler: async (req, res) => {
     const { userid } = req.session;
     let { title, paper, coauthors } = req.body;
-    const result = await authorController.createPaper(userid, title, paper, coauthors);
+    const result = await authorController.createPaper(
+      userid,
+      title,
+      paper,
+      coauthors
+    );
     if (result == "success") {
       return res.render("success", { link: "/author" });
     } else {
@@ -78,7 +82,13 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params;
     let { title, paper, coauthors } = req.body;
-    const result = await authorController.updatePaper(userid, id, title, paper, coauthors);
+    const result = await authorController.updatePaper(
+      userid,
+      id,
+      title,
+      paper,
+      coauthors
+    );
     if (result == "success") {
       return res.render("success", { link: "/author" });
     } else {
@@ -97,18 +107,13 @@ module.exports = {
   renderRateReview: async (req, res) => {
     const { id } = req.params;
     const paperObj = await authorController.getPaperById(id);
-    const { title, paper, status } = paperObj;
-    const revData = await reviewerModel.getReviewsById(id);
-    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("author-rate-review", {
-      titleOfPaper: title,
-      paper: paper,
-      status: status,
+      paper: paperObj,
       review: revData,
-      comm: ccoments,
     });
   },
-  ratePaperHandler: async(req, res) => {
+  ratePaperHandler: async (req, res) => {
     const { rate } = req.body;
     const { id } = req.params;
     const result = await authorController.ratePaper(id, rate);
@@ -117,5 +122,5 @@ module.exports = {
     } else {
       return res.render("error", { link: "/author" });
     }
-  }
+  },
 };

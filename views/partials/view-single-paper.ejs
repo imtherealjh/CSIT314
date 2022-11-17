@@ -1,19 +1,47 @@
 <h1><%=titleOfPaper%></h1>
 <div class="spacer">
-    <b>Status:</b>
-    <span class="underline"><%=status%></span>
+  <b>Status:</b>
+  <span class="underline"><%=status%></span>
 </div>
-<div>
-    <%=paper%>
-</div>
+<div><%=paper%></div>
 <div class="spacer"></div>
-<div class="form-group">
-    <label for="ratings">Rating</label>
-    <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
-      value="<%=review ? review.ratings || 0 : 0%>" disabled>
+<% for(let obj of review) { %>
+<div style="display: flex; flex-direction: column">
+  <div>
+    <strong><%= obj.user.name %></strong>
+    <div style="display: flex">
+      <div style="width: 100%"><%= obj.reviews%></div>
+      <div style="display: flex; align-items: center; margin: 0 1%">
+        <% if(obj.ratings > -1) {%>
+        <i class="fas fa-thumbs-up"></i>
+        <div style="margin-left: 6px"><%=obj.ratings%></div>
+        <% } else { %>
+        <i class="fas fa-thumbs-down"></i>
+        <div style="margin-left: 6px"><%=obj.ratings%></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div style="margin: 0 2%">
+    <% const comm = obj.comments %> <% comm.reverse().forEach((comment)=> { %>
+    <div style="display: flex; flex-direction: row; align-items: center">
+      <div style="display: flex; flex-direction: column; width: 100%">
+        <strong> <%=comment.user.name%> </strong>
+        <div><%=comment.comments%></div>
+      </div>
+      <div>
+        <% if(user_id == comment.user.user_id) {%>
+        <div
+          class="btn btn-danger btn-sm"
+          onclick="remove('<%=comment.comment_id%>')"
+        >
+          Delete
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
 </div>
-<div class="form-group">
-    <label for="reviews">Description for review</label>
-    <input name="reviews" class="form-control" id="reviews" placeholder="Enter description for review"
-      value="<%=review ? review.reviews || 0 : 0%>" disabled>
-</div>
+

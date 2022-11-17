@@ -17,27 +17,17 @@ module.exports = {
   },
   updatePaperReview: async (req, res) => {
     const { ratings, reviews, paper_id } = req.body;
-    const { user_id } = req.session;
+    const { userid } = req.session;
 
-    console.log({ ratings, reviews, paper_id, user_id });
+    console.log({ ratings, reviews, paper_id, userid });
 
     try {
-      await reviewerModel.upsertPaperReview(paper_id,  {
-        ratings,
-        reviews
-      })
-      // const review = await reviewerModel.getReviewsById(paper_id);
-      // if (!review) {
-      //   await reviewerModel.createPaperReview(paper_id,  {
-      //     ratings,
-      //     reviews
-      //   })
-      // } else {
-      // await reviewerModel.updatePaperReview(paper_id, user_id, {
-      //   ratings,
-      //   reviews
-      // });
-      // }
+      const review = await reviewerModel.getReviewsByUPId(userid, paper_id);
+      if (review == null) {
+        await reviewerModel.createPaperReview(userid, paper_id, ratings, reviews);
+      } else {
+        await reviewerModel.updatePaperReview(userid, paper_id, ratings, reviews);
+      }
     } catch (err) {
       console.log(err);
       return;
@@ -46,22 +36,24 @@ module.exports = {
     return res.redirect("/reviewer/review-paper");
   },
   createComments: async (req, res) => {
-    const { comments, paper_id: reviewId } = req.body;
+    const { comments, review: reviewId } = req.body;
+    console.log(req.body);
+    console.log(reviewId);
     const { userid } = req.session;
     try {
-      await reviewerModel.createComments(reviewId, comments, userid)
+      await reviewerModel.createComments(reviewId, comments, userid);
     } catch (err) {
       console.log(err);
       return;
     }
 
-    return res.redirect("/reviewer/papers/"+reviewId);
+    return res.redirect("/reviewer/papers/");
   },
-  
+
   deleteComment: async (req, res) => {
-    const {  comment_id } = req.params;
+    const { comment_id } = req.params;
     try {
-      await reviewerModel.deleteComment(comment_id)
+      await reviewerModel.deleteComment(comment_id);
     } catch (err) {
       console.log(err);
       return;
@@ -103,7 +95,9 @@ module.exports = {
     // userid = 2
     try {
       papers = typeof papers == "string" ? [papers] : papers;
-      papers.forEach(async(paper_id) => await reviewerModel.removeBids(userid, paper_id))
+      papers.forEach(
+        async (paper_id) => await reviewerModel.removeBids(userid, paper_id)
+      );
     } catch (err) {
       console.log(err);
       return;

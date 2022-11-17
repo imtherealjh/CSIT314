@@ -12,7 +12,26 @@
           <li class="breadcrumb-item active" aria-current="page">Papers to review</li>
         </ol>
       </nav>
-      <%-include('partials/view-single-paper.ejs')%>
+      <h1><%=paper.title%></h1>
+      <div class="spacer">
+          <b>Status:</b>
+          <span class="underline"><%=paper.status%></span>
+      </div>
+      <div>
+          <%=paper.paper%>
+      </div>
+      <% if(paper.approved == true || paper.approved == false) {  %>
+      <div class="spacer"></div>
+      <div class="form-group">
+        <label for="ratings">Rating</label>
+        <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
+          value="<%=review ? review.ratings || 0 : 0%>" disabled>
+      </div>
+      <div class="form-group">
+          <label for="reviews">Description for review</label>
+          <input name="reviews" class="form-control" id="reviews" placeholder="Enter description for review"
+            value="<%=review ? review.reviews || 0 : 0%>" disabled>
+      </div>
       <form method="post">
         <div style="justify-content: center; align-items: center;" class="ratings">
           <input class="rate rate-6" id="rate-6" type="radio" name="rate" value="3" />
@@ -32,6 +51,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
       </form>
+      <% } %>
     </div>
     <script></script>
   </body>

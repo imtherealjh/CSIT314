@@ -2,6 +2,8 @@ const paperEntity = require("../entity/paper");
 const reviewerModel = require("../entity/reviewer");
 const cchairController = require("../controller/cchairController");
 
+const {Op} = require("sequelize");
+
 module.exports = {
   renderCCMainMenu: (req, res) => {
     return res.render("c-c-main-menu");
@@ -18,14 +20,12 @@ module.exports = {
     const { id } = req.params;
     const rows = await cchairController.getPaperById(id);
     const { title, paper, status } = rows;
-    const revData = await reviewerModel.getReviewsById(id);
-    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
       titleOfPaper: title,
       paper: paper,
       status: status,
-      review: revData,
-      comm: ccoments,
+      review: revData
     });
   },
   renderAllocate: (req, res) => {
@@ -124,7 +124,7 @@ module.exports = {
     }
   },
   renderApproveMain: async (req, res) => {
-    const rows = await cchairController.getAllSubmittedPapers();
+    const rows = await cchairController.getAllPapersByApproval(Op.eq);
     return res.render("view-papers", {
       title: "Approve/Reject",
       link: "/cc/approve",
@@ -135,14 +135,12 @@ module.exports = {
     const { id } = req.params;
     const rows = await paperEntity.getPaperById(id);
     const { title, paper, status } = rows;
-    const revData = await reviewerModel.getReviewsById(id);
-    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("approve-reject", {
       titleOfPaper: title,
       paper: paper,
       status: status,
-      review: revData,
-      comm: ccoments,
+      review: revData
     });
   },
   approvePaperHandler: async (req, res) => {
@@ -168,7 +166,7 @@ module.exports = {
     });
   },
   renderNotifyUser: async (req, res) => {
-    const rows = await cchairController.getAllPapers();
+    const rows = await cchairController.getAllPapersByApproval(Op.ne);
     return res.render("notify-user", {
       title: "Notify user",
       data: rows,
@@ -178,7 +176,7 @@ module.exports = {
   notifyUserHandler: async (req, res) => {
     const { papers } = req.body;
     if (!papers) {
-      const rows = await cchairController.getAllPapers();
+      const rows = await cchairController.getAllPapersByApproval(Op.ne);
       return res.render("add-remove-bids", {
         title: "Notify user",
         data: rows,

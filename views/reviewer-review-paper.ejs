@@ -20,7 +20,7 @@
 
       <form method="post">
         <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
-        
+        <% console.log(review) %>
         <div class="form-group">
           <label for="ratings">Rating</label>
           <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"

@@ -11,8 +11,8 @@ module.exports = {
   getPaperById: (id) => {
     return paperEntity.getPaperById(id);
   },
-  getAllSubmittedPapers: () => {
-    return paperEntity.getAllSubmittedPapers();
+  getAllPapersByApproval: (type) => { 
+    return paperEntity.getAllPapersByApproval(type)
   },
   searchBids: async (searchField) => {
     try {

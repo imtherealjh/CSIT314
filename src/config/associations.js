@@ -27,6 +27,7 @@ module.exports = (sequelize) => {
     foreignKey: "author_id",
     sourceKey: "user_id",
   });
+
   Paper.belongsToMany(User, {
     as: "author",
     through: Author,
@@ -39,6 +40,7 @@ module.exports = (sequelize) => {
     through: Bids,
     foreignKey: "reviewer_id",
   });
+
   Paper.belongsToMany(User, {
     as: "reviewer",
     through: Bids,
@@ -65,13 +67,28 @@ module.exports = (sequelize) => {
     foreignKey: "paper_id",
   });
 
-  Paper.hasOne(reviews, {
+
+  //reviews associations
+  Paper.hasMany(reviews, {
     foreignKey: "paper_id",
+    targetKey: "paper_id",
   });
 
   reviews.belongsTo(Paper, {
     foreignKey: "paper_id",
+    sourceKey: "paper_id"
   });
+
+  User.hasMany(reviews, {
+    foreignKey: "user_id",
+    targetKey: "user_id",
+  });
+
+  reviews.belongsTo(User, {
+    foreignKey: "user_id",
+    sourceKey: "user_id",
+  });
+
 
   reviews.hasMany(comments, {
     foreignKey: "review_id",
@@ -92,19 +109,12 @@ module.exports = (sequelize) => {
     foreignKey: "user_id",
     sourceKey: "user_id",
   });
+
   comments.hasOne(User, {
     foreignKey: "user_id",
     sourceKey: "user_id",
   });
-  User.hasMany(reviews, {
-    foreignKey: "user_id",
-    targetKey: "user_id",
-  });
 
-  reviews.belongsTo(User, {
-    foreignKey: "user_id",
-    sourceKey: "user_id",
-  });
 
   return sequelize;
 };

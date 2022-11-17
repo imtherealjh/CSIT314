@@ -8,62 +8,78 @@
           <li class="breadcrumb-item"><a href="/reviewer">Home</a></li>
           <li class="breadcrumb-item"><a href="/reviewer/papers">List of Papers</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            <%=data.paper_id%>
+            <%=data.title%>
           </li>
         </ol>
       </nav>
-
+     
       <h1>Reviewed Papers</h1>
-
       <div class="list-group" style="font-weight:600; text-decoration:underline;">
-        <%=data.title%>
+        <%=data.title + " - " + data.status%>
+      </div>
+      <div>
+        <%=data.paper%>
       </div>
       &nbsp;
 
-      <form method="get">
-        <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
-        <div class="form-group">
-          <label for="ratings">Rating</label>
-          <input type="number" name="ratings" class="form-control" id="ratings" max=3 min=-3 placeholder="Enter rating"
-            value="<%=review ? review.ratings || 0 : 0%>" disabled>
-        </div>
-        <div class="form-group">
-          <label for="reviews">Description for review</label>
-          <input name="reviews" class="form-control" id="reviews" placeholder="Enter description for review"
-            value="<%=review ? review.reviews || 0 : 0%>" disabled>
-        </div>
-      </form>
-      <div>
-        <form method="post">
-          <input name="paper_id" hidden class="form-control" id="paper_id" value="<%=data.paper_id%>">
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-              name="comments"></textarea>
-            <button class="btn rounded-0 btn-primary btn-sm float-right" type="submit">Comment</button>
-        </form>
-        <% if(comm.length > 0) {%>
-          <div class=" pt-5">
-            <label for="floatingTextarea" style="text-decoration:underline;">Comments</label>
-          </div>
-        <% } %>
-      </div>
-    </div>
-    <div>
-      <% comm.reverse().forEach((comment)=> { console.log(comment);%>
-        <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between">
-            <strong>
-              <%=comment.user.name%>
-            </strong>
+      <% if(review.length > 0) { %>
+        <% for(let obj of review) { %>
+          <div style="display:flex; flex-direction: column;">
             <div>
-              <% if(user_id == comment.user.user_id) {%>
-                <div class="btn btn-danger btn-sm" onclick="remove('<%=comment.comment_id%>')">Delete</div>
-              <% } %>
+              <strong><%= obj.user.name %></strong>
+              <div style="display: flex;">
+                <div style="width:100%"><%= obj.reviews%></div>
+                <div style = "display: flex; align-items: center; margin: 0 1%;">
+                <% if(obj.ratings > -1) {%>
+                  <i class="fas fa-thumbs-up"></i><div style="margin-left:6px;"><%=obj.ratings%> </div>
+                <% } else { console.log(obj)%>
+                  <i class="fas fa-thumbs-down"></i><div style="margin-left:6px;"><%=obj.ratings%> </div>
+                <% } %>
+                </div>
+              </div>
             </div>
+            <div style="margin: 0 2%;">
+              <% const comm = obj.comments %> 
+              <% comm.reverse().forEach((comment)=> { %>
+                <div style="display:flex; flex-direction: row; align-items: center;">
+                  <div style="display: flex; flex-direction: column; width: 100%;">
+                    <strong>
+                      <%=comment.user.name%>
+                    </strong>
+                    <div>
+                      <%=comment.comments%>
+                    </div>
+                    
+                  </div>
+                  <div>
+                    <% if(user_id == comment.user.user_id) {%>
+                      <div class="btn btn-danger btn-sm" onclick="remove('<%=comment.comment_id%>')">Delete</div>
+                    <% } %>
+                  </div>
+                </div>
+                <% }) %>  
+            
+            </div>
+            <% } %>
           </div>
-          <%=comment.comments%>
+        
+        <div>
+          <form method="post">
+            <label for="review">Comment on reviews...</label>
+            <select name="review" class="form-control form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <% for(let obj of review) { %>
+                <option value="<%=obj.review_id%>"><%=obj.reviews + " - " + obj.ratings%></option>
+              <% } %>
+            </select>
+            <div class="form-floating">
+              <textarea class="form-control" rows="7" placeholder="Leave a comment here" id="floatingTextarea"
+                name="comments"></textarea>
+              <button class="btn rounded-0 btn-primary btn-sm float-right" type="submit">Comment</button>
+          </form>
+
         </div>
-        <% }) %>
+      </div>
+      <% } %>
     </div>
 
   </body>

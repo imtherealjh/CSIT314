@@ -27,14 +27,16 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params;
     const paper = await paperEntity.getPaperById(id);
-    const revData = await reviewerModel.getReviewsById(id);
-    const ccoments = await reviewerModel.getAllCommentsByPaperId(id);
+    const userReview = await reviewerModel.getReviewsByUPId(userid, id);
+    let revData = [];
+    if(userReview != null) {
+      revData = await reviewerModel.getReviewsByPId(id);
+    }
+    
     console.log(revData);
-    console.log(ccoments);
     return res.render("reviewer-comments", {
       data: paper,
       review: revData,
-      comm: ccoments,
       user_id: userid,
       error: ""
     });
@@ -82,7 +84,7 @@ module.exports = {
     const { userid } = req.session;
     const { id } = req.params
     const paper = await paperEntity.getPaperById(id);
-    const revData = await reviewerModel.getReviewsById(id);
+    const revData = await reviewerModel.getReviewsByUPId(userid, id);
     return res.render("reviewer-review-paper", {
       data : paper,
       review: revData,

@@ -11,11 +11,11 @@ module.exports = {
   getPaperById: (id) => {
     return Paper.findByPk(id);
   },
-  getAllSubmittedPapers: () => {
+  getAllPapersByApproval: (type) => {
     return Paper.findAll({
       where: {
         approved: {
-          [Op.eq]: null
+          [type]: null
         }
       }
     });

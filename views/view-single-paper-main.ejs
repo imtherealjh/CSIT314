@@ -12,18 +12,7 @@
         </ol>
       </nav>
       <%- include('partials/view-single-paper.ejs') %>
-      <div>
-        <% comm.reverse().forEach((comment)=> {%>
-          <div class="d-flex flex-column">
-            <div class="d-flex justify-content-between">
-              <strong>
-                <%=comment.user.name%>
-              </strong>
-            </div>
-            <%=comment.comments%>
-          </div>
-          <% }) %>
-      </div>
+      
     </div>
 
     
