@@ -3,6 +3,18 @@ const router = express.Router();
 const reviewerController = require("../controller/reviewerController");
 const viewController = require("../controller/reviewerViewController");
 
+const adminController = require("../controller/adminController");
+
+router.use(async (req, res, next) => {
+  const {userid} = req.session;
+  const user = await adminController.getUserProfileById(userid);
+  if(user["profile.role_name"] !== "reviewer") {
+    return res.redirect("/login");
+  }
+  next();
+});
+
+
 router.get("/", viewController.renderMainMenu);
 router
   .route("/bids/submit")

@@ -1,6 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const viewController = require("../controller/authorViewController");
+const adminController = require("../controller/adminController");
+
+router.use(async (req, res, next) => {
+  const {userid} = req.session;
+  const user = await adminController.getUserProfileById(userid);
+  if(user["profile.role_name"] !== "author") {
+    return res.redirect("/login");
+  }
+  next();
+});
 
 router.get("/", viewController.renderMainMenu);
 router.get("/paper", viewController.renderViewPapers);
