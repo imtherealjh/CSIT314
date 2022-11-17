@@ -58,7 +58,6 @@ module.exports = {
   },
   removePaperReview: async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     try {
       await reviewerModel.removePaperReview(id);
     } catch (err) {
