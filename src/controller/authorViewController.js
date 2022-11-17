@@ -32,7 +32,7 @@ module.exports = {
     const { userid } = req.session;
     const authors = await authorEntity.getNonCurrentAuthor(userid);
     return res.render("create-update-paper", {
-      title: "Submit Paper",
+      title: "Create Paper",
       titleOfPaper: "",
       paper: "",
       data: authors,
@@ -103,10 +103,13 @@ module.exports = {
   },
   renderRateReview: async (req, res) => {
     const { id } = req.params;
+    const { userid } = req.session;
+
     const paperObj = await authorController.getPaperById(id);
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("author-rate-review", {
       paper: paperObj,
+      user_id: userid,
       review: revData,
     });
   },

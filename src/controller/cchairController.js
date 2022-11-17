@@ -34,10 +34,14 @@ module.exports = {
         const nonAllocatedBids = await bidsEntity.getNonAllocatedBidsById(
           paper
         );
+        console.log(nonAllocatedBids)
         for (const object of nonAllocatedBids) {
           const getCounts = await bidsEntity.countNumberOfBids(object.user_id);
+          console.log("Number of bids" + getCounts);
           if (object.max_no_of_paper - getCounts >= 1) {
             selected = [object.user_id];
+            console.log(object.max_no_of_paper - getCounts);
+            console.log(selected);
             await Promise.all[
               (bidsEntity.createPaperAllocation(Number(paper), selected),
               bidsEntity.updateSuccessfulBids(Number(paper), selected),

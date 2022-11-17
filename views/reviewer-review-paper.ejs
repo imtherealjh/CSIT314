@@ -35,7 +35,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block"><%=review && review.ratings == null ? 'Review' : 'Update Review'%></button>
         <% if(review && review.ratings != null){ %>
-          <button type="button" onclick="remove('<%=data.paper_id%>')" class="btn btn-danger btn-lg btn-block">Remove Review</button>
+          <button type="button" onclick="remove('<%=review.review_id%>')" class="btn btn-danger btn-lg btn-block">Remove Review</button>
        <% } %>
       </form>
     </div>

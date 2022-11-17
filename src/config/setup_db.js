@@ -68,7 +68,7 @@ async function setup_papers(sequelize) {
       role_name: "reviewer",
     });
 
-    if (i >= 3 && i < 5) {
+    if (i == 1 || (i >= 3 && i < 5)) {
       reviewerBids.push(reviewer.user_id);
       authorPaper.push(author.user_id);
     }

@@ -1,8 +1,5 @@
 const reviewerModel = require("../entity/reviewer");
 const paperEntity = require("../entity/paper");
-const paperModel = require("../models/paperModel");
-const commentModel = require("../models/commentModel");
-const reviewModel = require("../models/reviewModel");
 
 module.exports = {
   renderMainMenu: (req, res) => {

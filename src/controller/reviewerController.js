@@ -19,8 +19,6 @@ module.exports = {
     const { ratings, reviews, paper_id } = req.body;
     const { userid } = req.session;
 
-    console.log({ ratings, reviews, paper_id, userid });
-
     try {
       const review = await reviewerModel.getReviewsByUPId(userid, paper_id);
       if (review == null) {
@@ -37,8 +35,6 @@ module.exports = {
   },
   createComments: async (req, res) => {
     const { comments, review: reviewId } = req.body;
-    console.log(req.body);
-    console.log(reviewId);
     const { userid } = req.session;
     try {
       await reviewerModel.createComments(reviewId, comments, userid);
@@ -62,7 +58,7 @@ module.exports = {
   },
   removePaperReview: async (req, res) => {
     const { id } = req.params;
-
+    console.log(id);
     try {
       await reviewerModel.removePaperReview(id);
     } catch (err) {
