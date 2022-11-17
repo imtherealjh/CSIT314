@@ -42,6 +42,8 @@ async function setup_papers(sequelize) {
   const bids = sequelize.models.bids;
   const reviews = sequelize.models.reviews;
 
+  const authorPaper = [];
+  const reviewerBids = [];
   for (var i = 1; i < 6; i++) {
     const author = await User.create({
       name: "author" + i,
@@ -66,44 +68,50 @@ async function setup_papers(sequelize) {
       role_name: "reviewer",
     });
 
+    if (i >= 3 && i < 5) {
+      reviewerBids.push(reviewer.user_id);
+      authorPaper.push(author.user_id);
+    }
+  }
+
+  for (var i = 1; i < 6; i++) {
     const paper = await papers.create({
       title: "test paper " + i,
       paper:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     });
 
-    const authorPapers = [
-      { author_id: author.user_id, paper_id: paper.paper_id },
-    ];
-    await authors.bulkCreate(authorPapers);
-
-    if (i >= 3 && i < 5) {
-      const reviewerBid = [
-        { reviewer_id: reviewer.user_id, paper_id: paper.paper_id },
-      ];
-      bids.bulkCreate(reviewerBid);
-    }
-
-    if (i >= 5) {
+    const bulkCreateAuthors = authorPaper.map((author) => {
+      return { author_id: author, paper_id: paper.paper_id };
+    });
+    await authors.bulkCreate(bulkCreateAuthors);
+    if (i < 5) {
+      const bulkCreateBids = reviewerBids.map((reviewer) => {
+        return { reviewer_id: reviewer, paper_id: paper.paper_id };
+      });
+      await bids.bulkCreate(bulkCreateBids);
+    } else {
+      const reviewer = reviewerBids[0];
       const reviewerBid = [
         {
-          reviewer_id: reviewer.user_id,
+          reviewer_id: reviewer,
           paper_id: paper.paper_id,
           allocated: true,
           successful: true,
         },
       ];
-      bids.bulkCreate(reviewerBid);
+      await bids.bulkCreate(reviewerBid);
 
       const newReviews = [{
-        user_id: reviewer.user_id,
+        user_id: reviewer,
         paper_id: paper.paper_id,
         ratings: 2,
         reviews: "This is a great paper to be reviewed"
       }]
 
-      reviews.bulkCreate(newReviews)
+      await reviews.bulkCreate(newReviews)
     }
+
   }
 }
 
