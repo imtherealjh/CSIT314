@@ -11,8 +11,8 @@ module.exports = {
   getPaperById: (id) => {
     return paperEntity.getPaperById(id);
   },
-  getAllPapersByApproval: (type) => { 
-    return paperEntity.getAllPapersByApproval(type)
+  getAllPapersByApproval: (type) => {
+    return paperEntity.getAllPapersByApproval(type);
   },
   searchBids: async (searchField) => {
     try {
@@ -30,26 +30,24 @@ module.exports = {
   autoAllocate: async (papers) => {
     try {
       papers = [...papers];
-      papers.forEach(async (paper) => {
+      for (let paper in papers) {
+        const selected = [];
         const nonAllocatedBids = await bidsEntity.getNonAllocatedBidsById(
           paper
         );
-        console.log(nonAllocatedBids)
         for (const object of nonAllocatedBids) {
           const getCounts = await bidsEntity.countNumberOfBids(object.user_id);
-          console.log("Number of bids" + getCounts);
           if (object.max_no_of_paper - getCounts >= 1) {
-            selected = [object.user_id];
-            console.log(object.max_no_of_paper - getCounts);
-            console.log(selected);
-            await Promise.all[
-              (bidsEntity.createPaperAllocation(Number(paper), selected),
-              bidsEntity.updateSuccessfulBids(Number(paper), selected),
-              bidsEntity.updateFailedBids(Number(paper), selected))
-            ];
+            selected.push(object.user_id);
           }
         }
-      });
+        await Promise.all[
+          (bidsEntity.createPaperAllocation(Number(paper), selected),
+          bidsEntity.updateSuccessfulBids(Number(paper), selected),
+          bidsEntity.updateFailedBids(Number(paper), selected))
+        ];
+      }
+
       return "success";
     } catch (err) {
       console.log(err);
@@ -91,7 +89,7 @@ module.exports = {
   },
   createPaperAllocation: async (paper_id, selected) => {
     try {
-      selected = [...selected];
+      selected = selected.split(",");
       selected = selected.filter(Number);
       selected = selected.map((val) => Number(val));
 
@@ -122,11 +120,12 @@ module.exports = {
   },
   updatePaperAllocation: async (paper_id, selected) => {
     try {
-      selected = [...selected];
+      selected = selected.split(",");
       selected = selected.filter(Number);
       selected = selected.map((val) => Number(val));
 
       paper_id = Number(paper_id);
+      await bidsEntity.removeAllocation(paper_id, selected);
 
       const enoughSpace = [];
       for (const user_id of selected) {
@@ -137,10 +136,7 @@ module.exports = {
         }
       }
 
-      await Promise.all([
-        bidsEntity.removeAllocation(paper_id, enoughSpace),
-        bidsEntity.createPaperAllocation(paper_id, enoughSpace)
-      ]);
+      await bidsEntity.createPaperAllocation(paper_id, enoughSpace);
 
       return "success";
     } catch (err) {

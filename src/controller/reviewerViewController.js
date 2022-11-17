@@ -29,8 +29,7 @@ module.exports = {
     if(userReview != null) {
       revData = await reviewerModel.getReviewsByPId(id);
     }
-    
-    console.log(revData);
+
     return res.render("reviewer-comments", {
       data: paper,
       review: revData,
