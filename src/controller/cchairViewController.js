@@ -130,10 +130,12 @@ module.exports = {
   },
   renderApprovePaper: async (req, res) => {
     const { id } = req.params;
+    const {userid} = req.session;
     const storedPaper = await paperEntity.getPaperById(id);
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("approve-reject", {
       paper: storedPaper,
+      user_id: userid,
       review: revData
     });
   },

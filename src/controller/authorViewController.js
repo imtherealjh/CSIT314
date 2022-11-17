@@ -9,11 +9,13 @@ module.exports = {
   },
   renderSinglePaper: async (req, res) => {
     const { id } = req.params;
+    const { userid } = req.session;
     const storedPaper = await authorController.getPaperById(id);
     const { title, paper, status } = storedPaper;
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
       paper: storedPaper,
+      user_id: userid,
       review: revData
     });
   },
