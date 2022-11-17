@@ -18,10 +18,12 @@ module.exports = {
   },
   renderViewPaper: async (req, res) => {
     const { id } = req.params;
+    const { userid } = req.session;
     const storedPaper = await cchairController.getPaperById(id);
     const revData = await reviewerModel.getReviewsByPId(id);
     return res.render("view-single-paper-main", {
       paper: storedPaper,
+      user_id: userid,
       review: revData
     });
   },

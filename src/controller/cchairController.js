@@ -62,8 +62,6 @@ module.exports = {
       const paper = await paperEntity.getPaperById(paper_id);
       result.titleOfPaper = paper.title;
 
-      console.log(paper.title);
-
       if (alloc) {
         let available = [];
         const reviewers = await bidsEntity.getNonAllocatedBidsById(paper_id);
